@@ -93,6 +93,18 @@ export default function Home() {
         >
           Ignacio Peñamaria
         </motion.h1>
+        <motion.div
+          initial={{ scale: 0.8, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 1, delay: 1.1, type: "spring", stiffness: 120 }}
+          className="inline-flex items-center gap-2 bg-gradient-to-r from-fuchsia-700 via-teal-600 to-yellow-400 px-4 py-1.5 rounded-full shadow-lg mb-4 animate-pulse"
+        >
+          <i className="fas fa-graduation-cap text-white text-lg"></i>
+          <span className="text-white font-semibold text-base">
+            Licenciatura en Ciencias de Datos <span className="text-xs font-normal">(in progress...)</span>
+          </span>
+        </motion.div>
+
         <motion.p
           className="text-lg sm:text-2xl text-teal-200 mb-3 animate__animated animate__fadeIn"
           initial={{ opacity: 0, y: 20 }}
@@ -102,18 +114,18 @@ export default function Home() {
           Ciencia de Datos • Backend • Visualización Inteligente • Desarrollo Fullstack
         </motion.p>
         <motion.p
-  className="text-center max-w-2xl text-gray-300 text-base sm:text-lg px-4"
-  initial={{ opacity: 0, y: 20 }}
-  animate={{ opacity: 1, y: 0 }}
-  transition={{ duration: 1, delay: 1.2 }}
->
-  <span className="text-teal-400 font-semibold">¡Hola! </span>
-  Soy Nachito, alguien que disfruta buscarle la vuelta a todo y encontrar formas más simples y eficientes de hacer las cosas. Me motiva transformar datos en valor real y resolver desafíos que otros suelen dejar para después.
-  <br /><br />
- Las ganas de aprender no se negocian. Mantengo la mirada analítica, pero siempre con creatividad y humor: para mí, las mejores soluciones aparecen cuando hay buena onda y colaboración.
-  <br /><br />
-   <span className="text-teal-400 font-semibold">Curioso y proactivo</span>, siempre estoy probando nuevas herramientas y buscando optimizar procesos. Si hay un problema, veo una oportunidad para marcar la diferencia; si hay datos, hay historias esperando a ser contadas.
-</motion.p>
+          className="text-center max-w-2xl text-gray-300 text-base sm:text-lg px-4"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 1.2 }}
+        >
+          <span className="text-teal-400 font-semibold">¡Hola! </span>
+          Soy Nachito, alguien que disfruta buscarle la vuelta a todo y encontrar formas más simples y eficientes de hacer las cosas. Me motiva transformar datos en valor real y resolver desafíos que otros suelen dejar para después.
+          <br /><br />
+          Las ganas de aprender no se negocian. Mantengo la mirada analítica, pero siempre con creatividad y humor: para mí, las mejores soluciones aparecen cuando hay buena onda y colaboración.
+          <br /><br />
+          <span className="text-teal-400 font-semibold">Curioso y proactivo</span>, siempre estoy probando nuevas herramientas y buscando optimizar procesos. Si hay un problema, veo una oportunidad para marcar la diferencia; si hay datos, hay historias esperando a ser contadas.
+        </motion.p>
 
         <div className="flex gap-7 mt-6">
           <a href="https://github.com/nachitoxx6262" target="_blank" rel="noopener noreferrer"
@@ -158,22 +170,22 @@ export default function Home() {
         <h2 className="text-3xl sm:text-4xl font-bold mb-10 text-fuchsia-400 text-center animate__animated animate__fadeIn">Proyectos destacados</h2>
         <div className="grid md:grid-cols-2 gap-8">
           {proyectos.map((proy, idx) => (
-  <motion.div
-    key={idx}
-    initial={{ opacity: 0, scale: 0.8 }}
-    whileInView={{ opacity: 1, scale: 1 }}
-    viewport={{ once: true }}
-    transition={{ duration: 0.6, delay: idx * 0.13 }}
-  >
-    <Card
-      title={proy.title}
-      description={proy.description}
-      image={proy.image}
-      tecnologias={proy.tecnologias}
-      link={proy.link}
-    />
-  </motion.div>
-))}
+            <motion.div
+              key={idx}
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: idx * 0.13 }}
+            >
+              <Card
+                title={proy.title}
+                description={proy.description}
+                image={proy.image}
+                tecnologias={proy.tecnologias}
+                link={proy.link}
+              />
+            </motion.div>
+          ))}
         </div>
       </SectionFadeIn>
 
