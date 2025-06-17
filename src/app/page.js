@@ -6,13 +6,15 @@ import { useRef } from 'react'
 import { motion, useAnimation, useInView } from 'framer-motion'
 
 const skills = [
-  { name: 'Python', level: 65, icon: 'fab fa-python' },
-  { name: 'SQL', level: 70, icon: 'fas fa-database' },
+  { name: 'Python', level: 75, icon: 'fab fa-python' },
+  { name: 'SQL', level: 90, icon: 'fas fa-database' },
+  { name: 'Hojas de Cálculo', level: 90, icon: 'fa-solid fa-file-excel' },
+  { name: 'Javascript', level: 90, icon: 'fa-brands fa-js' },
   { name: 'Power BI', level: 85, icon: 'fas fa-chart-bar' },
   { name: 'React', level: 80, icon: 'fab fa-react' },
-  { name: 'FastAPI', level: 80, icon: 'fas fa-bolt' },
-  { name: 'Machine Learning', level: 75, icon: 'fas fa-brain' },
+  { name: 'FastAPI', level: 65, icon: 'fas fa-bolt' },
   { name: 'Tailwind', level: 75, icon: 'fab fa-css3-alt' },
+  { name: 'Git', level: 90, icon: 'fa-brands fa-git-alt' },
 ]
 
 const proyectos = [
