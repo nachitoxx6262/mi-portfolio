@@ -191,7 +191,7 @@ export default function Home() {
         <p className="text-gray-300 text-center mb-6 max-w-xl mx-auto">
           ¿Te interesó mi perfil? ¿Buscás alguien que combina datos, desarrollo y sentido común?
           <br />
-          Escribime: <a className="underline hover:text-fuchsia-400 transition" href="mailto:tucorreo@ejemplo.com">tucorreo@ejemplo.com</a>
+          Escribime: <a className="underline hover:text-fuchsia-400 transition" href="mailto:tucorreo@ejemplo.com">ignaciopenamaria@gmail.com</a>
         </p>
       </SectionFadeIn>
 
