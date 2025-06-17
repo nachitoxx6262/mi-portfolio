@@ -1,18 +1,17 @@
 "use client";
 import '@fortawesome/fontawesome-free/css/all.min.css'
 import './globals.css'
-
+import Navbar from "../components/Navbar";
 import { useRef } from 'react'
 import { motion, useAnimation, useInView } from 'framer-motion'
 
-// Tus skills (editá a gusto)
 const skills = [
   { name: 'Python', level: 65, icon: 'fab fa-python' },
   { name: 'SQL', level: 70, icon: 'fas fa-database' },
-  { name: 'Power BI', level: 85, icon: 'fas fa-chart-bar' }, // o emoji: '📊'
+  { name: 'Power BI', level: 85, icon: 'fas fa-chart-bar' },
   { name: 'React', level: 80, icon: 'fab fa-react' },
-  { name: 'FastAPI', level: 80, icon: 'fas fa-bolt' },       // o emoji: '⚡'
-  { name: 'Machine Learning', level: 75, icon: 'fas fa-brain' }, // o emoji: '🧠'
+  { name: 'FastAPI', level: 80, icon: 'fas fa-bolt' },
+  { name: 'Machine Learning', level: 75, icon: 'fas fa-brain' },
   { name: 'Tailwind', level: 75, icon: 'fab fa-css3-alt' },
 ]
 
@@ -58,16 +57,13 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-950 to-black text-white font-sans overflow-x-hidden">
 
-      {/* Navbar */}
-      <nav className="fixed w-full z-50 px-8 py-2 flex justify-between items-center bg-black/70 backdrop-blur-md shadow-2xl border-b border-teal-900/30">
-        <span className="font-bold text-lg tracking-widest text-teal-300 drop-shadow-lg animate__animated animate__fadeInLeft">Nachito</span>
-        <ul className="flex gap-8 text-base font-semibold">
-          <li className="cursor-pointer hover:text-teal-300 transition" onClick={() => scrollTo(aboutRef)}>Sobre mí</li>
-          <li className="cursor-pointer hover:text-teal-300 transition" onClick={() => scrollTo(skillsRef)}>Skills</li>
-          <li className="cursor-pointer hover:text-teal-300 transition" onClick={() => scrollTo(proyectosRef)}>Proyectos</li>
-          <li className="cursor-pointer hover:text-teal-300 transition" onClick={() => scrollTo(contactoRef)}>Contacto</li>
-        </ul>
-      </nav>
+      <Navbar
+        scrollTo={scrollTo}
+        aboutRef={aboutRef}
+        skillsRef={skillsRef}
+        proyectosRef={proyectosRef}
+        contactoRef={contactoRef}
+      />
 
       {/* Hero / Sobre mí */}
       <motion.section
