@@ -35,9 +35,9 @@ const proyectos = [
   {
     title: "📦 Stock y Logística",
     description: "Dashboard BI + consultas SQL para mejorar la eficiencia logística.",
-    image: "/proyectos/dashboard_vuelos.png",
+    image: "/proyectos/dashboard.png",
     tecnologias: ["Power BI", "SQL", "Data Cleaning"],
-    link: "https://tu-demo-o-repo.com",
+    link: "https://app.powerbi.com/view?r=eyJrIjoiZTA2ZGVjMGItNjE0Ny00MmZlLTg4YjgtODQyOWY0NmExYjU4IiwidCI6ImFhM2EwOTgzLTFmZTEtNDQxOC04NzJmLWNiYmZhOTA1ZjZlMyIsImMiOjR9",
   },
   {
     title: "🚀 Machine Learning Agrícola",
@@ -62,8 +62,8 @@ export default function Home() {
       <Navbar
         scrollTo={scrollTo}
         aboutRef={aboutRef}
-        skillsRef={skillsRef}
         proyectosRef={proyectosRef}
+        skillsRef={skillsRef}
         contactoRef={contactoRef}
       />
 
@@ -118,11 +118,10 @@ export default function Home() {
           transition={{ duration: 1, delay: 1.2 }}
         >
           <span className="text-teal-400 font-semibold">¡Hola! </span>
-          Soy Nachito, alguien que disfruta buscarle la vuelta a todo y encontrar formas más simples y eficientes de hacer las cosas. Me motiva transformar datos en valor real y resolver desafíos que otros suelen dejar para después.
-          <br /><br />
-          Las ganas de aprender no se negocian. Mantengo la mirada analítica, pero siempre con creatividad y humor: para mí, las mejores soluciones aparecen cuando hay buena onda y colaboración.
+          Soy Nachito, alguien que disfruta buscarle la vuelta a todo y encontrar formas más simples y eficientes de hacer las cosas. Me motiva transformar datos en valor real y resolver desafíos que otros suelen dejar para después.Las ganas de aprender no se negocian.
           <br /><br />
           <span className="text-teal-400 font-semibold">Curioso y proactivo</span>, siempre estoy probando nuevas herramientas y buscando optimizar procesos. Si hay un problema, veo una oportunidad para marcar la diferencia; si hay datos, hay historias esperando a ser contadas.
+
         </motion.p>
 
         <div className="flex gap-7 mt-6">
@@ -132,6 +131,32 @@ export default function Home() {
             className="hover:text-teal-400 text-2xl transition"><i className="fab fa-linkedin"></i></a>
         </div>
       </motion.section>
+
+      
+
+      {/* Proyectos */}
+      <SectionFadeIn refProp={proyectosRef}>
+        <h2 className="text-3xl sm:text-4xl font-bold mb-10 text-fuchsia-400 text-center animate__animated animate__fadeIn">Proyectos destacados</h2>
+        <div className="grid md:grid-cols-2 gap-8">
+          {proyectos.map((proy, idx) => (
+            <motion.div
+              key={idx}
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: idx * 0.13 }}
+            >
+              <Card
+                title={proy.title}
+                description={proy.description}
+                image={proy.image}
+                tecnologias={proy.tecnologias}
+                link={proy.link}
+              />
+            </motion.div>
+          ))}
+        </div>
+      </SectionFadeIn>
 
       {/* Skills */}
       <SectionFadeIn refProp={skillsRef}>
@@ -158,30 +183,6 @@ export default function Home() {
                 ></motion.div>
               </div>
               <span className="text-xs text-gray-400">{skill.level}%</span>
-            </motion.div>
-          ))}
-        </div>
-      </SectionFadeIn>
-
-      {/* Proyectos */}
-      <SectionFadeIn refProp={proyectosRef}>
-        <h2 className="text-3xl sm:text-4xl font-bold mb-10 text-fuchsia-400 text-center animate__animated animate__fadeIn">Proyectos destacados</h2>
-        <div className="grid md:grid-cols-2 gap-8">
-          {proyectos.map((proy, idx) => (
-            <motion.div
-              key={idx}
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: idx * 0.13 }}
-            >
-              <Card
-                title={proy.title}
-                description={proy.description}
-                image={proy.image}
-                tecnologias={proy.tecnologias}
-                link={proy.link}
-              />
             </motion.div>
           ))}
         </div>

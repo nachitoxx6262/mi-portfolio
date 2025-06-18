@@ -6,8 +6,8 @@ function Navbar({ scrollTo, aboutRef, skillsRef, proyectosRef, contactoRef }) {
 
     const links = [
         { label: "Sobre mí", ref: aboutRef },
-        { label: "Skills", ref: skillsRef },
         { label: "Proyectos", ref: proyectosRef },
+        { label: "Skills", ref: skillsRef },
         { label: "Contacto", ref: contactoRef },
     ];
 
