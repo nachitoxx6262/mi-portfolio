@@ -4,7 +4,7 @@ import "../../styles/globals.css";
 import Navbar from "../components/Navbar";
 import { useRef } from 'react'
 import { motion, useAnimation, useInView } from 'framer-motion'
-
+import Link from "next/link";
 const skills = [
   { name: 'Python', level: 75, icon: 'fab fa-python' },
   { name: 'SQL', level: 90, icon: 'fas fa-database' },
@@ -230,7 +230,7 @@ function SectionFadeIn({ children, refProp }) {
   )
 }
 
-function Card({ title, description, image, embed,slug, tecnologias, link }) {
+function Card({ title, description, image, embed, slug, tecnologias, link }) {
 
   return (
     <div className="bg-gradient-to-br from-gray-900/90 via-gray-800/80 to-black/80 p-6 rounded-2xl shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-400 border border-teal-900/40 flex flex-col items-center">
@@ -270,14 +270,12 @@ function Card({ title, description, image, embed,slug, tecnologias, link }) {
         </div>
       )}
       {link && (
-        <a
-           href={`/proyectos/${slug}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="mt-2 text-fuchsia-400 hover:underline text-sm"
+        <Link
+          href={`/proyectos/${slug}`}
+          className="mt-2 text-fuchsia-400 hover:text-teal-300 underline text-sm"
         >
           Ver más
-        </a>
+        </Link>
       )}
     </div>
   );

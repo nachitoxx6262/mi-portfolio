@@ -2,18 +2,8 @@
 
 import proyectos from '../../../data/proyectos';
 import { motion } from 'framer-motion';
+import Link from "next/link";
 
-// Puedes hacer un diccionario con los logos de cada tecnología aquí:
-const techIcons = {
-  'Power BI': '/proyectos/powerbi.png',
-  'SQL': '/proyectos/sql.png',
-  'React': '/proyectos/react.png',
-  'FastAPI': '/proyectos/fastapi.png',
-  'ETL': '/proyectos/etl.png',
-  'Python': '/proyectos/python.png',
-  'PostgreSQL': '/proyectos/postgresql.png',
-  // Agrega más según necesites
-};
 
 export default function ProyectoDetalle({ params }) {
   const { slug } = params;
@@ -36,13 +26,28 @@ export default function ProyectoDetalle({ params }) {
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-gray-950 via-gray-900 to-gray-800 px-2 sm:px-4">
+      
       <div className="max-w-4xl mx-auto py-12">
+        <motion.div
+        initial={{ opacity: 0, x: -20 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.5, delay: 0.1 }}
+        className="mb-8 mt-"
+      >
+        <Link
+          href="/"
+          className="inline-flex items-center gap-2 bg-gradient-to-r from-teal-700 via-fuchsia-800 to-yellow-600 px-5 py-2 rounded-full shadow-md font-semibold text-white hover:scale-105 hover:bg-fuchsia-700 transition-all duration-200"
+        >
+          <i className="fas fa-arrow-left text-lg"></i>
+          Volver a la página principal
+        </Link>
+      </motion.div>
         {/* Título */}
         <motion.h1
           initial={{ opacity: 0, y: -30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="text-4xl md:text-5xl font-extrabold mb-8 bg-gradient-to-r from-teal-300 via-fuchsia-400 to-yellow-400 bg-clip-text text-transparent drop-shadow-lg tracking-tight"
+          className="text-4xl md:text-5xl font-extrabold mb-8 pb-4 bg-gradient-to-r from-teal-300 via-fuchsia-400 to-yellow-400 bg-clip-text text-transparent drop-shadow-lg tracking-tight"
         >
           {proyecto.title}
         </motion.h1>
@@ -148,16 +153,16 @@ export default function ProyectoDetalle({ params }) {
             <h3 className="text-fuchsia-300 font-bold text-xl mb-3">Tecnologías utilizadas</h3>
             <div className="flex flex-wrap gap-4 items-center">
               {proyecto.tecnologias.map((tec, idx) => (
-        <div
-          key={idx}
-          className="flex flex-col items-center bg-gray-900/70 rounded-lg px-3 py-2 shadow-md hover:scale-105 transition-all"
-        >
-          <span className="w-10 h-10 mb-1 flex items-center justify-center text-3xl text-teal-400">
-            <i className={tec.logo}></i>
-          </span>
-          <span className="text-teal-200 text-xs font-mono">{tec.nombre}</span>
-        </div>
-      ))}
+                <div
+                  key={idx}
+                  className="flex flex-col items-center bg-gray-900/70 rounded-lg px-3 py-2 shadow-md hover:scale-105 transition-all"
+                >
+                  <span className="w-10 h-10 mb-1 flex items-center justify-center text-3xl text-teal-400">
+                    <i className={tec.logo}></i>
+                  </span>
+                  <span className="text-teal-200 text-xs font-mono">{tec.nombre}</span>
+                </div>
+              ))}
             </div>
           </motion.div>
         )}
