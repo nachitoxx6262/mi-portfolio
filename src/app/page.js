@@ -1,6 +1,6 @@
 "use client";
 import '@fortawesome/fontawesome-free/css/all.min.css'
-import './globals.css'
+import "../../styles/globals.css";
 import Navbar from "../components/Navbar";
 import { useRef } from 'react'
 import { motion, useAnimation, useInView } from 'framer-motion'
@@ -22,6 +22,7 @@ const proyectos = [
     title: "📊Dashboard de Demoras de Vuelos",
     description: "Análisis exploratorio y visualizaciones interactivas con Power BI y SQL para entender patrones de demoras y optimizar la gestión aeroportuaria.",
     image: "/proyectos/dashboard_vuelos.png",
+    slug: "dashboard-demoras-vuelos",
     tecnologias: ["Power BI", "SQL", "Data Cleaning"],
     link: "https://tu-demo-o-repo.com",
   },
@@ -29,19 +30,24 @@ const proyectos = [
     title: "🏨 Sistema Hotelero",
     description: "Administra habitaciones, empresas y clientes con FastAPI y PostgreSQL.",
     image: "/proyectos/dashboard_vuelos.png",
+    slug: "sistema-hotelero",
     tecnologias: ["Power BI", "SQL", "Data Cleaning"],
     link: "https://tu-demo-o-repo.com",
   },
   {
     title: "📦 Stock y Logística",
     description: "Dashboard BI + consultas SQL para mejorar la eficiencia logística.",
-    image: "/proyectos/dashboard.png",
-    tecnologias: ["Power BI", "SQL", "Data Cleaning"],
+    slug: "stock-logistica",
+    embed: {
+      title: "Dashboard Power BI: Stock y Logística",
+      link: "https://app.powerbi.com/view?r=eyJrIjoiZTA2ZGVjMGItNjE0Ny00MmZlLTg4YjgtODQyOWY0NmExYjU4IiwidCI6ImFhM2EwOTgzLTFmZTEtNDQxOC04NzJmLWNiYmZhOTA1ZjZlMyIsImMiOjR9"
+    },
     link: "https://app.powerbi.com/view?r=eyJrIjoiZTA2ZGVjMGItNjE0Ny00MmZlLTg4YjgtODQyOWY0NmExYjU4IiwidCI6ImFhM2EwOTgzLTFmZTEtNDQxOC04NzJmLWNiYmZhOTA1ZjZlMyIsImMiOjR9",
   },
   {
     title: "🚀 Machine Learning Agrícola",
     description: "Predicción de rendimiento de cultivos con regresión y redes neuronales.",
+    slug: "sistema-ml-agricola",
     image: "/proyectos/dashboard_vuelos.png",
     tecnologias: ["Power BI", "SQL", "Data Cleaning"],
     link: "https://tu-demo-o-repo.com",
@@ -132,7 +138,7 @@ export default function Home() {
         </div>
       </motion.section>
 
-      
+
 
       {/* Proyectos */}
       <SectionFadeIn refProp={proyectosRef}>
@@ -149,7 +155,9 @@ export default function Home() {
               <Card
                 title={proy.title}
                 description={proy.description}
+                embed={proy.embed}
                 image={proy.image}
+                slug={proy.slug}
                 tecnologias={proy.tecnologias}
                 link={proy.link}
               />
@@ -222,14 +230,31 @@ function SectionFadeIn({ children, refProp }) {
   )
 }
 
-function Card({ title, description, image, tecnologias, link }) {
+function Card({ title, description, image, embed,slug, tecnologias, link }) {
+
   return (
     <div className="bg-gradient-to-br from-gray-900/90 via-gray-800/80 to-black/80 p-6 rounded-2xl shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-400 border border-teal-900/40 flex flex-col items-center">
-      <img
-        src={image}
-        alt={`Screenshot ${title}`}
-        className="mb-4 rounded-xl shadow-md w-full h-48 object-cover object-top"
-      />
+      {/* Visualización dinámica */}
+      {embed ? (
+        <div className="w-full mb-4 rounded-xl overflow-hidden shadow-md aspect-w-16 aspect-h-9 bg-gray-800">
+          <iframe
+            src={embed.link}
+            title={embed.title || title}
+            frameBorder="0"
+            allowFullScreen
+            className="w-full h-full min-h-[340px] max-h-[400px] border-0 rounded-xl"
+          ></iframe>
+        </div>
+      ) : (
+        image && (
+          <img
+            src={image}
+            alt={`Screenshot ${title}`}
+            className="mb-4 rounded-xl shadow-md w-full h-48 object-cover object-top"
+          />
+        )
+      )}
+
       <h3 className="text-xl font-semibold mb-2 text-center">{title}</h3>
       <p className="text-sm text-gray-300 mb-3 text-center">{description}</p>
       {tecnologias && (
@@ -246,7 +271,7 @@ function Card({ title, description, image, tecnologias, link }) {
       )}
       {link && (
         <a
-          href={link}
+           href={`/proyectos/${slug}`}
           target="_blank"
           rel="noopener noreferrer"
           className="mt-2 text-fuchsia-400 hover:underline text-sm"
@@ -257,3 +282,4 @@ function Card({ title, description, image, tecnologias, link }) {
     </div>
   );
 }
+
