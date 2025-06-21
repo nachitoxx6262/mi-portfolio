@@ -35,13 +35,15 @@ const proyectos = [
     link: "https://tu-demo-o-repo.com",
   },
   {
-    title: "📦 Stock y Logística",
-    description: "Dashboard BI + consultas SQL para mejorar la eficiencia logística.",
+    title: "📦 NORTHWIND ANALYTICS",
+    description: "Dashboard BI + consultas SQL para mejorar la eficiencia.",
     slug: "stock-logistica",
-    embed: {
-      title: "Dashboard Power BI: Stock y Logística",
-      link: "https://app.powerbi.com/view?r=eyJrIjoiZTA2ZGVjMGItNjE0Ny00MmZlLTg4YjgtODQyOWY0NmExYjU4IiwidCI6ImFhM2EwOTgzLTFmZTEtNDQxOC04NzJmLWNiYmZhOTA1ZjZlMyIsImMiOjR9"
-    },
+    image: "/proyectos/northwind_analytics.png",
+    // embed: {
+    //   title: "Dashboard Power BI: Stock y Logística",
+    //   link: "https://app.powerbi.com/view?r=eyJrIjoiZTA2ZGVjMGItNjE0Ny00MmZlLTg4YjgtODQyOWY0NmExYjU4IiwidCI6ImFhM2EwOTgzLTFmZTEtNDQxOC04NzJmLWNiYmZhOTA1ZjZlMyIsImMiOjR9"
+    // },
+    tecnologias: ["Power BI", "SQL", "Data Cleaning"],
     link: "https://app.powerbi.com/view?r=eyJrIjoiZTA2ZGVjMGItNjE0Ny00MmZlLTg4YjgtODQyOWY0NmExYjU4IiwidCI6ImFhM2EwOTgzLTFmZTEtNDQxOC04NzJmLWNiYmZhOTA1ZjZlMyIsImMiOjR9",
   },
   {
