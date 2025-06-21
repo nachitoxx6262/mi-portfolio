@@ -1,10 +1,8 @@
 'use client';
-
 import proyectos from '../../../data/proyectos';
 import { motion } from 'framer-motion';
 import Link from "next/link";
-
-
+import VisualizadorDeInformes from '@/components/VisualizadorDeInformes';
 export default function ProyectoDetalle({ params }) {
   const { slug } = params;
   const proyecto = proyectos.find(p => p.slug === slug);
@@ -26,23 +24,22 @@ export default function ProyectoDetalle({ params }) {
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-gray-950 via-gray-900 to-gray-800 px-2 sm:px-4">
-      
       <div className="max-w-4xl mx-auto py-12">
         <motion.div
-        initial={{ opacity: 0, x: -20 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.5, delay: 0.1 }}
-        className="mb-8 mt-"
-      >
-        <Link
-          href="/"
-          className="inline-flex items-center gap-2 bg-gradient-to-r from-teal-700 via-fuchsia-800 to-yellow-600 px-5 py-2 rounded-full shadow-md font-semibold text-white hover:scale-105 hover:bg-fuchsia-700 transition-all duration-200"
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+          className="mb-8"
         >
-          <i className="fas fa-arrow-left text-lg"></i>
-          Volver a la página principal
-        </Link>
-      </motion.div>
-        {/* Título */}
+          <Link
+            href="/"
+            className="inline-flex items-center gap-2 bg-gradient-to-r from-teal-700 via-fuchsia-800 to-yellow-600 px-5 py-2 rounded-full shadow-md font-semibold text-white hover:scale-105 hover:bg-fuchsia-700 transition-all duration-200"
+          >
+            <i className="fas fa-arrow-left text-lg"></i>
+            Volver a la página principal
+          </Link>
+        </motion.div>
+
         <motion.h1
           initial={{ opacity: 0, y: -30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -52,7 +49,6 @@ export default function ProyectoDetalle({ params }) {
           {proyecto.title}
         </motion.h1>
 
-        {/* Imagen principal o embed */}
         <motion.div
           initial={{ opacity: 0, scale: 0.94 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -78,7 +74,6 @@ export default function ProyectoDetalle({ params }) {
           )}
         </motion.div>
 
-        {/* Descripción extendida */}
         {proyecto.descripcionLarga && (
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -90,7 +85,6 @@ export default function ProyectoDetalle({ params }) {
           </motion.p>
         )}
 
-        {/* Lista de items destacados */}
         {proyecto.items && proyecto.items.length > 0 && (
           <motion.ul
             initial={{ opacity: 0, x: -30 }}
@@ -107,7 +101,6 @@ export default function ProyectoDetalle({ params }) {
           </motion.ul>
         )}
 
-        {/* Galería de screenshots */}
         {proyecto.screenshots && proyecto.screenshots.length > 0 && (
           <motion.div
             initial={{ opacity: 0 }}
@@ -129,7 +122,6 @@ export default function ProyectoDetalle({ params }) {
           </motion.div>
         )}
 
-        {/* Mi aporte */}
         {proyecto.miAporte && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -142,7 +134,6 @@ export default function ProyectoDetalle({ params }) {
           </motion.div>
         )}
 
-        {/* Tecnologías */}
         {proyecto.tecnologias && (
           <motion.div
             initial={{ opacity: 0, y: 10 }}
@@ -167,7 +158,18 @@ export default function ProyectoDetalle({ params }) {
           </motion.div>
         )}
 
-        {/* Conclusiones */}
+        {proyecto.resumenEjecutivo &&  <VisualizadorDeInformes {...proyecto.resumenEjecutivo} />}
+          {/* <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.23 }}
+            className="mb-10 bg-gradient-to-r from-green-800/40 via-gray-900/70 to-teal-600/40 p-6 rounded-xl shadow-md"
+          >
+            <h3 className="text-green-200 font-bold text-xl mb-2">📝 Informe Ejecutivo</h3>
+            <div className="text-gray-100 whitespace-pre-line text-sm leading-relaxed">{proyecto.resumenEjecutivo}</div>
+          </motion.div> */}
+
+
         {proyecto.conclusiones && (
           <motion.div
             initial={{ opacity: 0, y: 10 }}
@@ -176,11 +178,10 @@ export default function ProyectoDetalle({ params }) {
             className="mb-10 bg-gradient-to-r from-yellow-800/40 via-gray-900/70 to-teal-700/40 p-6 rounded-xl shadow-md"
           >
             <h3 className="text-yellow-200 font-bold text-xl mb-2">Conclusiones / Resultados</h3>
-            <p className="text-gray-100">{proyecto.conclusiones}</p>
+            <p className="text-gray-100 whitespace-pre-line">{proyecto.conclusiones}</p>
           </motion.div>
         )}
 
-        {/* Link externo */}
         {proyecto.link && (
           <motion.a
             initial={{ opacity: 0 }}

@@ -6,6 +6,8 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+      sans: ['var(--font-inter)', 'sans-serif'],},
       animation: {
         'fade-in': 'fadeIn 1.2s ease-out',
         'slide-up': 'slideUp 1s ease-out',

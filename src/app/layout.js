@@ -1,11 +1,16 @@
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono,Inter } from "next/font/google";
 import "../../styles/globals.css";
 import '@fortawesome/fontawesome-free/css/all.min.css'
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
 });
-
+const inter = Inter({
+  subsets: ['latin'],
+  weight: ['400', '600', '700'],
+  display: 'swap',
+  variable: '--font-inter',
+});
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
@@ -18,9 +23,9 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="en" className={inter.variable}>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className="font-sans bg-gradient-to-br from-gray-950 via-gray-900 to-gray-800 text-white min-h-screen"
       >
         {children}
       </body>
