@@ -2,9 +2,11 @@
 import '@fortawesome/fontawesome-free/css/all.min.css'
 import "../../styles/globals.css";
 import Navbar from "../components/Navbar";
+import Certificados from "../components/Certificados";
 import { useRef } from 'react'
 import { motion, useAnimation, useInView } from 'framer-motion'
 import Link from "next/link";
+
 const skills = [
   { name: 'Python', level: 75, icon: 'fab fa-python' },
   { name: 'SQL', level: 90, icon: 'fas fa-database' },
@@ -46,14 +48,14 @@ const proyectos = [
     tecnologias: ["Power BI", "SQL", "Data Cleaning"],
     link: "https://app.powerbi.com/view?r=eyJrIjoiZTA2ZGVjMGItNjE0Ny00MmZlLTg4YjgtODQyOWY0NmExYjU4IiwidCI6ImFhM2EwOTgzLTFmZTEtNDQxOC04NzJmLWNiYmZhOTA1ZjZlMyIsImMiOjR9",
   },
-  {
-    title: "🚀 Machine Learning Agrícola",
-    description: "Predicción de rendimiento de cultivos con regresión y redes neuronales.",
-    slug: "sistema-ml-agricola",
-    image: "/proyectos/dashboard_vuelos.png",
-    tecnologias: ["Power BI", "SQL", "Data Cleaning"],
-    link: "https://tu-demo-o-repo.com",
-  },
+  // {
+  //   title: "🚀 Machine Learning Agrícola",
+  //   description: "Predicción de rendimiento de cultivos con regresión y redes neuronales.",
+  //   slug: "sistema-ml-agricola",
+  //   image: "/proyectos/dashboard_vuelos.png",
+  //   tecnologias: ["Power BI", "SQL", "Data Cleaning"],
+  //   link: "https://tu-demo-o-repo.com",
+  // },
 ]
 
 export default function Home() {
@@ -197,6 +199,8 @@ export default function Home() {
           ))}
         </div>
       </SectionFadeIn>
+          
+        <Certificados />
 
       {/* Contacto */}
       <SectionFadeIn refProp={contactoRef}>
