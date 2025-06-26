@@ -26,7 +26,7 @@ const proyectos = [
     image: "/proyectos/dashboard_vuelos.png",
     slug: "dashboard-demoras-vuelos",
     tecnologias: ["Power BI", "SQL", "Data Cleaning"],
-    link: "https://tu-demo-o-repo.com",
+    //link: "https://tu-demo-o-repo.com",
   },
   {
     title: "🏨 Sistema Hotelero",
@@ -34,7 +34,7 @@ const proyectos = [
     image: "/proyectos/dashboard_vuelos.png",
     slug: "sistema-hotelero",
     tecnologias: ["Power BI", "SQL", "Data Cleaning"],
-    link: "https://tu-demo-o-repo.com",
+    //link: "https://tu-demo-o-repo.com",
   },
   {
     title: "📦 NORTHWIND ANALYTICS",
@@ -46,22 +46,23 @@ const proyectos = [
     //   link: "https://app.powerbi.com/view?r=eyJrIjoiZTA2ZGVjMGItNjE0Ny00MmZlLTg4YjgtODQyOWY0NmExYjU4IiwidCI6ImFhM2EwOTgzLTFmZTEtNDQxOC04NzJmLWNiYmZhOTA1ZjZlMyIsImMiOjR9"
     // },
     tecnologias: ["Power BI", "SQL", "Data Cleaning"],
-    link: "https://app.powerbi.com/view?r=eyJrIjoiZTA2ZGVjMGItNjE0Ny00MmZlLTg4YjgtODQyOWY0NmExYjU4IiwidCI6ImFhM2EwOTgzLTFmZTEtNDQxOC04NzJmLWNiYmZhOTA1ZjZlMyIsImMiOjR9",
+    link: "proyecto",
   },
-  // {
-  //   title: "🚀 Machine Learning Agrícola",
-  //   description: "Predicción de rendimiento de cultivos con regresión y redes neuronales.",
-  //   slug: "sistema-ml-agricola",
-  //   image: "/proyectos/dashboard_vuelos.png",
-  //   tecnologias: ["Power BI", "SQL", "Data Cleaning"],
-  //   link: "https://tu-demo-o-repo.com",
-  // },
+  {
+    title: "🌿Monitoreo Hidropónico Arduino + Web Fullstack",
+    description: "Visualización de datos con sensores Arduino y desarrollo web fullstack para monitorear cultivos hidropónicos.",
+    slug: "sistema-ml-agricola",
+    image: "/proyectos/hidroponic.png",
+    tecnologias: ["React", "Node.js", "Arduino", "PostgreSQL"],
+    link: "https://hidroponic.vercel.app/",
+  },
 ]
 
 export default function Home() {
   const aboutRef = useRef(null)
   const skillsRef = useRef(null)
   const proyectosRef = useRef(null)
+  const certificadosRef = useRef(null)
   const contactoRef = useRef(null)
 
   const scrollTo = (ref) => ref.current.scrollIntoView({ behavior: "smooth" })
@@ -74,6 +75,7 @@ export default function Home() {
         aboutRef={aboutRef}
         proyectosRef={proyectosRef}
         skillsRef={skillsRef}
+        certificadosRef={certificadosRef}
         contactoRef={contactoRef}
       />
 
@@ -199,8 +201,10 @@ export default function Home() {
           ))}
         </div>
       </SectionFadeIn>
-          
+      
+      <SectionFadeIn refProp={certificadosRef}>
         <Certificados />
+      </SectionFadeIn>
 
       {/* Contacto */}
       <SectionFadeIn refProp={contactoRef}>
@@ -277,7 +281,7 @@ function Card({ title, description, image, embed, slug, tecnologias, link }) {
       )}
       {link && (
         <Link
-          href={`/proyectos/${slug}`}
+          href={link === "proyecto" ? `/proyectos/${slug}` : link}
           className="mt-2 text-fuchsia-400 hover:text-teal-300 underline text-sm"
         >
           Ver más

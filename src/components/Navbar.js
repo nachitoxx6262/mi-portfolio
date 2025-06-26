@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-function Navbar({ scrollTo, aboutRef, skillsRef, proyectosRef, contactoRef }) {
+function Navbar({ scrollTo, aboutRef, skillsRef, proyectosRef,certificadosRef, contactoRef }) {
     const [open, setOpen] = useState(false);
 
     const links = [
         { label: "Sobre mí", ref: aboutRef },
         { label: "Proyectos", ref: proyectosRef },
         { label: "Skills", ref: skillsRef },
+        { label: "Certificados", ref: certificadosRef },
         { label: "Contacto", ref: contactoRef },
     ];
 
@@ -20,7 +21,7 @@ function Navbar({ scrollTo, aboutRef, skillsRef, proyectosRef, contactoRef }) {
         <nav className="fixed w-full z-50 bg-gradient-to-r from-gray-950/80 via-gray-900/80 to-gray-800/80 shadow-md border-b border-teal-900/30 backdrop-blur-md">
             <div className="flex justify-between items-center px-6 py-3 max-w-5xl mx-auto">
                 <span className="font-bold text-lg tracking-widest text-teal-300 drop-shadow-lg">
-                    Nachito
+                    Mi portfolio
                 </span>
 
                 {/* Desktop menu */}
