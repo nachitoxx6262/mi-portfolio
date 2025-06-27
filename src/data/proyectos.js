@@ -69,16 +69,12 @@ const proyectos = [
             ]
         },
         link: ""
-    }
-
-
-    ,
-
+    },
     {
         slug: "sistema-hotelero",
         title: "🏨 Sistema Hotelero",
         description: "App para administrar habitaciones, reservas y clientes.",
-        image: "/proyectos/sistema_hotelero.png",
+        image: "/proyectos/relaciones_db.png",
         descripcionLarga: "Desarrollo de backend y frontend para un sistema integral de gestión hotelera.",
         tecnologias: [
             { nombre: "SQL", logo: "fas fa-database" },
@@ -88,7 +84,76 @@ const proyectos = [
             // ...agregá las que uses
         ],
         miAporte: "Diseño y desarrollo de la base de datos, API REST y lógica de negocio.",
-        conclusiones: "Permitió digitalizar el 100% de las reservas y reducir los errores de carga.",
+        conclusiones: "Este proyecto representa una simulación funcional de un sistema de gestión hotelera, centrado en la administración de reservas, clientes, empresas y habitaciones. A través del desarrollo backend con FastAPI, SQLAlchemy y PostgreSQL, se logró estructurar una base de datos relacional robusta y una API RESTful capaz de manejar las principales operaciones del flujo operativo.Si bien no se implementó en un entorno real, el modelo permite visualizar cómo la digitalización de procesos como la gestión de reservas o el control de habitaciones podría optimizar las operaciones internas, reducir errores manuales y facilitar la trazabilidad de datos. El sistema se diseñó priorizando la escalabilidad, la claridad en la estructura de datos y el mantenimiento futuro.Esta experiencia aportó una comprensión más profunda del diseño de bases de datos normalizadas, la construcción de endpoints eficientes, y la organización de proyectos profesionales orientados a microservicios, ofreciendo una base sólida para futuros despliegues en producción.",
+        resumenEjecutivo: {
+            titulo: "🏨 Sistema de Gestión Hotelera - Backend con FastAPI",
+            secciones: [
+                {
+                    heading: "Objetivo del Proyecto",
+                    items: [
+                        "Desarrollar una API REST modular, escalable y robusta para la gestión de reservas, clientes, empresas y habitaciones dentro de un entorno hotelero.",
+                        "Implementar un backend reutilizable, listo para integrarse con un sistema frontend o panel administrativo en el futuro."
+                    ]
+                },
+                {
+                    heading: "Alcance y Funcionalidades",
+                    items: [
+                        "Gestión de clientes individuales y corporativos, con vinculación opcional a empresas.",
+                        "Control de habitaciones con estados actualizados automáticamente según las reservas.",
+                        "Reservas asociadas a empresas o clientes, con fechas de ingreso/egreso y validaciones.",
+                        "Modelo de datos relacional completo con relaciones entre clientes, empresas, reservas y habitaciones.",
+                        "Sistema preparado para futuras funcionalidades como autenticación, reportes, o integración con BI."
+                    ]
+                },
+                {
+                    heading: "Diseño del Sistema",
+                    items: [
+                        "Estructura modular del backend: `routers`, `models`, `schemas`, `database`.",
+                        "Modelos definidos con SQLAlchemy y validaciones con Pydantic.",
+                        "Separación de responsabilidades y código limpio siguiendo buenas prácticas de desarrollo.",
+                        "Base de datos relacional normalizada, con claves foráneas y relaciones 1:N y N:1."
+                    ]
+                },
+                {
+                    heading: "Documento ERS (Especificación de Requerimientos del Software)",
+                    items: [
+                        "Actores definidos: Administrador del sistema, Cliente (individual o empresa).",
+                        "Requerimientos funcionales: ABM de clientes, habitaciones, reservas, y empresas.",
+                        "Requerimientos no funcionales: Modularidad, mantenimiento sencillo, escalabilidad.",
+                        "Reglas de negocio implementadas (ej.): no permitir reservas en habitaciones ocupadas, asignar cliente o empresa, validación de fechas."
+                    ]
+                },
+                {
+                    heading: "Mi Aporte",
+                    items: [
+                        "Diseñé el modelo de datos completo y su implementación en SQLAlchemy.",
+                        "Desarrollé todos los endpoints REST usando FastAPI, con documentación automática.",
+                        "Implementé lógica de negocio y validaciones robustas en Pydantic.",
+                        "Organicé la estructura del backend para facilitar futuras expansiones.",
+                        "Documenté cada parte del sistema, tanto técnica como funcionalmente."
+                    ]
+                },
+                {
+                    heading: "Tecnologías Utilizadas",
+                    items: [
+                        "⚡ FastAPI para el backend principal.",
+                        "🐘 PostgreSQL como sistema de base de datos.",
+                        "🔧 SQLAlchemy para modelado ORM.",
+                        "📦 Pydantic para validaciones y schemas.",
+                        "💻 Git y GitHub para control de versiones y documentación.",
+                        "🧠 Pensado para integrarse con frontend en React o dashboards BI."
+                    ]
+                },
+                {
+                    heading: "Conclusiones",
+                    items: [
+                        "Este sistema demuestra cómo estructurar un backend profesional para una aplicación administrativa real.",
+                        "La separación de capas, el modelado relacional y la lógica de negocio aseguran la mantenibilidad del sistema.",
+                        "Sirve como base para proyectos más complejos, ya sea en contextos hoteleros, administrativos o comerciales."
+                    ]
+                }
+            ]
+        },
         link: "",
     },
     // ...otros proyectos

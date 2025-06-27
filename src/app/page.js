@@ -34,7 +34,7 @@ const proyectos = [
     image: "/proyectos/dashboard_vuelos.png",
     slug: "sistema-hotelero",
     tecnologias: ["Power BI", "SQL", "Data Cleaning"],
-    //link: "https://tu-demo-o-repo.com",
+    link: "proyecto",
   },
   {
     title: "📦 NORTHWIND ANALYTICS",
