@@ -23,7 +23,7 @@ const proyectos = [
   {
   title: "🏭 Dashboard de Eficiencia Productiva y Financiera",
   description: "Análisis integral de desempeño empresarial con Power BI, integrando datos de producción, costos, eficiencia operativa y rentabilidad para detectar oportunidades de mejora.",
-  image: "/proyectos/alimentos_sur.png",
+  image: "/proyectos/Alimentos_sur.png",
   slug: "dashboard-eficiencia-productiva",
   tecnologias: ["Power BI", "SQL", "DAX", "Modelado de Datos"],
   link: "proyecto",
