@@ -139,7 +139,7 @@ export default function Home() {
           transition={{ duration: 1, delay: 1.2 }}
         >
           <span className="text-teal-400 font-semibold">¡Hola! </span>
-          Soy Nachito, alguien que disfruta buscarle la vuelta a todo y encontrar formas más simples y eficientes de hacer las cosas. Me motiva transformar datos en valor real y resolver desafíos que otros suelen dejar para después.Las ganas de aprender no se negocian.
+          Soy Nacho, alguien que disfruta buscarle la vuelta a todo y encontrar formas más simples y eficientes de hacer las cosas. Me motiva transformar datos en valor real y resolver desafíos que otros suelen dejar para después.Las ganas de aprender no se negocian.
           <br /><br />
           <span className="text-teal-400 font-semibold">Curioso y proactivo</span>, siempre estoy probando nuevas herramientas y buscando optimizar procesos. Si hay un problema, veo una oportunidad para marcar la diferencia; si hay datos, hay historias esperando a ser contadas.
 
