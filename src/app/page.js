@@ -21,14 +21,14 @@ const skills = [
 
 const proyectos = [
   {
-  title: "🏭 Dashboard de Eficiencia Productiva y Financiera",
-  description: "Análisis integral de desempeño empresarial con Power BI, integrando datos de producción, costos, eficiencia operativa y rentabilidad para detectar oportunidades de mejora.",
-  image: "/proyectos/Alimentos_sur.png",
-  slug: "dashboard-eficiencia-productiva",
-  tecnologias: ["Power BI", "SQL", "DAX", "Modelado de Datos"],
-  link: "proyecto",
-  //link: "https://tu-demo-o-repo.com",
-},
+    title: "🏭 Dashboard de Eficiencia Productiva y Financiera",
+    description: "Análisis integral de desempeño empresarial con Power BI, integrando datos de producción, costos, eficiencia operativa y rentabilidad para detectar oportunidades de mejora.",
+    image: "/proyectos/Alimentos_sur.png",
+    slug: "dashboard-eficiencia-productiva",
+    tecnologias: ["Power BI", "SQL", "DAX", "Modelado de Datos"],
+    link: "proyecto",
+    //link: "https://tu-demo-o-repo.com",
+  },
   // {
   //   title: "📊Dashboard de Demoras de Vuelos",
   //   description: "Análisis exploratorio y visualizaciones interactivas con Power BI y SQL para entender patrones de demoras y optimizar la gestión aeroportuaria.",
@@ -180,6 +180,26 @@ export default function Home() {
           ))}
         </div>
       </SectionFadeIn>
+      <SectionFadeIn>
+        <h2 className="text-3xl sm:text-4xl font-bold mb-10 text-teal-300 text-center">
+          Plataformas en vivo
+        </h2>
+
+        <div className="grid grid-cols-1 gap-10 max-w-5xl mx-auto">
+
+          <WebPreview
+            title="Cuneus Data Studio"
+            url="https://www.cuneusdata.com"
+            description="Landing principal de Cuneus Data Studio. Presenta los servicios de datos, automatización y sistemas que desarrollo para ayudar a empresas a vender mejor, operar con eficiencia y decidir con información real."
+          />
+
+          <WebPreview
+            title="Cuneus Comercial"
+            url="https://www.cuneusdata.com/cuneus-comercial"
+            description="Sistema de gestión comercial: vendedores, clientes, pedidos, comisiones y control en tiempo real."
+          />
+        </div>
+      </SectionFadeIn>
 
       {/* Skills */}
       <SectionFadeIn refProp={skillsRef}>
@@ -210,7 +230,7 @@ export default function Home() {
           ))}
         </div>
       </SectionFadeIn>
-      
+
       <SectionFadeIn refProp={certificadosRef}>
         <Certificados />
       </SectionFadeIn>
@@ -235,10 +255,14 @@ export default function Home() {
 
 // Animación de fade in por scroll con Framer Motion (custom hook para secciones)
 function SectionFadeIn({ children, refProp }) {
-  const isInView = useInView(refProp, { once: true })
+  const localRef = useRef(null)
+  const ref = refProp ?? localRef
+
+  const isInView = useInView(ref, { once: true })
+
   return (
     <motion.section
-      ref={refProp}
+      ref={ref}
       initial={{ opacity: 0, y: 40 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.9, ease: 'easeOut' }}
@@ -248,6 +272,7 @@ function SectionFadeIn({ children, refProp }) {
     </motion.section>
   )
 }
+
 
 function Card({ title, description, image, embed, slug, tecnologias, link }) {
 
@@ -300,3 +325,49 @@ function Card({ title, description, image, embed, slug, tecnologias, link }) {
   );
 }
 
+function WebPreview({ title, url, description }) {
+  return (
+    <div className="bg-gradient-to-br from-gray-900/90 via-gray-800/80 to-black/80 
+                    rounded-2xl shadow-xl border border-teal-900/40 overflow-hidden">
+
+      {/* Barra navegador */}
+      <div className="flex items-center justify-between px-3 py-2 bg-gray-800 border-b border-gray-700">
+        <div className="flex gap-2">
+          <span className="w-3 h-3 rounded-full bg-red-500/80" />
+          <span className="w-3 h-3 rounded-full bg-yellow-500/80" />
+          <span className="w-3 h-3 rounded-full bg-green-500/80" />
+        </div>
+
+        <div className="text-xs text-gray-300 truncate">
+          {url}
+        </div>
+
+        <a
+          href={url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-xs text-teal-300 hover:text-fuchsia-300 underline"
+        >
+          Abrir
+        </a>
+      </div>
+
+      {/* Iframe */}
+      <div className="aspect-video bg-black">
+        <iframe
+          src={url}
+          title={title}
+          className="w-full h-full border-0"
+          loading="lazy"
+          referrerPolicy="no-referrer"
+        />
+      </div>
+
+      {/* Texto */}
+      <div className="p-4 text-center">
+        <h3 className="text-xl font-semibold mb-1">{title}</h3>
+        <p className="text-sm text-gray-300">{description}</p>
+      </div>
+    </div>
+  )
+}
