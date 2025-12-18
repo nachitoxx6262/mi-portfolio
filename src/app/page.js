@@ -184,6 +184,10 @@ export default function Home() {
         <h2 className="text-3xl sm:text-4xl font-bold mb-10 text-teal-300 text-center">
           Plataformas en vivo
         </h2>
+<p className="text-center text-gray-400 mb-10 max-w-3xl mx-auto">
+  Plataformas desarrolladas y mantenidas por mí persona, actualmente en producción, orientadas a brindar servicios reales a empresas.
+</p>
+
 
         <div className="grid grid-cols-1 gap-10 max-w-5xl mx-auto">
 
