@@ -1,5 +1,271 @@
 const proyectos = [
     {
+        slug: "sistema-hotelero",
+        title: "🏨 Sistema de Gestión Hotelera",
+        description: "Sistema integral para centralizar la operación diaria de un hotel: habitaciones, reservas, disponibilidad en tiempo real y registro de huéspedes. En producción.",
+        descripcionLarga: "Se desarrolló un sistema de gestión hotelera pensado para centralizar la operación diaria del establecimiento. El objetivo fue ordenar procesos que normalmente se manejan de forma manual o dispersa: control de habitaciones, reservas, estado de ocupación y registro de huéspedes. Hoy está desplegado y operativo en hotel.cuneusdata.com bajo el sello de Cuneus Data Studio.",
+        items: [
+            "Gestión de habitaciones con estados dinámicos: disponibles, ocupadas, reservadas o en limpieza.",
+            "Registro de huéspedes individuales y empresas asociadas.",
+            "Control de disponibilidad en tiempo real desde un único panel.",
+            "Organización de reservas y asignación de habitaciones.",
+            "Visualización clara del estado operativo del hotel.",
+            "Base preparada para ampliaciones: facturación, historial de estadías y reportes.",
+        ],
+        screenshots: [],
+        miAporte: "Diseño y desarrollo completo del sistema: modelo de datos relacional, API REST, lógica de negocio y frontend operativo. Proyecto desplegado en producción bajo Cuneus Data Studio.",
+        tecnologias: [
+            { nombre: "React", logo: "fab fa-react" },
+            { nombre: "FastAPI", logo: "fas fa-bolt" },
+            { nombre: "Python", logo: "fab fa-python" },
+            { nombre: "PostgreSQL", logo: "fas fa-database" },
+            { nombre: "Tailwind CSS", logo: "fas fa-paint-brush" },
+            { nombre: "Git", logo: "fab fa-git-alt" },
+        ],
+        conclusiones: "Este sistema permite que la administración tenga una visión clara del negocio y que el personal trabaje con procesos más ordenados, rápidos y confiables. No es un ejercicio académico: está en producción y siendo usado en operación real.",
+        resumenEjecutivo: {
+            titulo: "🏨 Sistema Hotelero — En Producción",
+            secciones: [
+                {
+                    heading: "🎯 Propósito del proyecto",
+                    items: [
+                        "Centralizar la operación diaria del hotel en una sola plataforma.",
+                        "Eliminar procesos manuales y dispersos en papel o planillas.",
+                        "Dar visibilidad en tiempo real del estado operativo del establecimiento.",
+                    ]
+                },
+                {
+                    heading: "📌 Funcionalidades clave",
+                    items: [
+                        "Control de habitaciones con estados dinámicos (disponible, ocupada, reservada, en limpieza).",
+                        "ABM de huéspedes con vinculación opcional a empresas.",
+                        "Reservas con asignación de habitación y validación de fechas.",
+                        "Panel operativo con disponibilidad en tiempo real.",
+                    ]
+                },
+                {
+                    heading: "🔎 Diseño del sistema",
+                    items: [
+                        "Backend modular con FastAPI, SQLAlchemy y PostgreSQL.",
+                        "Relaciones 1:N entre huéspedes, empresas, habitaciones y reservas.",
+                        "Frontend React con Tailwind para uso ágil desde escritorio.",
+                        "Arquitectura preparada para escalar: facturación, reportes y estadísticas.",
+                    ]
+                },
+                {
+                    heading: "💡 Valor generado",
+                    items: [
+                        "Operación más rápida, ordenada y sin errores manuales.",
+                        "Visión centralizada del negocio desde un único panel.",
+                        "Base sólida para incorporar facturación, historial y reportes.",
+                        "Sistema en producción real — no solo un ejercicio académico.",
+                    ]
+                }
+            ]
+        },
+        link: "https://hotel.cuneusdata.com/"
+    },
+    {
+        slug: "sistema-comercial",
+        title: "💼 Sistema Comercial para Vendedores",
+        description: "Plataforma de gestión comercial para equipos de ventas: clientes, rendimiento, comisiones, segmentación geográfica y dashboards de seguimiento estratégico.",
+        descripcionLarga: "Se diseñó un sistema comercial orientado a la gestión de vendedores, clientes, ventas y seguimiento del rendimiento comercial. Está pensado para empresas con equipos de venta que necesitan control, visibilidad y análisis para tomar mejores decisiones. Disponible en producción como parte de la oferta de Cuneus Data Studio.",
+        items: [
+            "Gestión de vendedores y clientes con historial de actividad.",
+            "Consulta de ventas por período y análisis de tendencias.",
+            "Seguimiento de rendimiento y visualización de comisiones.",
+            "Segmentación geográfica y comercial de la cartera de clientes.",
+            "Análisis de clientes activos, inactivos y oportunidades de reactivación.",
+            "Integración con dashboards para seguimiento estratégico.",
+            "Base preparada para automatización de consultas mediante chatbot.",
+        ],
+        screenshots: [],
+        miAporte: "Diseño del sistema completo: arquitectura de datos, lógica de negocio, integración de dashboards y despliegue en producción bajo Cuneus Data Studio.",
+        tecnologias: [
+            { nombre: "React", logo: "fab fa-react" },
+            { nombre: "Next.js", logo: "fas fa-code" },
+            { nombre: "SQL", logo: "fas fa-database" },
+            { nombre: "JavaScript", logo: "fab fa-js" },
+            { nombre: "Tailwind CSS", logo: "fas fa-paint-brush" },
+            { nombre: "Git", logo: "fab fa-git-alt" },
+        ],
+        conclusiones: "Este sistema transforma datos sueltos en información útil. En vez de vender a ciegas, se empieza a vender con criterio. Actualmente en producción y disponible para empresas con equipos de venta.",
+        resumenEjecutivo: {
+            titulo: "💼 Sistema Comercial — Gestión y Análisis de Ventas",
+            secciones: [
+                {
+                    heading: "🎯 Propósito del proyecto",
+                    items: [
+                        "Dar a empresas y vendedores herramientas para entender su desempeño real.",
+                        "Centralizar la gestión de clientes, ventas y comisiones en un único sistema.",
+                        "Detectar oportunidades de venta y reactivar clientes inactivos.",
+                    ]
+                },
+                {
+                    heading: "📌 Funcionalidades clave",
+                    items: [
+                        "Panel de vendedores con resultados individuales y comparativos.",
+                        "Historial de ventas por período, cliente y zona geográfica.",
+                        "Cálculo y visualización de comisiones en tiempo real.",
+                        "Segmentación de cartera: activos, inactivos y de alto valor.",
+                    ]
+                },
+                {
+                    heading: "🔎 Arquitectura del sistema",
+                    items: [
+                        "Frontend en React + Next.js con diseño responsive.",
+                        "Base de datos relacional con SQL para análisis de históricos.",
+                        "Integración con dashboards BI para reportes ejecutivos.",
+                        "Preparado para conectar con chatbot de consultas automatizadas.",
+                    ]
+                },
+                {
+                    heading: "💡 Valor generado",
+                    items: [
+                        "Los vendedores ven su rendimiento y toman acción sin esperar informes.",
+                        "La empresa detecta zonas frías y clientes en riesgo de abandono.",
+                        "Las comisiones se calculan automáticamente, eliminando disputas.",
+                        "Sistema en producción, usado por equipos comerciales reales.",
+                    ]
+                }
+            ]
+        },
+        link: "https://www.cuneusdata.com/cuneus-comercial"
+    },
+    {
+        slug: "bot-agenda-medica",
+        title: "🤖 Bot para Agenda Médica",
+        description: "Bot conversacional por WhatsApp para gestión de turnos médicos: selección de especialidad, consulta de disponibilidad y reserva automatizada sin intervención humana.",
+        descripcionLarga: "Se desarrolló un bot conversacional orientado a la gestión de turnos médicos. El sistema permite que pacientes puedan consultar disponibilidad, elegir profesionales, seleccionar días y horarios, y avanzar en el proceso de reserva de forma automatizada. Sin intervención humana en el flujo estándar, con navegación por menús y opción de retroceso en cada paso.",
+        items: [
+            "Atención automatizada 24/7 por mensajería (WhatsApp).",
+            "Selección de especialidad o profesional médico.",
+            "Consulta de días disponibles con visualización de agenda.",
+            "Visualización de horarios disponibles en tiempo real.",
+            "Reserva de turnos de forma guiada paso a paso.",
+            "Navegación conversacional con menús claros y opción de retroceso.",
+            "Integración con lógica de agenda y control de disponibilidad.",
+        ],
+        screenshots: [],
+        miAporte: "Desarrollo completo del bot: diseño del flujo conversacional, integración con lógica de agenda, gestión de estados y despliegue para uso productivo.",
+        tecnologias: [
+            { nombre: "Node.js", logo: "fab fa-node-js" },
+            { nombre: "WhatsApp API", logo: "fab fa-whatsapp" },
+            { nombre: "JavaScript", logo: "fab fa-js" },
+            { nombre: "PostgreSQL", logo: "fas fa-database" },
+            { nombre: "Git", logo: "fab fa-git-alt" },
+        ],
+        conclusiones: "El bot permite atender consultas repetitivas de forma automática, ordenada y escalable. Básicamente hace el trabajo pesado sin cansarse ni pedir café. Ideal para clínicas, consultorios y centros de salud con alto volumen de consultas.",
+        resumenEjecutivo: {
+            titulo: "🤖 Bot de Turnos Médicos — Automatización de Agenda",
+            secciones: [
+                {
+                    heading: "🎯 Propósito del proyecto",
+                    items: [
+                        "Automatizar el proceso de asignación de turnos para reducir carga administrativa.",
+                        "Mejorar la experiencia del paciente con atención inmediata y disponible 24/7.",
+                        "Eliminar errores y demoras en la coordinación de agenda médica.",
+                    ]
+                },
+                {
+                    heading: "📌 Funcionalidades clave",
+                    items: [
+                        "Menú conversacional para seleccionar especialidad o médico.",
+                        "Consulta dinámica de disponibilidad por día y horario.",
+                        "Confirmación y registro de turno de forma completamente automatizada.",
+                        "Opción de retroceder y corregir pasos sin perder el contexto.",
+                    ]
+                },
+                {
+                    heading: "🔎 Diseño del sistema",
+                    items: [
+                        "Bot construido sobre WhatsApp API con gestión de estados conversacionales.",
+                        "Integración con base de datos de agenda y disponibilidad médica.",
+                        "Flujo modular, fácil de ampliar con nuevas especialidades o profesionales.",
+                        "Diseñado para escalar a entornos de alto volumen de consultas.",
+                    ]
+                },
+                {
+                    heading: "💡 Valor generado",
+                    items: [
+                        "Reducción significativa de llamadas entrantes y carga en recepción.",
+                        "Disponibilidad de atención fuera del horario laboral.",
+                        "Menos errores en asignación y eliminación de solapamientos de turnos.",
+                        "Base para integrar recordatorios automáticos, cancelaciones y listas de espera.",
+                    ]
+                }
+            ]
+        },
+        link: ""
+    },
+    {
+        slug: "sistema-restaurant",
+        title: "🍽️ Sistema de Gestión para Restaurant",
+        description: "Sistema gastronómico para la operación diaria de restaurantes: toma de pedidos por mesa, gestión de mesas, comandas digitales e impresión automática para cocina.",
+        descripcionLarga: "Se desarrolló un sistema gastronómico orientado a la operación diaria de restaurantes, con foco en la toma de pedidos, gestión de mesas, comandas e impresión para cocina. La idea fue construir una base sólida para un sistema moderno, rápido y adaptable al flujo real del salón. Proyecto actualmente en desarrollo activo.",
+        items: [
+            "Gestión de mesas y control de estado de ocupación en tiempo real.",
+            "Creación de pedidos por mesa con productos, cantidades y notas especiales.",
+            "Resumen del pedido con totales claros y desglose por ítem.",
+            "Lógica de comandas para comunicación directa con cocina.",
+            "Preparación para impresión automática de tickets en comandera.",
+            "Base para módulos de cocina (KDS), caja, stock e inventario.",
+            "Interfaz pensada para uso ágil en contextos de alta rotación.",
+        ],
+        screenshots: [],
+        miAporte: "Desarrollo de la arquitectura base del sistema: lógica de mesas, pedidos y flujo hacia cocina. Interfaz optimizada para uso ágil en dispositivos táctiles.",
+        tecnologias: [
+            { nombre: "React", logo: "fab fa-react" },
+            { nombre: "FastAPI", logo: "fas fa-bolt" },
+            { nombre: "Python", logo: "fab fa-python" },
+            { nombre: "PostgreSQL", logo: "fas fa-database" },
+            { nombre: "Tailwind CSS", logo: "fas fa-paint-brush" },
+            { nombre: "Git", logo: "fab fa-git-alt" },
+        ],
+        conclusiones: "El sistema permite trabajar con más velocidad, más control y menos caos. En gastronomía eso vale oro, porque donde hay papelitos volando, siempre termina explotando algo. El módulo base está funcional y en proceso de expansión hacia caja, stock y KDS.",
+        resumenEjecutivo: {
+            titulo: "🍽️ Sistema Gastronómico — Operación en Tiempo Real",
+            secciones: [
+                {
+                    heading: "🎯 Propósito del proyecto",
+                    items: [
+                        "Digitalizar el flujo operativo del restaurante desde el salón hasta la cocina.",
+                        "Minimizar errores en pedidos y mejorar la comunicación entre sectores.",
+                        "Construir una base escalable para incorporar caja, stock y KDS.",
+                    ]
+                },
+                {
+                    heading: "📌 Funcionalidades clave",
+                    items: [
+                        "Mapa de mesas con estado en tiempo real (libre, ocupada, esperando cuenta).",
+                        "Toma de pedidos por mesa con notas especiales por ítem.",
+                        "Comanda digital enviada a cocina automáticamente al confirmar.",
+                        "Resumen de cuenta con totales para el mozo.",
+                    ]
+                },
+                {
+                    heading: "🔎 Diseño del sistema",
+                    items: [
+                        "Frontend React con Tailwind optimizado para uso táctil en tablet o celular.",
+                        "Backend FastAPI con PostgreSQL para persistencia en tiempo real.",
+                        "Preparado para imprimir tickets en impresoras de comandera.",
+                        "Arquitectura modular lista para sumar KDS, caja y stock.",
+                    ]
+                },
+                {
+                    heading: "💡 Valor generado",
+                    items: [
+                        "Cero papelitos: todo queda registrado, trazable y sin pérdidas.",
+                        "Cocina recibe pedidos al instante sin riesgo de errores manuales.",
+                        "El mozo puede atender más mesas con menos esfuerzo.",
+                        "Base sólida para crecer hacia un sistema gastronómico completo.",
+                    ]
+                }
+            ]
+        },
+        link: ""
+    },
+    {
         slug: "stock-logistica",
         title: "📦 NORTHWIND ANALYTICS",
         description: "Análisis avanzado de datos, modelado relacional y visualización interactiva para optimizar la gestión de inventarios y procesos logísticos.",

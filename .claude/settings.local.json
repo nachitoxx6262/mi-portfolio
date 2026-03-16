@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:cuneusdata.com)",
+      "WebSearch",
+      "WebFetch(domain:www.cuneusdata.com)",
+      "Bash(node -e \"const p = require\\(''./src/data/proyectos.js''\\); console.log\\(''Total proyectos:'', p.default.length\\); p.default.forEach\\(pr => console.log\\(''-'', pr.slug\\)\\)\")"
+    ]
+  }
+}
