@@ -2,39 +2,79 @@
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import "../../styles/globals.css";
 import Navbar from "../components/Navbar";
-import Certificados from "../components/Certificados";
 import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import Link from "next/link";
 
 // ─── Data ────────────────────────────────────────────────────────────────────
 
-const skillGroups = [
+// Stack tecnológico: chips agrupados por categoría (sin porcentajes ni barras)
+const skillCategories = [
   {
     label: "Análisis & Datos",
     icon: "fas fa-chart-line",
-    barClass: "from-teal-400 to-cyan-300",
     labelClass: "text-teal-300",
     iconClass: "text-teal-400",
+    chipHover: "hover:border-teal-400/40 hover:text-teal-200",
     skills: [
-      { name: 'Python',         level: 75, icon: 'fab fa-python' },
-      { name: 'SQL',            level: 90, icon: 'fas fa-database' },
-      { name: 'Power BI',       level: 85, icon: 'fas fa-chart-bar' },
-      { name: 'Excel / Sheets', level: 90, icon: 'fa-solid fa-file-excel' },
+      { name: 'Power BI',    icon: 'fas fa-chart-bar' },
+      { name: 'SQL',         icon: 'fas fa-database' },
+      { name: 'Python',      icon: 'fab fa-python' },
+      { name: 'Excel',       icon: 'fas fa-file-excel' },
+      { name: 'DAX',         icon: 'fas fa-calculator' },
+      { name: 'Power Query', icon: 'fas fa-filter' },
     ],
   },
   {
     label: "Desarrollo",
     icon: "fas fa-code",
-    barClass: "from-fuchsia-400 to-purple-300",
     labelClass: "text-fuchsia-300",
     iconClass: "text-fuchsia-400",
+    chipHover: "hover:border-fuchsia-400/40 hover:text-fuchsia-200",
     skills: [
-      { name: 'JavaScript',   level: 90, icon: 'fa-brands fa-js' },
-      { name: 'React',        level: 80, icon: 'fab fa-react' },
-      { name: 'FastAPI',      level: 65, icon: 'fas fa-bolt' },
-      { name: 'Tailwind CSS', level: 75, icon: 'fab fa-css3-alt' },
-      { name: 'Git',          level: 90, icon: 'fa-brands fa-git-alt' },
+      { name: 'JavaScript',   icon: 'fab fa-js' },
+      { name: 'TypeScript',   icon: 'fas fa-code' },
+      { name: 'React',        icon: 'fab fa-react' },
+      { name: 'Next.js',      icon: 'fas fa-forward' },
+      { name: 'Node.js',      icon: 'fab fa-node-js' },
+      { name: 'FastAPI',      icon: 'fas fa-bolt' },
+      { name: 'Tailwind CSS', icon: 'fas fa-wind' },
+    ],
+  },
+  {
+    label: "Bases de Datos",
+    icon: "fas fa-database",
+    labelClass: "text-sky-300",
+    iconClass: "text-sky-400",
+    chipHover: "hover:border-sky-400/40 hover:text-sky-200",
+    skills: [
+      { name: 'PostgreSQL', icon: 'fas fa-database' },
+      { name: 'SQL',        icon: 'fas fa-table' },
+    ],
+  },
+  {
+    label: "Integraciones & IA",
+    icon: "fas fa-robot",
+    labelClass: "text-yellow-300",
+    iconClass: "text-yellow-400",
+    chipHover: "hover:border-yellow-400/40 hover:text-yellow-200",
+    skills: [
+      { name: 'WhatsApp API',     icon: 'fab fa-whatsapp' },
+      { name: 'REST APIs',        icon: 'fas fa-plug' },
+      { name: 'Arduino / IoT',    icon: 'fas fa-microchip' },
+      { name: 'Agentes de IA',    icon: 'fas fa-robot' },
+      { name: 'Machine Learning', icon: 'fas fa-brain' },
+    ],
+  },
+  {
+    label: "Herramientas",
+    icon: "fas fa-toolbox",
+    labelClass: "text-gray-300",
+    iconClass: "text-gray-400",
+    chipHover: "hover:border-gray-400/40 hover:text-white",
+    skills: [
+      { name: 'Git',    icon: 'fab fa-git-alt' },
+      { name: 'GitHub', icon: 'fab fa-github' },
     ],
   },
 ];
@@ -97,7 +137,7 @@ const waMessages = [
 const proyectosDev = [
   {
     title: "Cuneus Data Studio",
-    description: "Mi emprendimiento de servicios tecnológicos: datos, automatización y sistemas a medida. Ayudo a empresas a vender mejor, operar con eficiencia y tomar decisiones con información real. Diseño y desarrollo desde el análisis hasta el producto en producción.",
+    description: "Estudio de servicios tecnológicos: datos, automatización y sistemas a medida. Ayudo a empresas a vender mejor, operar con eficiencia y decidir con información real. Del análisis al producto en producción.",
     tecnologias: ["Next.js", "React", "Tailwind", "JavaScript", "Python"],
     link: "https://www.cuneusdata.com",
     category: "Fullstack",
@@ -107,7 +147,8 @@ const proyectosDev = [
   },
   {
     title: "Sistema Hotelero",
-    description: "Gestión centralizada de habitaciones, reservas y huéspedes: disponibilidad en tiempo real, estados dinámicos por habitación y registro completo de empresas y clientes. En producción y siendo utilizado diariamente.",
+    // Placeholder [N_HABITACIONES] queda como string para completarlo a mano luego.
+    description: "Gestión centralizada de habitaciones, reservas y huéspedes: disponibilidad en tiempo real, estados dinámicos por habitación y registro completo de empresas y clientes. En producción y siendo utilizado diariamente. En uso diario por el equipo del hotel para gestionar [N_HABITACIONES] habitaciones.",
     slug: "sistema-hotelero",
     image: "/proyectos/hotel.png",
     tecnologias: ["React", "FastAPI", "Python", "PostgreSQL"],
@@ -118,7 +159,7 @@ const proyectosDev = [
   },
   {
     title: "Sistema Comercial",
-    description: "Plataforma para equipos de ventas: clientes, pedidos, comisiones automáticas, segmentación geográfica y dashboards de rendimiento por vendedor. Usado en operación real.",
+    description: "Plataforma para equipos de ventas: clientes, pedidos, comisiones automáticas, segmentación geográfica y dashboards de rendimiento por vendedor. Usado en operación real por equipos de venta para gestionar clientes y comisiones.",
     slug: "sistema-comercial",
     image: "/proyectos/northwind_analytics.png",
     tecnologias: ["React", "Next.js", "SQL", "JavaScript"],
@@ -128,10 +169,11 @@ const proyectosDev = [
     livePreview: { type: 'web', url: 'https://www.cuneusdata.com/cuneus-comercial', badge: 'App' },
   },
   {
-    title: "Bot Agenda Médica",
-    description: "Bot WhatsApp para gestión de turnos médicos: seleccioná especialidad, consultá disponibilidad y reservá automáticamente, 24/7 sin intervención humana. Integrado con base de datos y notificaciones.",
+    // Renombrado: antes "Bot Agenda Médica". Es una plataforma healthtech integral, no solo un bot.
+    title: "Sistema de Gestión Clínica",
+    description: "Plataforma healthtech integral en producción para una clínica privada. Incluye historia clínica digital, registro de pacientes, accesos diferenciados por rol para médicos, gestión de turnos con control de ocupación y bot WhatsApp de agendamiento automático 24/7. Sistema completo de salud digital usado diariamente. Atiende automáticamente las consultas y agendamientos de la clínica las 24 horas.",
     slug: "bot-agenda-medica",
-    tecnologias: ["Node.js", "WhatsApp API", "JavaScript", "PostgreSQL"],
+    tecnologias: ["Node.js", "React", "FastAPI", "PostgreSQL", "WhatsApp API"],
     link: "proyecto",
     category: "Automatización",
     status: "live",
@@ -175,11 +217,10 @@ const stats = [
 // ─── Page ────────────────────────────────────────────────────────────────────
 
 export default function Home() {
-  const aboutRef        = useRef(null);
-  const skillsRef       = useRef(null);
-  const proyectosRef    = useRef(null);
-  const certificadosRef = useRef(null);
-  const contactoRef     = useRef(null);
+  const aboutRef     = useRef(null);
+  const skillsRef    = useRef(null);
+  const proyectosRef = useRef(null);
+  const contactoRef  = useRef(null);
 
   const scrollTo = (ref) => ref.current?.scrollIntoView({ behavior: "smooth" });
 
@@ -191,7 +232,6 @@ export default function Home() {
         aboutRef={aboutRef}
         proyectosRef={proyectosRef}
         skillsRef={skillsRef}
-        certificadosRef={certificadosRef}
         contactoRef={contactoRef}
       />
 
@@ -266,8 +306,8 @@ export default function Home() {
           >
             <i className="fas fa-graduation-cap text-fuchsia-300 text-sm" />
             <span className="text-fuchsia-200 text-sm font-medium">
-              Lic. Ciencias de Datos
-              <span className="text-fuchsia-500/60 text-xs ml-1">· in progress</span>
+              Estudiante avanzado · Lic. en Ciencia de Datos
+              <span className="text-fuchsia-500/60 text-xs ml-1">· Universidad Siglo 21</span>
             </span>
           </motion.div>
 
@@ -370,15 +410,16 @@ export default function Home() {
           subtitle="Herramientas con las que construyo, analizo y entrego valor cada día."
           accent="from-sky-400 to-teal-400"
         />
+        {/* Grilla de categorías con chips — diseño limpio sin porcentajes ni barras */}
         <div className="grid md:grid-cols-2 gap-5 max-w-5xl mx-auto">
-          {skillGroups.map((group, gi) => (
+          {skillCategories.map((group, gi) => (
             <motion.div
               key={gi}
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.55, delay: gi * 0.15 }}
-              className="bg-white/[0.03] border border-white/[0.07] rounded-2xl p-6"
+              transition={{ duration: 0.55, delay: gi * 0.1 }}
+              className="bg-white/[0.03] border border-white/[0.07] rounded-2xl p-6 hover:border-white/[0.12] transition-colors"
             >
               <div className="flex items-center gap-2.5 mb-5 pb-4 border-b border-white/[0.06]">
                 <i className={`${group.icon} ${group.iconClass} text-sm`} />
@@ -386,26 +427,19 @@ export default function Home() {
                   {group.label}
                 </h3>
               </div>
-              <div className="flex flex-col gap-4">
+              <div className="flex flex-wrap gap-2">
                 {group.skills.map((skill, si) => (
-                  <div key={si}>
-                    <div className="flex items-center justify-between mb-1.5">
-                      <div className="flex items-center gap-2">
-                        <i className={`${skill.icon} text-gray-600 text-xs w-4 text-center`} />
-                        <span className="text-sm text-gray-300 font-medium">{skill.name}</span>
-                      </div>
-                      <span className="text-[11px] font-mono text-gray-600">{skill.level}%</span>
-                    </div>
-                    <div className="h-1 bg-gray-800/80 rounded-full overflow-hidden">
-                      <motion.div
-                        initial={{ width: 0 }}
-                        whileInView={{ width: `${skill.level}%` }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 1.1, delay: 0.2 + gi * 0.1 + si * 0.06, ease: "easeOut" }}
-                        className={`h-full bg-gradient-to-r ${group.barClass} rounded-full`}
-                      />
-                    </div>
-                  </div>
+                  <motion.span
+                    key={si}
+                    initial={{ opacity: 0, scale: 0.92 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.3, delay: 0.1 + gi * 0.05 + si * 0.04 }}
+                    className={`inline-flex items-center gap-2 bg-white/[0.04] border border-white/[0.08] text-gray-300 px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-200 ${group.chipHover}`}
+                  >
+                    <i className={`${skill.icon} text-[11px] ${group.iconClass} opacity-80`} />
+                    {skill.name}
+                  </motion.span>
                 ))}
               </div>
             </motion.div>
@@ -413,21 +447,11 @@ export default function Home() {
         </div>
       </SectionFadeIn>
 
-      {/* ── Certificates ─────────────────────────────────────────────────── */}
-      <SectionFadeIn refProp={certificadosRef}>
-        <SectionHeader
-          number="04"
-          title="Certificaciones"
-          subtitle="Formación continua: cada certificado es una herramienta más."
-          accent="from-yellow-400 to-orange-400"
-        />
-        <Certificados />
-      </SectionFadeIn>
-
       {/* ── Contact ──────────────────────────────────────────────────────── */}
+      {/* Sección "04 Certificaciones" eliminada — renumerado: Contacto pasa de 05 a 04 */}
       <SectionFadeIn refProp={contactoRef}>
         <SectionHeader
-          number="05"
+          number="04"
           title="Hablemos"
           subtitle="Freelance, posición full-time o simplemente una consulta — estoy disponible."
           accent="from-teal-400 to-fuchsia-400"
@@ -451,6 +475,11 @@ export default function Home() {
               <a href="https://wa.me/543413073307" target="_blank" rel="noopener noreferrer"
                 className="flex items-center justify-center gap-2 bg-emerald-600/15 hover:bg-emerald-600/25 border border-emerald-500/25 text-emerald-300 font-semibold px-5 py-3 rounded-xl transition-all hover:scale-105 text-sm">
                 <i className="fab fa-whatsapp" /> WhatsApp
+              </a>
+              {/* Botón de descarga del CV — el PDF debe colocarse en /public/CV_Ignacio_Penamaria.pdf */}
+              <a href="/CV_Ignacio_Penamaria.pdf" download
+                className="flex items-center justify-center gap-2 bg-fuchsia-600/15 hover:bg-fuchsia-600/25 border border-fuchsia-500/25 text-fuchsia-200 font-semibold px-5 py-3 rounded-xl transition-all hover:scale-105 text-sm">
+                <i className="fas fa-file-arrow-down" /> Descargar CV
               </a>
             </div>
           </div>
@@ -605,7 +634,7 @@ function DevCard({ title, description, image, slug, tecnologias, link, category,
 
             {featured && (
               <span className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest text-yellow-400/70 mb-2">
-                <i className="fas fa-rocket text-[9px]" /> Mi emprendimiento
+                <i className="fas fa-rocket text-[9px]" /> Mi estudio
               </span>
             )}
 
@@ -694,7 +723,7 @@ function MiniWhatsAppPreview({ mensajes, waLink, phone }) {
           <i className="fab fa-whatsapp" />
         </div>
         <div className="flex-1">
-          <p className="text-white font-semibold text-xs leading-tight">Bot Agenda Médica</p>
+          <p className="text-white font-semibold text-xs leading-tight">Agenda Médica · Bot</p>
           <p className="text-green-200/60 text-[10px]">en línea · {phone}</p>
         </div>
         <div className="flex gap-2.5 text-white/40 text-xs">

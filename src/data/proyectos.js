@@ -134,8 +134,8 @@ const proyectos = [
     },
     {
         slug: "bot-agenda-medica",
-        title: "🤖 Bot para Agenda Médica",
-        description: "Bot conversacional por WhatsApp para gestión de turnos médicos: selección de especialidad, consulta de disponibilidad y reserva automatizada sin intervención humana.",
+        title: "🏥 Sistema de Gestión Clínica",
+        description: "Plataforma healthtech integral en producción: historia clínica digital, registro de pacientes, accesos diferenciados por rol para médicos, gestión de turnos y bot WhatsApp de agendamiento automatizado 24/7.",
         descripcionLarga: "Se desarrolló un bot conversacional orientado a la gestión de turnos médicos. El sistema permite que pacientes puedan consultar disponibilidad, elegir profesionales, seleccionar días y horarios, y avanzar en el proceso de reserva de forma automatizada. Sin intervención humana en el flujo estándar, con navegación por menús y opción de retroceso en cada paso.",
         items: [
             "Atención automatizada 24/7 por mensajería (WhatsApp).",

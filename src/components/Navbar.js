@@ -1,14 +1,13 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-function Navbar({ scrollTo, aboutRef, skillsRef, proyectosRef,certificadosRef, contactoRef }) {
+function Navbar({ scrollTo, aboutRef, skillsRef, proyectosRef, contactoRef }) {
     const [open, setOpen] = useState(false);
 
     const links = [
         { label: "Sobre mí", ref: aboutRef },
         { label: "Proyectos", ref: proyectosRef },
         { label: "Skills", ref: skillsRef },
-        { label: "Certificados", ref: certificadosRef },
         { label: "Contacto", ref: contactoRef },
     ];
 
