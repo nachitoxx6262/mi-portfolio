@@ -150,8 +150,8 @@ const servicios = [
 ];
 
 const dashboards = [
-  { slug: "dashboard-eficiencia-productiva", file: "eficiencia_productiva.pbix", img: "/proyectos/Alimentos_sur.webp", cap: "Eficiencia productiva y finanzas · Power BI" },
-  { slug: "stock-logistica", file: "northwind_stock.pbix", img: "/proyectos/northwind_analytics.webp", cap: "Northwind · ejercicio con datos de muestra · Power BI" },
+  { slug: "dashboard-eficiencia-productiva", file: "eficiencia_productiva.pbix", img: "/proyectos/Alimentos_sur.webp", fondo: "#1f203a", cap: "Eficiencia productiva y finanzas · Power BI" },
+  { slug: "stock-logistica", file: "northwind_stock.pbix", img: "/proyectos/northwind_analytics.webp", fondo: "#d4e5e4", cap: "Northwind · ejercicio con datos de muestra · Power BI" },
 ];
 
 // ─── Página ──────────────────────────────────────────────────────────────────
@@ -405,7 +405,8 @@ DIVIDE(
           {dashboards.map((d, i) => (
             <Link key={d.slug} href={`/proyectos/${d.slug}`} className={`cell r d${i + 1}`}>
               <div className="bar"><i style={{ background: "#ff5f57" }} /><i style={{ background: "#febc2e" }} /><i style={{ background: "#28c840" }} /><span>{d.file}</span></div>
-              <img loading="lazy" decoding="async" src={d.img} alt={d.cap} />
+              {/* marco común: cada tablero entra entero y el sobrante toma el color de su borde */}
+              <div className="lienzo" style={{ background: d.fondo }}><img loading="lazy" decoding="async" src={d.img} alt={d.cap} /></div>
               <span className="cap">{d.cap}</span>
             </Link>
           ))}
