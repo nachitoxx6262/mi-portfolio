@@ -236,7 +236,7 @@ DIVIDE(
               <div className="tl">
                 <span className="yr">2026<br />HOY</span>
                 <span><span className="rol">Analista de ventas</span><br /><span className="org">Exintrader · importadora de autopartes eléctricas</span></span>
-                <span className="note">Segmentación y reactivación de clientes, costos FOB y compras al exterior, informe mensual para el directorio.</span>
+                <span className="note">Segmentación y reactivación de clientes, costos FOB, órdenes de compra y contacto con proveedores del exterior.</span>
               </div>
               <div className="tl">
                 <span className="yr">2024<br />HOY</span>
