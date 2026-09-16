@@ -235,8 +235,8 @@ DIVIDE(
               <h2 className="h2">Experiencia</h2>
               <div className="tl">
                 <span className="yr">2026<br />HOY</span>
-                <span><span className="rol">Analista de ventas</span><br /><span className="org">Exintrader · ventas, clientes e importaciones</span></span>
-                <span className="note">Segmentación de clientes, órdenes de compra internacionales e informes para el directorio.</span>
+                <span><span className="rol">Analista de ventas</span><br /><span className="org">Exintrader · importadora de autopartes eléctricas</span></span>
+                <span className="note">Segmentación y reactivación de clientes, costos FOB y compras al exterior, informe mensual para el directorio.</span>
               </div>
               <div className="tl">
                 <span className="yr">2024<br />HOY</span>

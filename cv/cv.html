@@ -26,18 +26,18 @@ h1 { margin: 0; font-size: 20pt; font-weight: 700; letter-spacing: 0; }
 .titulo { margin: 1mm 0 0; font-size: 11pt; font-weight: 700; color: #333; }
 .contacto { margin: 1.6mm 0 0; font-size: 9.3pt; color: #333; }
 h2 {
-  margin: 4.6mm 0 1.6mm; padding-bottom: .8mm; border-bottom: 1px solid #1a1a1a;
+  margin: 3.8mm 0 1.4mm; padding-bottom: .7mm; border-bottom: 1px solid #1a1a1a;
   font-size: 10.5pt; font-weight: 700; text-transform: uppercase; letter-spacing: .04em;
   break-after: avoid;
 }
 p { margin: 0; }
-.puesto { margin: 0 0 2.8mm; }
+.puesto { margin: 0 0 2.2mm; }
 .puesto h3 { margin: 0; font-size: 10.4pt; font-weight: 700; break-after: avoid; }
 .puesto.junto { break-inside: avoid; }
 .linea { margin: .2mm 0 .8mm; font-size: 9.4pt; color: #444; break-after: avoid; }
-.sub { margin: 1.6mm 0 .2mm; font-weight: 700; font-size: 9.8pt; break-after: avoid; }
+.sub { margin: 1.3mm 0 .1mm; font-weight: 700; font-size: 9.8pt; break-after: avoid; }
 ul { margin: .4mm 0 0; padding-left: 4.6mm; }
-li { margin: 0 0 .5mm; padding-left: .6mm; }
+li { margin: 0 0 .3mm; padding-left: .6mm; }
 .item { margin: 0 0 1mm; }
 .item b { font-weight: 700; }
 .skills p { margin: 0 0 .9mm; }
@@ -54,53 +54,31 @@ li { margin: 0 0 .5mm; padding-left: .6mm; }
 
 <h2>Perfil profesional</h2>
 <p>
-  Perfil híbrido entre análisis de datos y desarrollo de software. Trabajo como analista de ventas, con foco en clientes, importaciones
-  e informes para el directorio; diseño tableros ejecutivos en Power BI y automatizo el reporting con Python y SQL. Coordiné el área comercial de una empresa con 30 vendedores,
-  trabajando directamente con dirección. Como fundador de Cuneus Data Studio construyo sistemas a medida que se usan todos
-  los días: un ERP para una metalúrgica y la plataforma de gestión de una clínica con su bot de WhatsApp. Estudiante avanzado
-  de la Licenciatura en Ciencia de Datos.
+  Analista de datos y desarrollador full stack. Trabajo como analista de ventas en una importadora, con informes mensuales
+  para el directorio, y como fundador de Cuneus Data Studio construyo sistemas a medida en uso diario. Experiencia coordinando
+  un equipo comercial de 30 vendedores. Estudiante avanzado de la Licenciatura en Ciencia de Datos.
 </p>
 
 <h2>Experiencia laboral</h2>
 
 <div class="puesto">
   <h3>Analista de ventas</h3>
-  <p class="linea">Exintrader | 2026 – Actualidad</p>
+  <p class="linea">Exintrader, importadora de autopartes eléctricas | 2026 – Actualidad</p>
   <ul>
-    <li>Analizo ventas y clientes, y segmento la cartera para priorizar las acciones comerciales.</li>
-    <li>Analizo productos, mercado e importaciones, y gestiono órdenes de compra a proveedores internacionales.</li>
-    <li>Armo informes para el directorio y para distintas áreas de la empresa.</li>
-    <li>Asesoro a clientes a partir de su historial de compras.</li>
+    <li>Segmento clientes y envío a los vendedores recordatorios de inactivos con productos y cantidades sugeridos para reactivarlos.</li>
+    <li>Actualizo costos FOB y estimo las cantidades de las órdenes de compra a proveedores del exterior.</li>
+    <li>Armo el informe mensual para el directorio, con métricas y reglas de control, y analizo productos, mercado y precios de la competencia.</li>
+    <li>Herramientas: Power BI, Excel, Python, SQL y dashboards en HTML propios.</li>
   </ul>
 </div>
 
 <div class="puesto">
   <h3>Fundador y desarrollador full stack</h3>
   <p class="linea">Cuneus Data Studio | 2024 – Actualidad</p>
-  <p>Estudio de datos, automatización y sistemas a medida. Diseño, desarrollo, despliegue y mantenimiento de sistemas para clientes en servidores Linux con Docker.</p>
-
-  <p class="sub">CARMETAL ERP – metalúrgica de corte láser y plegado (en producción desde mayo 2026)</p>
   <ul>
-    <li>Relevé el proceso en planta y reemplacé un cotizador de un solo usuario por un ERP multiusuario con roles y auditoría; cotizar pasó de una tarde a minutos.</li>
-    <li>Cotización automática desde planos DXF, nesting por chapa exportado a DXF para las máquinas y tiempo de corte calibrado contra los reportes reales de producción.</li>
-    <li>Módulos de producción por chapa, agenda de máquinas en vivo para medir capacidad y comprometer fechas de entrega, stock, compras, remitos y facturación electrónica ARCA.</li>
-    <li>App de operarios web y nativa (Android e iOS) con escaneo QR para registrar inicio, pausa y fin de cada trabajo y seguirlo en vivo.</li>
-    <li>Tablero de dirección con 23 indicadores de ocho áreas, metas, semáforo configurable, recordatorios por correo y exportación a Excel.</li>
-    <li>31 módulos, 383 endpoints y 891 pruebas automatizadas. Tecnologías: Python, FastAPI, PostgreSQL, React, TypeScript, React Native, Docker.</li>
-  </ul>
-
-  <p class="sub">Eva – plataforma de gestión clínica y bot de WhatsApp para una clínica privada (en producción desde marzo 2026)</p>
-  <ul>
-    <li>Bot de WhatsApp que reserva cientos de turnos por mes, a cualquier hora, contra la agenda real.</li>
-    <li>Plataforma para recepción, médicos y administración: turnos, historia clínica digital con CIE-10, accesos por rol, caja con arqueo y liquidación, y cupos por obra social.</li>
-    <li>Análisis del costo en mensajes por turno y propuesta de un flujo con cerca de 40% menos mensajes sin perder reservas.</li>
-    <li>Arquitectura multi-clínica con Row Level Security en PostgreSQL y auditoría de cada acción. 177 endpoints y 190 pruebas automatizadas.</li>
-    <li>Tecnologías: Python, FastAPI, PostgreSQL, React, TypeScript, n8n, WhatsApp Cloud API, Docker.</li>
-  </ul>
-
-  <p class="sub">Otros sistemas</p>
-  <ul>
-    <li>Gestión hotelera, plataforma comercial para equipos de venta y sistema gastronómico de mesas, pedidos y comandas.</li>
+    <li><b>CARMETAL ERP</b> (metalúrgica, en producción): relevé la planta y reemplacé un cotizador de un solo usuario por un ERP multiusuario; cotizar pasó de una tarde a minutos. Incluye nesting desde planos DXF, agenda de máquinas en vivo, facturación electrónica y app de operarios con QR. 31 módulos y 891 pruebas automatizadas.</li>
+    <li><b>Eva</b> (clínica privada, en producción): plataforma de turnos, historia clínica y caja, con un bot de WhatsApp que reserva cientos de turnos por mes. Medí el costo por turno y propuse un flujo con cerca de 40% menos mensajes.</li>
+    <li>Tecnologías: Python, FastAPI, PostgreSQL, React, TypeScript, React Native, n8n, Docker.</li>
   </ul>
 </div>
 
@@ -108,41 +86,24 @@ li { margin: 0 0 .5mm; padding-left: .6mm; }
   <h3>Responsable comercial y analista de datos</h3>
   <p class="linea">Grupo Puppetti | Enero 2025 – Octubre 2025</p>
   <ul>
-    <li>Coordiné al equipo de 30 vendedores y participé directamente en ventas, preventa y la coordinación con las redes comerciales.</li>
-    <li>Trabajé con el CEO en la estrategia comercial y la traduje en acciones concretas para el equipo de ventas.</li>
-    <li>Diseñé y mantuve el tablero ejecutivo de ventas en Power BI que usaban dirección y el equipo comercial cada semana, sobre una cartera de 1.600 clientes (312 activos).</li>
-    <li>Armé informes semanales por vendedor con oportunidades de venta cruzada y reactivación de clientes, y definí prioridades de contacto según comportamiento de compra, segmentación y rentabilidad.</li>
-    <li>Automaticé el análisis y el reporting con Python (pandas, NumPy) y consulté bases SQL y PostgreSQL para obtener información que los reportes estándar no mostraban.</li>
-    <li>Propuse mejoras de sistemas para armado de pedidos y gestión de stock, parte de las cuales se implementaron; participé en facturación, remitos y recepción de mercadería.</li>
+    <li>Coordiné al equipo de 30 vendedores y participé en ventas, preventa y coordinación con las redes comerciales, trabajando con el CEO.</li>
+    <li>Diseñé el tablero ejecutivo de ventas en Power BI para dirección, sobre una cartera de 1.600 clientes.</li>
+    <li>Automaticé el reporting con Python y SQL y armé informes semanales por vendedor para reactivar clientes.</li>
   </ul>
 </div>
 
-<h2>Educación</h2>
-<p class="item"><b>Licenciatura en Ciencia de Datos</b> – Universidad Siglo 21 | 2025 – Actualidad (estudiante avanzado)</p>
-<p class="item"><b>Tramo Pedagógico</b> – Universidad FASTA | 2024</p>
-<p class="item"><b>Técnico en Producción Agropecuaria</b> – EETP N.º 486 | 2021</p>
+<h2>Educación y certificaciones</h2>
+<p class="item"><b>Licenciatura en Ciencia de Datos</b> – Universidad Siglo 21 | 2025 – Actualidad</p>
+<p class="item"><b>Desarrollador Web Full Stack</b> – Henry | <b>Power BI</b> y <b>Bases de Datos y SQL</b> – EducaciónIT, 2025</p>
+<p class="item">Tramo Pedagógico – Universidad FASTA, 2024 | Técnico en Producción Agropecuaria – EETP N.º 486, 2021</p>
 
-<h2>Certificaciones</h2>
-<p class="item"><b>Desarrollador Web Full Stack</b> – Henry (JavaScript, React, Node.js, SQL)</p>
-<p class="item"><b>Power BI</b> – EducaciónIT | Junio 2025</p>
-<p class="item"><b>Introducción a Bases de Datos y SQL</b> – EducaciónIT | Junio 2025</p>
-
-<h2>Habilidades técnicas</h2>
+<h2>Habilidades</h2>
 <div class="skills">
-  <p><b>Análisis de datos y BI:</b> Power BI, DAX, Power Query, SQL, Excel avanzado, análisis de ventas, reporting.</p>
-  <p><b>Programación:</b> Python (pandas, NumPy, Matplotlib), JavaScript, TypeScript, Node.js.</p>
-  <p><b>Desarrollo web y móvil:</b> FastAPI, SQLAlchemy, React, Next.js, React Native, Tailwind CSS, APIs REST.</p>
-  <p><b>Bases de datos:</b> PostgreSQL, modelado relacional, consultas avanzadas, Row Level Security, migraciones.</p>
-  <p><b>IA y machine learning:</b> análisis predictivo, redes neuronales, agentes de IA, integración de modelos en sistemas.</p>
-  <p><b>Integraciones e infraestructura:</b> WhatsApp Cloud API, n8n, Chatwoot, facturación electrónica ARCA, Arduino/IoT, Docker, nginx, Linux, Git, GitHub.</p>
+  <p><b>Datos y BI:</b> Power BI, DAX, Power Query, SQL, Excel avanzado, Python (pandas, NumPy).</p>
+  <p><b>Desarrollo:</b> FastAPI, React, Next.js, TypeScript, React Native, PostgreSQL, Docker, Git.</p>
+  <p><b>Negocio:</b> análisis de ventas, segmentación de clientes, costos FOB, compras internacionales.</p>
+  <p><b>Idiomas:</b> español nativo, inglés técnico intermedio.</p>
 </div>
-
-<h2>Idiomas</h2>
-<p class="item"><b>Español:</b> nativo</p>
-<p class="item"><b>Inglés:</b> técnico intermedio, lectura fluida de documentación y artículos especializados</p>
-
-<h2>Competencias</h2>
-<p>Pensamiento analítico, comunicación con perfiles no técnicos, coordinación de equipos comerciales, trabajo autónomo, orientación a resultados, aprendizaje autodidacta, resolución de problemas en producción.</p>
 
 </body>
 </html>
