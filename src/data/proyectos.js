@@ -1,5 +1,82 @@
 const proyectos = [
     {
+        slug: "carmetal-erp",
+        title: "🏭 CARMETAL ERP",
+        description: "ERP a medida para una metalúrgica de corte láser y plegado. Empezó resolviendo la cotización y hoy llega hasta la factura, con una app para que el taller cargue lo que hace y el supervisor lo vea en vivo.",
+        image: "/proyectos/carmetal/cockpit.jpg",
+        descripcionLarga: "CARMETAL es una metalúrgica de corte láser fibra y plegado en Santa Fe. Cada pedido vivía repartido en mails, planillas y papel, y cotizar dependía de un solo software y de una sola persona: cincuenta piezas eran una tarde de trabajo y nadie más podía hacerlo. Antes de escribir código pasé por la planta a entender el proceso completo, desde que entra el pedido hasta que la máquina emite su reporte de producción. El primer objetivo fue uno solo: automatizar y centralizar la cotización. Con eso funcionando, el sistema se fue expandiendo hacia donde seguía el trabajo, y hoy la empresa usa a diario lo que está en producción mientras se sigue sumando funcionalidad. Desplegado en carmetal.cuneusdata.cloud bajo el sello de Cuneus Data Studio.",
+        items: [
+            "Cotización: el sistema lee el plano DXF, reconoce el marco del rótulo, mide cada pieza y la previsualiza. Calcula tiempo de corte, kilos y precio, y exporta las planillas técnicas a Excel y PDF, en pesos o en dólares al cambio del Banco Nación.",
+            "Nesting: el sistema acomoda las piezas sobre la chapa como un rompecabezas, buscando que entren en la menor cantidad de chapas y sobre el menor recorte posible. Muestra el aprovechamiento de cada una y se puede corregir a mano arrastrando las piezas.",
+            "El anidado se exporta como un archivo DXF por chapa, que es el formato que leen los programas de todas las máquinas del taller: lo que se cotizó pasa al corte sin volver a dibujarlo.",
+            "Producción: la orden de trabajo congela lo cotizado, genera las tareas de corte y plegado y el plan de chapas, con una cola por máquina que el supervisor reordena arrastrando.",
+            "Seguimiento: pantalla de planta que se refresca sola y aviso cuando se asigna una chapa a una máquina que no llega a ese espesor.",
+            "Agenda en vivo: cada chapa ocupa su bloque en la cola de su máquina, respetando el horario de trabajo del taller. Se ve la carga real día por día, dónde quedan huecos y cuándo se libera cada máquina, así se puede comprometer una fecha de entrega con fundamento en vez de a ojo.",
+            "Taller: una hoja A4 por chapa con el plano y su código QR, y la app del operario para iniciar, pausar y completar el trabajo.",
+            "Administración: remitos, facturación electrónica ante ARCA, compras, proveedores, stock, listas de precios y tickets de soporte.",
+            "Dirección: cada área carga sus números del mes y el sistema arma el informe con metas, semáforo y aviso a quien todavía no cargó.",
+        ],
+        screenshots: [
+            { src: "/proyectos/carmetal/nesting-erp.jpg", cap: "cotización con nesting" },
+            { src: "/proyectos/carmetal/app-chapa.jpg", cap: "app del operario" },
+            { src: "/proyectos/carmetal/hoja-tecnica.jpg", cap: "hoja del taller" },
+        ],
+        miAporte: "Relevamiento del proceso en planta, análisis de las cotizaciones históricas contra los reportes de la máquina, y diseño y desarrollo completo: modelo de datos, API, frontend, app de operarios y la infraestructura donde corre. Hoy son 31 módulos, 383 endpoints, 891 pruebas automatizadas y 131 versiones de base de datos, con entorno de prueba propio y despliegue sin cortar el servicio.",
+        tecnologias: [
+            { nombre: "FastAPI", logo: "fas fa-bolt" },
+            { nombre: "PostgreSQL", logo: "fas fa-database" },
+            { nombre: "React", logo: "fab fa-react" },
+            { nombre: "TypeScript", logo: "fas fa-code" },
+            { nombre: "React Native", logo: "fas fa-mobile-alt" },
+            { nombre: "Docker", logo: "fab fa-docker" },
+            { nombre: "Git", logo: "fab fa-git-alt" },
+        ],
+        conclusiones: "El cuello de botella se abrió: hoy cotiza cualquiera del equipo, en minutos y con la calibración vigente. La información de un pedido dejó de estar repartida y pasó a tener un solo lugar donde vive, desde el plano hasta la factura. El supervisor sabe qué chapa se está cortando, en qué máquina, quién la corta y hace cuánto, sin bajar a preguntar. Y cuando un cliente pregunta para cuándo lo tiene, la respuesta sale de la carga real de la planta y no de una estimación.",
+        resumenEjecutivo: {
+            titulo: "🏭 CARMETAL ERP — Del plano al remito",
+            secciones: [
+                {
+                    heading: "🔬 Cómo se resolvió la cotización",
+                    items: [
+                        "El tiempo de corte no se estima: sale de perfiles de calibración contrastados contra los reportes de producción reales de la máquina, separando el corte recto del curvo y el tiempo de perforado.",
+                        "Esos perfiles quedan versionados. Antes, un ajuste de parámetros en la máquina desfasaba las cotizaciones y nadie se enteraba hasta comparar contra el costo real.",
+                        "Cada pieza guarda una foto del cálculo con el que se cotizó. Un presupuesto enviado hace meses se puede reconstruir tal cual salió, aunque después cambien los precios o la calibración.",
+                        "El anidado que se va a cortar es el mismo que se cobra. Antes se presupuestaba sobre un acomodo ideal y en la máquina se cortaba otro, y esa diferencia se perdía en cada trabajo.",
+                        "Un buscador recorre todas las piezas ya cotizadas: en vez de volver a cargar una pieza conocida, se clona con un atajo de teclado.",
+                    ]
+                },
+                {
+                    heading: "🧱 Cómo se fue armando",
+                    items: [
+                        "Primero el cotizador, que era el cuello de botella. El software viejo siguió corriendo intacto hasta que el nuevo estuvo validado con cotizaciones reales.",
+                        "Después producción y taller, tomando como unidad de trabajo la chapa, que es como se organiza la planta de verdad.",
+                        "Luego el circuito administrativo: remitos, facturación electrónica, compras y stock, todo colgando de la misma orden de trabajo.",
+                        "En septiembre de 2026, el tablero de indicadores para la dirección. Sigue en desarrollo el resto del ERP.",
+                    ]
+                },
+                {
+                    heading: "📲 Por qué una app aparte",
+                    items: [
+                        "Para que cargar datos en planta no dependa de sentarse en una computadora: el operario escanea el QR de la chapa y tiene delante el plano, el material y las piezas que salen de ahí.",
+                        "Marca inicio, pausa y fin desde el teléfono; el tiempo real vuelve al sistema y actualiza la cola de la máquina sin que nadie transcriba nada.",
+                        "Versión nativa para Android y iOS construida sobre los mismos endpoints que la web, sin una API paralela que mantener.",
+                        "Modo kiosco para los talleres que no dan un teléfono por operario: una computadora con lector y credencial personal de cada uno.",
+                    ]
+                },
+                {
+                    heading: "⚙️ Decisiones de construcción",
+                    items: [
+                        "Se construyó en paralelo al sistema viejo en lugar de reescribirlo por dentro: riesgo cero sobre la operación diaria mientras se migraba módulo por módulo.",
+                        "Un módulo por área del negocio y tipos estrictos desde la base de datos hasta el navegador, para que un cambio no rompa algo lejano sin avisar.",
+                        "Auditoría de cada cambio y papelera con restauración: se puede responder quién tocó qué y cuándo, y deshacer un borrado.",
+                        "Entornos de prueba y producción separados: nada pasa a producción sin que el cliente lo apruebe antes en el de prueba.",
+                    ]
+                }
+            ]
+        },
+        link: "https://carmetal.cuneusdata.cloud"
+    },
+    {
         slug: "sistema-hotelero",
         title: "🏨 Sistema de Gestión Hotelera",
         description: "Sistema integral para centralizar la operación diaria de un hotel: habitaciones, reservas, disponibilidad en tiempo real y registro de huéspedes. En producción.",
@@ -134,69 +211,74 @@ const proyectos = [
     },
     {
         slug: "bot-agenda-medica",
-        title: "🏥 Sistema de Gestión Clínica",
-        description: "Plataforma healthtech integral en producción: historia clínica digital, registro de pacientes, accesos diferenciados por rol para médicos, gestión de turnos y bot WhatsApp de agendamiento automatizado 24/7.",
-        descripcionLarga: "Se desarrolló un bot conversacional orientado a la gestión de turnos médicos. El sistema permite que pacientes puedan consultar disponibilidad, elegir profesionales, seleccionar días y horarios, y avanzar en el proceso de reserva de forma automatizada. Sin intervención humana en el flujo estándar, con navegación por menús y opción de retroceso en cada paso.",
+        title: "🏥 Eva · Sistema de Gestión Clínica",
+        description: "Plataforma para una clínica privada que empezó como un bot de WhatsApp para sacar turnos y hoy es donde trabajan recepción, médicos y administración. En uso diario, con mantenimiento mensual y la base preparada para vender a otras clínicas.",
+        image: "/proyectos/eva/eva-whatsapp.jpg",
+        panel: "eva-stats",
+        descripcionLarga: "La recepción de la clínica trabajaba en emergencia permanente. Una recepcionista podía tener cinco o seis conversaciones de WhatsApp abiertas al mismo tiempo, cada una en un tema distinto: una pidiendo turno, otra preguntando si lo tenía, otra cancelando, otra queriendo saber si su plan estaba cubierto. Y todo eso mientras atendía al paciente parado frente al mostrador, esperando que lo mirara. Sostener esa atención partida sin perder el hilo de ninguna conversación y sin hacer esperar a nadie es bastante más difícil de lo que parece desde afuera, y cualquier error se paga con un turno mal dado o una persona enojada. De noche o un domingo, directamente no contestaba nadie y los mensajes se acumulaban para el lunes. Eva nació chica y concreta, como un bot de WhatsApp que sacara turnos solo. Apenas empezó a funcionar apareció el resto del problema: para ofrecer un horario, el bot necesitaba leer una agenda que estaba en un cuaderno, y para cobrarlo hacía falta una caja que estaba en una planilla. Así que el sistema fue creciendo hacia atrás del bot, hasta cubrir el recorrido completo del paciente, desde que escribe hasta que el médico cierra la consulta. Hoy está en uso diario con mantenimiento mensual contratado, y la base ya es multi-clínica: una clínica nueva se da de alta desde un panel y arranca en su propio subdominio.",
         items: [
-            "Atención automatizada 24/7 por mensajería (WhatsApp).",
-            "Selección de especialidad o profesional médico.",
-            "Consulta de días disponibles con visualización de agenda.",
-            "Visualización de horarios disponibles en tiempo real.",
-            "Reserva de turnos de forma guiada paso a paso.",
-            "Navegación conversacional con menús claros y opción de retroceso.",
-            "Integración con lógica de agenda y control de disponibilidad.",
+            "Recepción: vista del día con todos los turnos, reserva, reprogramación y cancelación con aviso automático por WhatsApp, búsqueda del paciente por documento, nombre o teléfono.",
+            "Cobro al llegar: al marcar que el paciente llegó se abre el cobro con el monto sugerido según el médico y la obra social, y se registra la forma de pago.",
+            "Caja: apertura y cierre por turno, arqueo de efectivo, egresos, cobros de productos y servicios sueltos, y liquidación a cada médico.",
+            "Médicos: agenda propia, historia clínica con signos vitales, diagnóstico libre o por catálogo CIE-10, recetas, estudios, e interconsultas entre colegas.",
+            "Imágenes clínicas: el médico carga una radiografía o una foto y el paciente la recibe por un código que vence a los quince días.",
+            "Obras sociales: aranceles por médico y plan, cupos mensuales, doble cobertura por paciente y la cobertura propia de la clínica con sus abonos y su deuda.",
+            "Configuración: usuarios por invitación, especialidades y horarios de cada médico, feriados y licencias, y plantillas de los mensajes que manda el bot.",
         ],
         screenshots: [],
-        miAporte: "Desarrollo completo del bot: diseño del flujo conversacional, integración con lógica de agenda, gestión de estados y despliegue para uso productivo.",
+        miAporte: "Backend, frontend, flujo del bot, integración con la API de WhatsApp y con el panel de conversaciones, hardening de seguridad, migración a multi-clínica y despliegue. Lo más delicado fue la plata: transacciones atómicas, registro de cada cobro y cada cierre, y una máquina de estados que no deja saltear pasos. Después de un mes de operación medí cuánto cuesta en mensajes cada turno que saca el bot y propuse un flujo que los baja cerca del 40 % sin perder reservas. Son 177 endpoints, 190 pruebas automatizadas y cinco servicios aislados en el servidor.",
         tecnologias: [
-            { nombre: "Node.js", logo: "fab fa-node-js" },
-            { nombre: "WhatsApp API", logo: "fab fa-whatsapp" },
-            { nombre: "JavaScript", logo: "fab fa-js" },
+            { nombre: "FastAPI", logo: "fas fa-bolt" },
             { nombre: "PostgreSQL", logo: "fas fa-database" },
-            { nombre: "Git", logo: "fab fa-git-alt" },
+            { nombre: "React", logo: "fab fa-react" },
+            { nombre: "TypeScript", logo: "fas fa-code" },
+            { nombre: "n8n", logo: "fas fa-diagram-project" },
+            { nombre: "WhatsApp API", logo: "fab fa-whatsapp" },
+            { nombre: "Docker", logo: "fab fa-docker" },
         ],
-        conclusiones: "El bot permite atender consultas repetitivas de forma automática, ordenada y escalable. Básicamente hace el trabajo pesado sin cansarse ni pedir café. Ideal para clínicas, consultorios y centros de salud con alto volumen de consultas.",
+        conclusiones: "Recepción dejó de sostener cinco conversaciones a la vez para repetir la misma respuesta, y puede atender a quien tiene enfrente. La clínica sabe cuánto cobró, por quién y de qué obra social sin cuadrar planillas al cierre. El paciente que escribe un domingo a la noche saca su turno igual. Y como cada reserva queda marcada con su origen, se puede mostrar con números cuánto del trabajo de recepción está resolviendo el bot.",
         resumenEjecutivo: {
-            titulo: "🤖 Bot de Turnos Médicos — Automatización de Agenda",
+            titulo: "🏥 Eva — Gestión clínica + asistente de WhatsApp",
             secciones: [
                 {
-                    heading: "🎯 Propósito del proyecto",
+                    heading: "💬 Cómo trabaja el bot",
                     items: [
-                        "Automatizar el proceso de asignación de turnos para reducir carga administrativa.",
-                        "Mejorar la experiencia del paciente con atención inmediata y disponible 24/7.",
-                        "Eliminar errores y demoras en la coordinación de agenda médica.",
+                        "Reconoce al paciente por su número de teléfono, pero nunca reserva a su nombre sin preguntar: siempre confirma para quién es el turno. Un teléfono lo comparte toda la familia.",
+                        "Ofrece horarios que existen de verdad, leídos de la agenda en ese momento, respetando feriados, licencias y los médicos que manejan su agenda aparte.",
+                        "Cuando la consulta se sale del libreto, pasa la conversación a una persona de recepción y se queda callado hasta que la cierran.",
+                        "Fuera de la ventana de respuesta de WhatsApp usa plantillas aprobadas por Meta para recordar el turno, avisar una cancelación o avisar que un estudio está listo.",
                     ]
                 },
                 {
-                    heading: "📌 Funcionalidades clave",
+                    heading: "🧩 Lo que hay que resolver bien",
                     items: [
-                        "Menú conversacional para seleccionar especialidad o médico.",
-                        "Consulta dinámica de disponibilidad por día y horario.",
-                        "Confirmación y registro de turno de forma completamente automatizada.",
-                        "Opción de retroceder y corregir pasos sin perder el contexto.",
+                        "Dos personas pidiendo el mismo horario al mismo tiempo: la reserva se resuelve en una sola operación de base de datos que toma el turno solo si sigue libre, y al otro le vuelve a ofrecer horarios.",
+                        "Los cupos de obra social los verifica la propia base antes de confirmar, no la aplicación: por más caminos que haya para reservar, el límite es el mismo.",
+                        "El turno avanza por estados encadenados y no admite saltos: no se puede volver de atendido a sala de espera, ni cobrar dos veces el mismo turno.",
+                        "Un médico solo ve lo suyo, y eso está verificado por pruebas automáticas que fallan si alguna vez se filtra la agenda o la historia clínica de otro.",
                     ]
                 },
                 {
-                    heading: "🔎 Diseño del sistema",
+                    heading: "📈 Medir lo que hace el bot",
                     items: [
-                        "Bot construido sobre WhatsApp API con gestión de estados conversacionales.",
-                        "Integración con base de datos de agenda y disponibilidad médica.",
-                        "Flujo modular, fácil de ampliar con nuevas especialidades o profesionales.",
-                        "Diseñado para escalar a entornos de alto volumen de consultas.",
+                        "Cada turno guarda si lo reservó el bot, recepción o si fue un sobreturno, con la hora exacta de la reserva.",
+                        "Con eso hay un tablero propio del bot: cuántos turnos trae, a qué médicos y obras sociales, cuántos pacientes asisten y cuántos faltan.",
+                        "Un histograma por hora muestra cuánto se agenda fuera del horario de la clínica, que es exactamente el trabajo que antes no se hacía.",
+                        "También medí el costo: cuántos mensajes manda Eva por cada turno y cuáles se pueden sacar sin perder reservas ni claridad.",
                     ]
                 },
                 {
-                    heading: "💡 Valor generado",
+                    heading: "🔐 Datos de salud y multi-clínica",
                     items: [
-                        "Reducción significativa de llamadas entrantes y carga en recepción.",
-                        "Disponibilidad de atención fuera del horario laboral.",
-                        "Menos errores en asignación y eliminación de solapamientos de turnos.",
-                        "Base para integrar recordatorios automáticos, cancelaciones y listas de espera.",
+                        "Sesión en cookie protegida, bloqueo por intentos fallidos y cierre de sesión que invalida el acceso de verdad.",
+                        "Auditoría legible en español de cada acción: quién reservó, quién cobró, quién cerró la caja y cuándo.",
+                        "Cada clínica tiene su propio identificador en todas las tablas y su propio usuario de base de datos, con reglas en PostgreSQL que impiden leer lo de otra.",
+                        "Copias de seguridad cifradas, monitoreo de errores y un entorno de prueba separado para ensayar los cambios antes de tocar la clínica real.",
                     ]
                 }
             ]
         },
-        link: ""
+        link: "https://asistentevirtualeva.cloud"
     },
     {
         slug: "sistema-restaurant",
@@ -268,7 +350,7 @@ const proyectos = [
     {
         slug: "stock-logistica",
         title: "📦 NORTHWIND ANALYTICS",
-        description: "Análisis avanzado de datos, modelado relacional y visualización interactiva para optimizar la gestión de inventarios y procesos logísticos.",
+        description: "Ejercicio de Business Intelligence sobre la base de muestra Northwind: modelo relacional, consultas SQL y tablero interactivo en Power BI para stock y logística. Datos ficticios, hecho para practicar el método.",
         embed: {
             title: "Dashboard Power BI: Stock y Logística",
             link: "https://app.powerbi.com/view?r=eyJrIjoiZTA2ZGVjMGItNjE0Ny00MmZlLTg4YjgtODQyOWY0NmExYjU4IiwidCI6ImFhM2EwOTgzLTFmZTEtNDQxOC04NzJmLWNiYmZhOTA1ZjZlMyIsImMiOjR9"

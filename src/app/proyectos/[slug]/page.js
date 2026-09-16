@@ -1,201 +1,111 @@
-'use client';
-import proyectos from '../../../data/proyectos';
-import { motion } from 'framer-motion';
+"use client";
+import { use, useEffect } from "react";
 import Link from "next/link";
-import VisualizadorDeInformes from '@/components/VisualizadorDeInformes';
-export default function ProyectoDetalle({ params }) {
-  const { slug } = params;
-  const proyecto = proyectos.find(p => p.slug === slug);
+import proyectos from "../../../data/proyectos";
+import { Hud, useLaminas, EvaStats } from "@/components/laminas";
 
-  if (!proyecto) {
+const sinEmoji = (t) => t.replace(/^[^\p{L}\p{N}]+/u, "").trim();
+
+export default function ProyectoDetalle({ params }) {
+  useLaminas();
+  useEffect(() => {
+    document.body.classList.add("ficha-page");
+    return () => document.body.classList.remove("ficha-page");
+  }, []);
+  const { slug } = use(params);
+  const p = proyectos.find((x) => x.slug === slug);
+
+  if (!p) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-gray-950 via-gray-900 to-gray-800 flex items-center justify-center">
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7 }}
-          className="text-2xl font-bold text-fuchsia-400"
-        >
-          Proyecto no encontrado
-        </motion.h2>
-      </div>
+      <>
+        <Hud />
+        <section className="section contact">
+          <h1 className="display solid">404</h1>
+          <p className="body">No hay ninguna ficha con ese nombre. <Link href="/#sistemas" style={{ color: "var(--accent)" }}>Volver</Link></p>
+        </section>
+      </>
     );
   }
 
+  const url = p.link ? p.link.replace(/^https?:\/\/(www\.)?/, "").replace(/\/$/, "") : null;
+
   return (
-    <main className="min-h-screen bg-gradient-to-br from-gray-950 via-gray-900 to-gray-800 px-2 sm:px-4">
-      <div className="max-w-4xl mx-auto py-12">
-        <motion.div
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          className="mb-8"
-        >
-          <Link
-            href="/"
-            className="inline-flex items-center gap-2 bg-gradient-to-r from-teal-700 via-fuchsia-800 to-yellow-600 px-5 py-2 rounded-full shadow-md font-semibold text-white hover:scale-105 hover:bg-fuchsia-700 transition-all duration-200"
-          >
-            <i className="fas fa-arrow-left text-lg"></i>
-            Volver a la página principal
-          </Link>
-        </motion.div>
+    <>
+      <Hud />
+      <section className="section paper short" style={{ paddingTop: "calc(var(--pad-y) * 3.6)" }}>
+        <p className="eyebrow r"><Link href="/#sistemas">← Volver</Link><i>/</i><b>Ficha</b><i>/</i>{p.slug}</p>
+        <h1 className="brandmark r d1" style={{ maxWidth: "20ch" }}>{sinEmoji(p.title)}</h1>
+        <p className="body r d2" style={{ maxWidth: "60ch" }}>{p.description}</p>
+        <div className="r d2" style={{ display: "flex", gap: 10, flexWrap: "wrap", marginBottom: 26 }}>
+          {p.link && <a href={p.link} target="_blank" rel="noopener noreferrer" className="btn fill">{url}</a>}
+        </div>
 
-        <motion.h1
-          initial={{ opacity: 0, y: -30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="text-4xl md:text-5xl font-extrabold mb-8 pb-4 bg-gradient-to-r from-teal-300 via-fuchsia-400 to-yellow-400 bg-clip-text text-transparent drop-shadow-lg tracking-tight"
-        >
-          {proyecto.title}
-        </motion.h1>
-
-        <motion.div
-          initial={{ opacity: 0, scale: 0.94 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.9, delay: 0.1 }}
-          className="mb-10 max-w-6xl mx-auto"
-        >
-          {proyecto.embed && proyecto.embed.link ? (
-            <div className="aspect-w-16 aspect-h-9 bg-gray-800 rounded-2xl overflow-hidden shadow-2xl border-2 p-6 border-teal-800 h-[600px]">
-              <iframe
-                src={proyecto.embed.link}
-                title={proyecto.embed.title || proyecto.title}
-                frameBorder="0"
-                allowFullScreen
-                className="w-full h-full border-0 rounded-xl"
-              ></iframe>
-            </div>
-          ) : proyecto.image && (
-            <img
-              src={proyecto.image}
-              alt={proyecto.title}
-              className="rounded-2xl shadow-2xl w-full max-h-[420px] object-cover border-2 border-teal-800"
-            />
-          )}
-        </motion.div>
-
-        {proyecto.descripcionLarga && (
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.13 }}
-            className="mb-7 text-lg text-gray-200 leading-relaxed animate__animated animate__fadeIn"
-          >
-            {proyecto.descripcionLarga}
-          </motion.p>
+        {(p.embed?.link || p.image || p.panel) && (
+          <div className="browser r d3">
+            <div className="bar"><i style={{ background: "#ff5f57" }} /><i style={{ background: "#febc2e" }} /><i style={{ background: "#28c840" }} /><span>{url || p.slug}</span></div>
+            {p.panel === "eva-stats" ? <EvaStats />
+              : p.embed?.link
+              ? <iframe src={p.embed.link} title={p.embed.title || p.title} allowFullScreen style={{ height: "60vh", minHeight: 420, background: "#fff" }} />
+              : <img src={p.image} alt={p.title} />}
+          </div>
         )}
+      </section>
 
-        {proyecto.items && proyecto.items.length > 0 && (
-          <motion.ul
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.7, delay: 0.18 }}
-            className="mb-8 grid gap-3 bg-gray-900/80 p-4 rounded-xl shadow-inner"
-          >
-            {proyecto.items.map((item, idx) => (
-              <li key={idx} className="flex items-center gap-2 text-teal-200 font-medium text-base">
-                <span className="inline-block w-3 h-3 bg-teal-400 rounded-full animate-pulse"></span>
-                {item}
-              </li>
+      <section className="section short" style={{ minHeight: 0 }}>
+        <div className="ficha">
+          <div>
+            {p.descripcionLarga && <p className="body r" style={{ maxWidth: "62ch", fontSize: "clamp(14px,1.05vw,16px)", color: "var(--fg)" }}>{p.descripcionLarga}</p>}
+            {p.items?.length > 0 && (
+              <div className="r d1" style={{ marginTop: 22 }}>
+                <h2 className="h2">Qué hace</h2>
+                <ul className="dash" style={{ listStyle: "none", margin: 0, padding: 0 }}>{p.items.map((it) => <li key={it}>{it}</li>)}</ul>
+              </div>
+            )}
+            {p.resumenEjecutivo?.secciones?.map((sec) => (
+              <div key={sec.heading} className="r d1" style={{ marginTop: 22 }}>
+                <h2 className="h2">{sinEmoji(sec.heading)}</h2>
+                <ul className="dash" style={{ listStyle: "none", margin: 0, padding: 0 }}>{sec.items.map((it) => <li key={it}>{it}</li>)}</ul>
+              </div>
             ))}
-          </motion.ul>
-        )}
-
-        {proyecto.screenshots && proyecto.screenshots.length > 0 && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ duration: 0.9, delay: 0.23 }}
-            className="mb-10 grid grid-cols-1 sm:grid-cols-2 gap-5"
-          >
-            {proyecto.screenshots.map((img, idx) => (
-              <motion.img
-                key={idx}
-                src={img}
-                alt={`Screenshot ${proyecto.title} ${idx + 1}`}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5, delay: 0.09 * idx }}
-                className="rounded-xl shadow-lg w-full h-48 object-cover border border-fuchsia-800"
-              />
-            ))}
-          </motion.div>
-        )}
-
-        {proyecto.miAporte && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.19 }}
-            className="mb-8 bg-gradient-to-r from-teal-900/30 via-gray-900/80 to-fuchsia-900/30 p-6 rounded-xl shadow-lg"
-          >
-            <h3 className="text-teal-200 font-bold text-xl mb-2 tracking-wide">Mi aporte</h3>
-            <p className="text-gray-200">{proyecto.miAporte}</p>
-          </motion.div>
-        )}
-
-        {proyecto.tecnologias && (
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.21 }}
-            className="mb-8"
-          >
-            <h3 className="text-fuchsia-300 font-bold text-xl mb-3">Tecnologías utilizadas</h3>
-            <div className="flex flex-wrap gap-4 items-center">
-              {proyecto.tecnologias.map((tec, idx) => (
-                <div
-                  key={idx}
-                  className="flex flex-col items-center bg-gray-900/70 rounded-lg px-3 py-2 shadow-md hover:scale-105 transition-all"
-                >
-                  <span className="w-10 h-10 mb-1 flex items-center justify-center text-3xl text-teal-400">
-                    <i className={tec.logo}></i>
-                  </span>
-                  <span className="text-teal-200 text-xs font-mono">{tec.nombre}</span>
+            {p.conclusiones && (
+              <div className="quote r d2" style={{ maxWidth: "62ch", marginTop: 26 }}>
+                <header><h3>Resultado</h3></header>
+                <p style={{ fontSize: 12.5, color: "var(--fg)" }}>{p.conclusiones}</p>
+              </div>
+            )}
+          </div>
+          <aside>
+            {p.miAporte && (
+              <div className="quote r d1" style={{ maxWidth: "none", marginTop: 0 }}>
+                <header><h3>Mi aporte</h3></header>
+                <p>{p.miAporte}</p>
+              </div>
+            )}
+            {p.tecnologias && (
+              <div className="r d2" style={{ marginTop: 18 }}>
+                <div className="eyebrow">Tecnologías</div>
+                <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+                  {p.tecnologias.map((t) => <span key={t.nombre} className="chip"><i className={t.logo} style={{ marginRight: 6, color: "var(--accent)" }} />{t.nombre}</span>)}
                 </div>
-              ))}
-            </div>
-          </motion.div>
-        )}
-
-        {proyecto.resumenEjecutivo &&  <VisualizadorDeInformes {...proyecto.resumenEjecutivo} />}
-          {/* <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.23 }}
-            className="mb-10 bg-gradient-to-r from-green-800/40 via-gray-900/70 to-teal-600/40 p-6 rounded-xl shadow-md"
-          >
-            <h3 className="text-green-200 font-bold text-xl mb-2">📝 Informe Ejecutivo</h3>
-            <div className="text-gray-100 whitespace-pre-line text-sm leading-relaxed">{proyecto.resumenEjecutivo}</div>
-          </motion.div> */}
-
-
-        {proyecto.conclusiones && (
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.24 }}
-            className="mb-10 bg-gradient-to-r from-yellow-800/40 via-gray-900/70 to-teal-700/40 p-6 rounded-xl shadow-md"
-          >
-            <h3 className="text-yellow-200 font-bold text-xl mb-2">Conclusiones / Resultados</h3>
-            <p className="text-gray-100 whitespace-pre-line">{proyecto.conclusiones}</p>
-          </motion.div>
-        )}
-
-        {proyecto.link && (
-          <motion.a
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.28 }}
-            href={proyecto.link}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-block mt-2 text-fuchsia-300 hover:text-teal-300 underline font-bold text-lg transition"
-          >
-            Ver más / Ir al dashboard
-          </motion.a>
-        )}
-      </div>
-    </main>
+              </div>
+            )}
+            {p.screenshots?.length > 0 && (
+              <div className="polaroids r d3" style={{ paddingLeft: 0, maxWidth: "none" }}>
+                {p.screenshots.map((s, i) => {
+                  const src = typeof s === "string" ? s : s.src;
+                  const cap = typeof s === "string" ? `captura ${i + 1}` : s.cap;
+                  return (
+                    <figure key={src} className="polaroid" style={{ width: "min(100%, 260px)" }}>
+                      <div className="ph"><img src={src} alt={cap} style={{ filter: "none" }} /></div>
+                      <figcaption>{cap}</figcaption>
+                    </figure>
+                  );
+                })}
+              </div>
+            )}
+          </aside>
+        </div>
+      </section>
+    </>
   );
 }

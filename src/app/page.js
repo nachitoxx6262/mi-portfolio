@@ -1,768 +1,434 @@
 "use client";
-import '@fortawesome/fontawesome-free/css/all.min.css';
-import "../../styles/globals.css";
-import Navbar from "../components/Navbar";
-import { useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
 import Link from "next/link";
+import { Hud, useLaminas, Marquee, Tools, WhatsAppMock, WmGraph, WmBars, Mark, DeviceStack, SystemsGraph, ReportChart } from "../components/laminas";
 
-// ─── Data ────────────────────────────────────────────────────────────────────
+// ─── Datos ───────────────────────────────────────────────────────────────────
 
-// Stack tecnológico: chips agrupados por categoría (sin porcentajes ni barras)
-const skillCategories = [
-  {
-    label: "Análisis & Datos",
-    icon: "fas fa-chart-line",
-    labelClass: "text-teal-300",
-    iconClass: "text-teal-400",
-    chipHover: "hover:border-teal-400/40 hover:text-teal-200",
-    skills: [
-      { name: 'Power BI',    icon: 'fas fa-chart-bar' },
-      { name: 'SQL',         icon: 'fas fa-database' },
-      { name: 'Python',      icon: 'fab fa-python' },
-      { name: 'Excel',       icon: 'fas fa-file-excel' },
-      { name: 'DAX',         icon: 'fas fa-calculator' },
-      { name: 'Power Query', icon: 'fas fa-filter' },
-    ],
-  },
-  {
-    label: "Desarrollo",
-    icon: "fas fa-code",
-    labelClass: "text-fuchsia-300",
-    iconClass: "text-fuchsia-400",
-    chipHover: "hover:border-fuchsia-400/40 hover:text-fuchsia-200",
-    skills: [
-      { name: 'JavaScript',   icon: 'fab fa-js' },
-      { name: 'TypeScript',   icon: 'fas fa-code' },
-      { name: 'React',        icon: 'fab fa-react' },
-      { name: 'Next.js',      icon: 'fas fa-forward' },
-      { name: 'Node.js',      icon: 'fab fa-node-js' },
-      { name: 'FastAPI',      icon: 'fas fa-bolt' },
-      { name: 'Tailwind CSS', icon: 'fas fa-wind' },
-    ],
-  },
-  {
-    label: "Bases de Datos",
-    icon: "fas fa-database",
-    labelClass: "text-sky-300",
-    iconClass: "text-sky-400",
-    chipHover: "hover:border-sky-400/40 hover:text-sky-200",
-    skills: [
-      { name: 'PostgreSQL', icon: 'fas fa-database' },
-      { name: 'SQL',        icon: 'fas fa-table' },
-    ],
-  },
-  {
-    label: "Integraciones & IA",
-    icon: "fas fa-robot",
-    labelClass: "text-yellow-300",
-    iconClass: "text-yellow-400",
-    chipHover: "hover:border-yellow-400/40 hover:text-yellow-200",
-    skills: [
-      { name: 'WhatsApp API',     icon: 'fab fa-whatsapp' },
-      { name: 'REST APIs',        icon: 'fas fa-plug' },
-      { name: 'Arduino / IoT',    icon: 'fas fa-microchip' },
-      { name: 'Agentes de IA',    icon: 'fas fa-robot' },
-      { name: 'Machine Learning', icon: 'fas fa-brain' },
-    ],
-  },
-  {
-    label: "Herramientas",
-    icon: "fas fa-toolbox",
-    labelClass: "text-gray-300",
-    iconClass: "text-gray-400",
-    chipHover: "hover:border-gray-400/40 hover:text-white",
-    skills: [
-      { name: 'Git',    icon: 'fab fa-git-alt' },
-      { name: 'GitHub', icon: 'fab fa-github' },
-    ],
-  },
-];
-
-const categoryConfig = {
-  "BI & Analytics": {
-    bg: "bg-cyan-500/10", text: "text-cyan-400",
-    border: "border-cyan-500/20", accent: "from-cyan-500 to-teal-400",
-  },
-  "Fullstack": {
-    bg: "bg-fuchsia-500/10", text: "text-fuchsia-400",
-    border: "border-fuchsia-500/20", accent: "from-fuchsia-500 to-purple-400",
-  },
-  "Automatización": {
-    bg: "bg-emerald-500/10", text: "text-emerald-400",
-    border: "border-emerald-500/20", accent: "from-emerald-500 to-teal-400",
-  },
-};
-
-const statusConfig = {
-  live: { label: "En producción", dot: "bg-emerald-400", text: "text-emerald-400" },
-  demo: { label: "Demo interactiva", dot: "bg-sky-400",   text: "text-sky-400"   },
-  dev:  { label: "En desarrollo",   dot: "bg-amber-400",  text: "text-amber-400" },
-};
-
-// ── BI Projects ───────────────────────────────────────────────────────────────
-const proyectosBI = [
-  {
-    title: "Dashboard Eficiencia Productiva",
-    description: "Panel ejecutivo Power BI con KPIs de ingresos, márgenes, cuadrantes de eficiencia por planta y análisis MoM/YoY con semáforos de objetivos. Integra datos de producción, costos y rentabilidad para detectar oportunidades de mejora.",
-    image: "/proyectos/Alimentos_sur.png",
-    slug: "dashboard-eficiencia-productiva",
-    tecnologias: ["Power BI", "SQL", "DAX", "Data Modeling"],
-    link: "proyecto",
-    category: "BI & Analytics",
-    status: "demo",
-  },
-  {
-    title: "Northwind Analytics",
-    description: "Dashboard BI avanzado para optimizar inventarios y logística: modelado relacional SQL, KPIs de rotación de stock, alertas de stock crítico y análisis de proveedores y categorías de productos.",
-    slug: "stock-logistica",
-    image: "/proyectos/northwind_analytics.png",
-    tecnologias: ["Power BI", "SQL", "Data Cleaning"],
-    link: "proyecto",
-    category: "BI & Analytics",
-    status: "demo",
-  },
-];
-
-// ── Dev Projects ──────────────────────────────────────────────────────────────
 const waMessages = [
-  { from: "bot",  text: "👋 ¡Hola! Soy el asistente de turnos médicos. ¿Qué querés hacer?" },
-  { from: "bot",  text: "1️⃣ Sacar un turno\n2️⃣ Ver mis turnos\n3️⃣ Cancelar un turno" },
+  { from: "user", text: "Hola" },
+  { from: "bot",  text: "¡Hola, Juan! Soy Eva, la asistente virtual de la clínica. ¿En qué puedo ayudarte?\n1. Sacar un turno\n2. Consultas generales\n3. Cancelar un turno" },
   { from: "user", text: "1" },
-  { from: "bot",  text: "¿Con qué especialidad?\n\n🫀 Cardiología\n🧠 Neurología\n🦷 Odontología\n👁️ Oftalmología" },
-  { from: "user", text: "Odontología" },
-  { from: "bot",  text: "Días disponibles:\n\n📅 Lunes 17 — 10:00 / 11:30\n📅 Miércoles 19 — 09:00\n📅 Viernes 21 — 16:00\n\n¿Cuál preferís?" },
+  { from: "bot",  text: "¿Qué especialidad necesitás?\n1. Clínica Médica\n2. Cardiología\n3. Traumatología" },
+  { from: "user", text: "1" },
+  { from: "bot",  text: "Horarios disponibles hoy:\n1. 12:00\n2. 12:15\n3. 12:30" },
+  { from: "user", text: "1" },
+  { from: "bot",  text: "✅ Turno confirmado\nClínica Médica · hoy 12:00\nTe esperamos 10 minutos antes." },
 ];
 
-const proyectosDev = [
+const proyectos = [
   {
-    title: "Cuneus Data Studio",
-    description: "Estudio de servicios tecnológicos: datos, automatización y sistemas a medida. Ayudo a empresas a vender mejor, operar con eficiencia y decidir con información real. Del análisis al producto en producción.",
-    tecnologias: ["Next.js", "React", "Tailwind", "JavaScript", "Python"],
-    link: "https://www.cuneusdata.com",
-    category: "Fullstack",
-    status: "live",
-    livePreview: { type: 'web', url: 'https://www.cuneusdata.com', badge: 'Landing' },
-    featured: true,
-  },
-  {
-    title: "Sistema Hotelero",
-    // Placeholder [N_HABITACIONES] queda como string para completarlo a mano luego.
-    description: "Gestión centralizada de habitaciones, reservas y huéspedes: disponibilidad en tiempo real, estados dinámicos por habitación y registro completo de empresas y clientes. En producción y siendo utilizado diariamente. En uso diario por el equipo del hotel para gestionar [N_HABITACIONES] habitaciones.",
-    slug: "sistema-hotelero",
-    image: "/proyectos/hotel.png",
-    tecnologias: ["React", "FastAPI", "Python", "PostgreSQL"],
-    link: "proyecto",
-    category: "Fullstack",
-    status: "live",
-    livePreview: { type: 'web', url: 'https://hotel.cuneusdata.com/', badge: 'App' },
-  },
-  {
-    title: "Sistema Comercial",
-    description: "Plataforma para equipos de ventas: clientes, pedidos, comisiones automáticas, segmentación geográfica y dashboards de rendimiento por vendedor. Usado en operación real por equipos de venta para gestionar clientes y comisiones.",
-    slug: "sistema-comercial",
-    image: "/proyectos/northwind_analytics.png",
-    tecnologias: ["React", "Next.js", "SQL", "JavaScript"],
-    link: "proyecto",
-    category: "Fullstack",
-    status: "live",
-    livePreview: { type: 'web', url: 'https://www.cuneusdata.com/cuneus-comercial', badge: 'App' },
-  },
-  {
-    // Renombrado: antes "Bot Agenda Médica". Es una plataforma healthtech integral, no solo un bot.
-    title: "Sistema de Gestión Clínica",
-    description: "Plataforma healthtech integral en producción para una clínica privada. Incluye historia clínica digital, registro de pacientes, accesos diferenciados por rol para médicos, gestión de turnos con control de ocupación y bot WhatsApp de agendamiento automático 24/7. Sistema completo de salud digital usado diariamente. Atiende automáticamente las consultas y agendamientos de la clínica las 24 horas.",
-    slug: "bot-agenda-medica",
-    tecnologias: ["Node.js", "React", "FastAPI", "PostgreSQL", "WhatsApp API"],
-    link: "proyecto",
-    category: "Automatización",
-    status: "live",
-    livePreview: {
-      type: 'whatsapp',
-      phone: "+54 341 719-9019",
-      waLink: "https://wa.me/543417199019",
-      mensajes: waMessages,
+    id: "p01", palette: "p-carmetal", paper: false, reverse: false,
+    n: "Proyecto 01", sector: "Metalúrgica", chip: "ERP + app de operarios",
+    brand: <>CARMETAL <span className="alt">ERP</span></>,
+    h2: "De un cuello de botella en cotizaciones a un ERP que crece módulo a módulo",
+    body: <>En <strong>CARMETAL</strong> la información estaba repartida en mails, planillas y papel, y cotizar dependía de un solo software y de una sola persona. El ERP nació para <strong>automatizar y centralizar la información de las cotizaciones</strong>, y desde ahí se fue expandiendo módulo a módulo. Hoy la empresa usa a diario lo que se encuentra en producción, mientras se sigue sumando funcionalidad.</>,
+    bullets: [
+      "Cotización automática desde el plano DXF, con tiempo de corte calibrado contra la máquina: de una tarde por presupuesto a minutos",
+      "Módulos que se sumaron después: producción, stock, compras, remitos, facturación electrónica y tablero de dirección",
+      "App móvil desarrollada en paralelo: los operarios cargan desde el taller y el supervisor controla en vivo qué se está haciendo",
+    ],
+    tools: ["api", "pg", "re", "ts", "rn", "dk"],
+    kpis: [["31", "módulos"], ["383", "endpoints"], ["891", "tests"]],
+    estado: "En producción · desde mayo 2026",
+    cliente: "Metalúrgica de corte láser y plegado", rol: "Relevamiento, diseño y desarrollo completo",
+    slug: "carmetal-erp", site: "https://carmetal.cuneusdata.cloud",
+    devices: {
+      monitor: { img: "/proyectos/carmetal/nesting-erp.jpg", alt: "Cotización técnica con nesting por chapa" },
+      laptop: { img: "/proyectos/carmetal/hoja-tecnica.jpg", alt: "Hoja técnica de producción" },
+      tablet: { img: "/proyectos/carmetal/orden-produccion.jpg", alt: "Orden de producción" },
+      phone: { img: "/proyectos/carmetal/app-chapa.jpg", alt: "App de operarios, pantalla de chapa" },
     },
+    mocks: [],
   },
   {
-    title: "Monitoreo Hidropónico",
-    description: "Visualización en tiempo real de sensores Arduino con web fullstack para monitorear cultivos hidropónicos: temperatura, humedad y pH desde cualquier dispositivo.",
-    slug: "sistema-ml-agricola",
-    image: "/proyectos/hidroponic.png",
-    tecnologias: ["React", "Node.js", "Arduino", "PostgreSQL"],
-    link: "https://hidroponic.vercel.app/",
-    category: "Fullstack",
-    status: "live",
-    livePreview: { type: 'web', url: 'https://hidroponic.vercel.app/', badge: 'Live' },
+    id: "p02", palette: "p-eva", paper: true, reverse: true,
+    n: "Proyecto 02", sector: "Salud", chip: "Healthtech",
+    brand: <><span className="alt">Eva</span> · Gestión clínica</>,
+    h2: "De un bot de WhatsApp a la plataforma completa de la clínica",
+    body: <>En la clínica una recepcionista llevaba <strong>cinco conversaciones a la vez</strong>, cada una con una consulta distinta, mientras el mostrador se llenaba de pacientes esperando que la miraran. Y de noche no contestaba nadie. <strong>Eva</strong> nació como un bot de WhatsApp para sacar turno sin llamar, y enseguida quedó claro que necesitaba de dónde leer: la agenda vivía en un cuaderno y la caja en una planilla. Desde ahí creció hasta ser el sistema donde trabajan <strong>recepción, médicos y administración</strong>.</>,
+    bullets: [
+      "El bot atiende a toda hora: reconoce al paciente, ofrece los horarios reales del día y deja el turno reservado sin que intervenga nadie",
+      "Alrededor del bot: agenda por médico, historia clínica, caja con arqueo y liquidación, cupos por obra social",
+      "Multi-clínica: cada clínica en su propio subdominio, con los datos aislados por la base de datos",
+    ],
+    tools: ["api", "pg", "re", "ts", "n8n", "wa"],
+    kpis: [["24/7", "atención"], ["177", "endpoints"], ["190", "tests"]],
+    estado: "En producción · mantenimiento mensual",
+    cliente: "Clínica privada", rol: "Diseño, desarrollo, bot y mantenimiento",
+    slug: "bot-agenda-medica", site: "https://asistentevirtualeva.cloud", wa: "https://wa.me/543417199019",
+    mocks: [
+      { cls: "free", style: { width: "92%", left: "4%", top: "50%", transform: "translateY(-50%)" }, img: "/proyectos/eva/eva-celu.png", label: "" },
+    ],
   },
   {
-    title: "Sistema de Restaurant",
-    description: "Operación gastronómica digital: mesas, pedidos con notas especiales y comandas enviadas a cocina al instante. Sin papelitos, sin caos. En desarrollo activo.",
+    oculto: true,
+    id: "p03", palette: "p-hotel", paper: false, reverse: false,
+    n: "Proyecto 03", sector: "Hotelería", chip: "SaaS",
+    brand: <>Sistema <span className="alt">Hotelero</span></>,
+    h2: "Reservas, habitaciones y cobro online",
+    body: <>Gestión hotelera multi-tenant: cada hotel vive aislado en la misma base gracias a <strong>Row Level Security</strong> en PostgreSQL. El aislamiento lo hace la base, no el código.</>,
+    bullets: ["Habitaciones con estado en tiempo real, reservas, huéspedes y empresas", "Planes de tarifas y cobro online con Mercado Pago", "Facturación electrónica ARCA integrada"],
+    tools: ["api", "pg", "re", "mp", "dk"],
+    kpis: null,
+    estado: "En producción",
+    cliente: "Hotel independiente", rol: "Diseño y desarrollo",
+    slug: "sistema-hotelero", site: "https://hotel.cuneusdata.com/",
+    mocks: [
+      { cls: "shot", style: { width: "70%", left: "0", top: "0", transform: "rotate(-2deg)" }, img: "/proyectos/hotel.png", label: "PANEL DEL HOTEL" },
+    ],
+    card: { title: "Reserva · ejemplo", kind: "rows", style: { right: "0", bottom: "4%", width: "44%" },
+      items: [["Habitación", "204 · doble"], ["Check-in", "vie 12/09"], ["Check-out", "lun 15/09"], ["Cobro", "Mercado Pago · aprobado"], ["Factura", "ARCA · emitida"]] },
+  },
+  {
+    oculto: true,
+    id: "p04", palette: "p-comercial", paper: true, reverse: true,
+    n: "Proyecto 04", sector: "Ventas", chip: "Comercial",
+    brand: <>Sistema <span className="alt">Comercial</span></>,
+    h2: "Clientes, pedidos y comisiones",
+    body: <>Plataforma para equipos de ventas, usada en operación real: la empresa ve la cartera completa y cada vendedor ve su rendimiento sin esperar un informe.</>,
+    bullets: ["Cartera de clientes y pedidos por período, cliente y zona", "Comisiones automáticas, sin discusiones a fin de mes", "Dashboards de rendimiento por vendedor y clientes a reactivar"],
+    tools: ["re", "nx", "sql", "pbi"],
+    kpis: null,
+    estado: "En producción",
+    cliente: "Equipo de ventas", rol: "Diseño y desarrollo",
+    slug: "sistema-comercial", site: "https://www.cuneusdata.com/cuneus-comercial",
+    mocks: [
+      { cls: "shot", style: { width: "68%", left: "0", top: "0", transform: "rotate(-1.5deg)" }, img: "/proyectos/comercial.jpg", label: "SISTEMA COMERCIAL" },
+    ],
+    card: { title: "Cartera · segmentación", kind: "rows", light: true, style: { right: "2%", bottom: "2%", width: "46%" },
+      items: [["Activos", "compraron en los últimos 90 días"], ["Inactivos", "sin pedidos en el período"], ["A reactivar", "alto valor histórico, hoy quietos"], ["Comisión", "calculada por venta y vendedor"]] },
+  },
+  {
+    oculto: true,
+    id: "p05", palette: "p-resto", paper: true, reverse: true,
+    n: "Proyecto 05", sector: "Gastronomía", chip: "En desarrollo",
+    brand: <>Sistema <span className="alt">Restaurant</span></>,
+    h2: "Mesas, pedidos y comandas a cocina",
+    body: <>Operación del salón sin papelitos: el pedido se carga en la mesa y la comanda sale impresa en cocina. Desplegado en un restaurante y en desarrollo activo.</>,
+    bullets: ["Pedidos por mesa con notas especiales por plato", "Comandas impresas en térmica por un agente local que se reconecta solo", "Caja con apertura y cierre, multi-tenant"],
+    tools: ["api", "pg", "rd", "re", "py"],
+    kpis: null,
+    estado: "Desplegado · en desarrollo",
+    cliente: "Restaurante", rol: "Diseño y desarrollo",
     slug: "sistema-restaurant",
-    image: "/proyectos/Alimentos_sur.png",
-    tecnologias: ["React", "FastAPI", "Python", "PostgreSQL"],
-    link: "proyecto",
-    category: "Fullstack",
-    status: "dev",
+    mocks: [
+      { cls: "shot", style: { width: "32%", left: "6%", top: "0", transform: "rotate(-4deg)", background: "#fff" }, img: "/proyectos/restaurant/comanda.png", label: "COMANDA" },
+    ],
+    card: { title: "Pedido #42 · Mesa 3", kind: "rows", light: true, style: { right: "4%", top: "10%", width: "52%" },
+      items: [["2×", "Milanesa napolitana · jugoso, sin papas"], ["1×", "Empanadas (3 u.)"], ["1×", "Bife de chorizo · a punto"], ["Cocina", "impreso 19:24"]] },
   },
 ];
 
-const stats = [
-  { value: "7+", label: "Proyectos" },
-  { value: "3",  label: "En producción" },
-  { value: "4",  label: "Rubros" },
-  { value: "∞",  label: "Café ☕" },
+const metodo = [
+  { n: "01", t: "La pregunta", p: "Antes de mirar un solo dato: qué decisión hay que tomar, o qué se sospecha que está pasando. Sin objetivo, un informe es una pila de números prolijos que nadie usa." },
+  { n: "02", t: "Relevar", p: "Qué números existen hoy, dónde viven y quién los carga. Casi siempre están, pero repartidos entre planillas, sistemas y la cabeza de alguien." },
+  { n: "03", t: "Acordar", p: "Un primer resultado hecho a mano, para mirarlo juntos: si responde la pregunta, qué le falta y si se entiende sin alguien explicándolo al lado." },
+  { n: "04", t: "Automatizar", p: "Con el contenido ya firme, se automatiza lo repetitivo: juntar los datos, cruzarlos y generar la salida. Deja de depender de que alguien se acuerde." },
+  { n: "05", t: "Sostener", p: "Lo que se consulta seguido pasa a un tablero; el resto se rehace cuando cambian las preguntas. Un análisis que nadie discute dejó de servir." },
 ];
 
-// ─── Page ────────────────────────────────────────────────────────────────────
+// Poner `oculto: true` en un proyecto lo saca de la home sin borrar nada:
+// su ficha sigue existiendo, solo deja de estar enlazada.
+const visibles = proyectos.filter((p) => !p.oculto);
+
+const servicios = [
+  { n: "01", t: "Informes financieros para directorio", p: "Resultado mensual, rentabilidad, cuentas por cobrar vencidas y cumplimiento de objetivos, con metas y semáforos. Cada área carga sus números y el informe se arma solo.", e: "Excel + PDF · tablero · hoja de revisión" },
+  { n: "02", t: "Análisis de ventas", p: "Rendimiento por vendedor, cliente, producto y zona; cartera activa e inactiva; estacionalidad; comisiones y oportunidades de reactivación. Con recomendaciones concretas.", e: "Informe mensual · tablero · clientes a recuperar" },
+  { n: "03", t: "Tableros ejecutivos en Power BI", p: "KPIs con objetivo y desvío, comparación mensual e interanual, cuadrantes de eficiencia y alertas. Modelado de datos y DAX sobre las fuentes que la empresa ya tiene.", e: "Tablero publicado · página ejecutiva" },
+  { n: "04", t: "Automatización de reportes", p: "Scripts que consolidan planillas de distintas áreas, validan lo cargado, avisan qué falta y generan el informe en Excel o PDF. Se corren con doble clic o solos cada mes.", e: "Consolidador + instructivo" },
+  { n: "05", t: "Calidad y conciliación de datos", p: "Duplicados, inconsistencias y conciliación entre sistemas y planillas, con reglas de validación para que el error no vuelva a entrar.", e: "Hallazgos con prioridad · plan de corrección" },
+  { n: "06", t: "Documentos ejecutivos", p: "Relevamiento de procesos, resúmenes funcionales de sistemas, propuestas y presupuestos por etapa. Escritos para que la dirección decida.", e: "PDF o web · alcance · plan de trabajo" },
+];
+
+const dashboards = [
+  { slug: "dashboard-eficiencia-productiva", file: "eficiencia_productiva.pbix", img: "/proyectos/Alimentos_sur.png", cap: "Eficiencia productiva y finanzas · Power BI" },
+  { slug: "stock-logistica", file: "northwind_stock.pbix", img: "/proyectos/northwind_analytics.png", cap: "Northwind · ejercicio con datos de muestra · Power BI" },
+];
+
+// ─── Página ──────────────────────────────────────────────────────────────────
 
 export default function Home() {
-  const aboutRef     = useRef(null);
-  const skillsRef    = useRef(null);
-  const proyectosRef = useRef(null);
-  const contactoRef  = useRef(null);
-
-  const scrollTo = (ref) => ref.current?.scrollIntoView({ behavior: "smooth" });
+  useLaminas();
 
   return (
-    <main className="min-h-screen bg-[#06060f] text-white font-sans overflow-x-hidden">
+    <>
+      <Hud />
 
-      <Navbar
-        scrollTo={scrollTo}
-        aboutRef={aboutRef}
-        proyectosRef={proyectosRef}
-        skillsRef={skillsRef}
-        contactoRef={contactoRef}
-      />
+      {/* ============ 01 · PORTADA ============ */}
+      <section className="section hero" id="top">
+        <WmGraph style={{ width: 420, top: -60, left: -80, transform: "rotate(14deg)" }} />
+        <WmBars style={{ width: 460, bottom: -60, right: -70, transform: "rotate(-10deg)" }} />
 
-      {/* ── Hero ─────────────────────────────────────────────────────────── */}
-      <section
-        ref={aboutRef}
-        className="relative min-h-screen flex flex-col items-center justify-center px-6 pt-24 pb-16"
-      >
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-teal-500/8 rounded-full blur-[130px] animate-blob" />
-          <div className="absolute top-1/3 right-1/4 w-[380px] h-[380px] bg-fuchsia-500/8 rounded-full blur-[110px] animate-blob" style={{ animationDelay: '4s' }} />
-          <div className="absolute bottom-1/4 left-1/2 w-[280px] h-[280px] bg-yellow-500/5 rounded-full blur-[90px] animate-blob" style={{ animationDelay: '8s' }} />
-        </div>
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            backgroundImage: 'radial-gradient(rgba(255,255,255,0.055) 1px, transparent 1px)',
-            backgroundSize: '28px 28px',
-            maskImage: 'radial-gradient(ellipse 80% 70% at 50% 50%, black 30%, transparent 100%)',
-            WebkitMaskImage: 'radial-gradient(ellipse 80% 70% at 50% 50%, black 30%, transparent 100%)',
-          }}
-        />
+        <div className="stage" id="stage">
+          <svg className="wire" viewBox="0 0 1000 500" preserveAspectRatio="none" aria-hidden="true">
+            <path d="M120 260 C 260 420, 420 430, 540 330 S 820 150, 960 220" />
+            <path d="M180 300 C 300 200, 430 210, 520 300" />
+          </svg>
 
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="relative z-10 flex flex-col items-center text-center max-w-3xl"
-        >
-          <div className="relative mb-6">
-            <div className="absolute -inset-2 rounded-full bg-gradient-to-r from-teal-400 via-fuchsia-500 to-yellow-400 opacity-35 blur-xl" />
-            <div className="absolute -inset-0.5 rounded-full bg-gradient-to-r from-teal-400 via-fuchsia-500 to-yellow-400 animate-spin-slow" />
-            <motion.img
-              src="/avatar.jpg"
-              alt="Ignacio Peñamaria"
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ type: "spring", stiffness: 100, delay: 0.25 }}
-              className="relative w-32 h-32 rounded-full object-cover border-[3px] border-[#06060f]"
-            />
+          <div className="prop p1" data-depth="26"><div className="box"><span className="kpi">891<small>tests en producción</small></span><span className="lbl">CARMETAL ERP</span></div></div>
+          <div className="prop p2" data-depth="42"><div className="box" style={{ color: "#1a1a1a" }}><span className="kpi" style={{ color: "#1a1a1a" }}>24/7<small style={{ color: "#444" }}>WhatsApp</small></span><span className="lbl" style={{ color: "#333" }}>EVA</span></div></div>
+          <div className="prop p3" data-depth="18"><div className="box"><pre>{`SELECT vendedor, SUM(total)
+FROM pedidos
+GROUP BY 1 ORDER BY 2 DESC;`}</pre><span className="lbl">SQL</span></div></div>
+          <div className="prop p4" data-depth="34"><div className="box"><pre style={{ color: "#EFDEC6" }}>{`MoM % =
+DIVIDE(
+  [Ventas] - [Ventas PM],
+  [Ventas PM])`}</pre><span className="lbl">DAX</span></div></div>
+
+          <div className="title">
+            <div className="guides">
+              <span className="tick tl">ANALYTICS</span>
+              <span className="tick br">2026</span>
+              <h1 className="display hero solid r" style={{ margin: 0 }}>Data<br />Portfolio</h1>
+            </div>
           </div>
+          <span className="sticker r d2">IGNACIO PEÑAMARIA</span>
+        </div>
 
-          <motion.h1
-            initial={{ opacity: 0, y: -12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.4 }}
-            className="text-4xl sm:text-6xl font-extrabold mb-3 tracking-tight"
-          >
-            <span className="bg-gradient-to-r from-teal-300 via-fuchsia-400 to-yellow-400 bg-clip-text text-transparent">
-              Ignacio Peñamaria
-            </span>
-          </motion.h1>
-
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.6 }}
-            className="flex flex-wrap justify-center gap-2 mb-4"
-          >
-            {["Ciencia de Datos", "Backend", "Visualización BI", "Fullstack"].map((role) => (
-              <span key={role} className="text-xs font-semibold text-gray-300 bg-white/5 border border-white/10 px-3 py-1 rounded-full">
-                {role}
-              </span>
-            ))}
-          </motion.div>
-
-          <motion.div
-            initial={{ scale: 0.85, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.75 }}
-            className="inline-flex items-center gap-2 bg-gradient-to-r from-fuchsia-900/50 to-teal-900/50 border border-fuchsia-700/25 px-4 py-1.5 rounded-full mb-5"
-          >
-            <i className="fas fa-graduation-cap text-fuchsia-300 text-sm" />
-            <span className="text-fuchsia-200 text-sm font-medium">
-              Estudiante avanzado · Lic. en Ciencia de Datos
-              <span className="text-fuchsia-500/60 text-xs ml-1">· Universidad Siglo 21</span>
-            </span>
-          </motion.div>
-
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.9, delay: 0.9 }}
-            className="text-gray-400 text-base sm:text-lg leading-relaxed mb-6 max-w-xl"
-          >
-            Transformo datos en decisiones y procesos en sistemas que funcionan. Fundé{" "}
-            <a href="https://www.cuneusdata.com" target="_blank" rel="noopener noreferrer"
-              className="text-teal-400 font-semibold hover:text-teal-300 underline underline-offset-2 transition">
-              Cuneus Data Studio
-            </a>
-            {" "}para ayudar a empresas a vender mejor, operar con eficiencia y decidir con datos reales.
-          </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 1.05 }}
-            className="flex gap-8 sm:gap-12 mb-8 py-4 px-8 rounded-2xl bg-white/[0.03] border border-white/[0.07]"
-          >
-            {stats.map((s) => (
-              <div key={s.label} className="text-center">
-                <div className="text-2xl sm:text-3xl font-extrabold bg-gradient-to-b from-white to-gray-400 bg-clip-text text-transparent">
-                  {s.value}
-                </div>
-                <div className="text-[10px] text-gray-600 mt-0.5 uppercase tracking-widest">{s.label}</div>
-              </div>
-            ))}
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 1.2 }}
-            className="flex flex-wrap justify-center gap-3"
-          >
-            <a href="https://github.com/nachitoxx6262" target="_blank" rel="noopener noreferrer"
-              className="flex items-center gap-2 bg-white/5 hover:bg-white/10 border border-white/10 px-4 py-2.5 rounded-full text-sm font-medium transition-all duration-200 hover:scale-105">
-              <i className="fab fa-github" /> GitHub
-            </a>
-            <a href="https://www.linkedin.com/in/ignacio-peniamaria/" target="_blank" rel="noopener noreferrer"
-              className="flex items-center gap-2 bg-sky-500/10 hover:bg-sky-500/20 border border-sky-500/20 text-sky-300 px-4 py-2.5 rounded-full text-sm font-medium transition-all duration-200 hover:scale-105">
-              <i className="fab fa-linkedin" /> LinkedIn
-            </a>
-            <a href="https://www.cuneusdata.com" target="_blank" rel="noopener noreferrer"
-              className="flex items-center gap-2 bg-gradient-to-r from-teal-600 to-fuchsia-600 hover:from-teal-500 hover:to-fuchsia-500 text-white px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-200 hover:scale-105 shadow-lg shadow-teal-900/30">
-              <i className="fas fa-rocket text-xs" /> Cuneus Data Studio
-            </a>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 0.45 }}
-            transition={{ delay: 2.2, duration: 0.8 }}
-            className="mt-14"
-          >
-            <motion.i
-              className="fas fa-chevron-down text-base text-gray-500"
-              animate={{ y: [0, 7, 0] }}
-              transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
-            />
-          </motion.div>
-        </motion.div>
+        <p className="lead r d2">Construyo los sistemas que una metalúrgica, una clínica privada y un hotel usan todos los días, y los informes con los que sus directorios deciden.</p>
+        <div className="ctas r d3">
+          <a href="#sistemas" className="btn fill">Ver los sistemas</a>
+          <a href="#reporting" className="btn">Reporting</a>
+        </div>
       </section>
 
-      {/* ── BI & Analytics ───────────────────────────────────────────────── */}
-      <SectionFadeIn refProp={proyectosRef}>
-        <SectionHeader
-          number="01"
-          title="BI & Analytics"
-          subtitle="Dashboards ejecutivos e inteligencia de negocio para decisiones basadas en datos."
-          accent="from-cyan-400 to-teal-400"
-        />
-        <div className="grid md:grid-cols-2 gap-5 max-w-5xl mx-auto">
-          {proyectosBI.map((p, i) => <BiCard key={i} {...p} idx={i} />)}
-        </div>
-      </SectionFadeIn>
+      <Marquee items={["Sistemas en producción", "Reporting & Scripting", "Análisis de ventas", "Power BI"]} />
 
-      {/* ── Desarrollo & Automatización ──────────────────────────────────── */}
-      <SectionFadeIn>
-        <SectionHeader
-          number="02"
-          title="Desarrollo & Automatización"
-          subtitle="Sistemas fullstack, bots y plataformas en producción — podés interactuar con ellos ahora mismo."
-          accent="from-fuchsia-400 to-purple-400"
-        />
-        <div className="flex flex-col gap-6 max-w-5xl mx-auto">
-          {proyectosDev.map((p, i) => <DevCard key={i} {...p} idx={i} />)}
+      {/* ============ 02 · SOBRE MÍ ============ */}
+      <section className="section paper about" id="about">
+        <div className="portrait">
+          <figure className="photo r">
+            <img src="/avatar.jpg" alt="Ignacio Peñamaria" />
+            <figcaption>Ignacio · Carcarañá, 2026</figcaption>
+          </figure>
+          <span className="sticker" style={{ position: "absolute", bottom: "10%", right: "2%", transform: "rotate(-2deg)" }}>Hecho en Carcarañá</span>
         </div>
-      </SectionFadeIn>
 
-      {/* ── Skills ───────────────────────────────────────────────────────── */}
-      <SectionFadeIn refProp={skillsRef}>
-        <SectionHeader
-          number="03"
-          title="Stack tecnológico"
-          subtitle="Herramientas con las que construyo, analizo y entrego valor cada día."
-          accent="from-sky-400 to-teal-400"
-        />
-        {/* Grilla de categorías con chips — diseño limpio sin porcentajes ni barras */}
-        <div className="grid md:grid-cols-2 gap-5 max-w-5xl mx-auto">
-          {skillCategories.map((group, gi) => (
-            <motion.div
-              key={gi}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.55, delay: gi * 0.1 }}
-              className="bg-white/[0.03] border border-white/[0.07] rounded-2xl p-6 hover:border-white/[0.12] transition-colors"
-            >
-              <div className="flex items-center gap-2.5 mb-5 pb-4 border-b border-white/[0.06]">
-                <i className={`${group.icon} ${group.iconClass} text-sm`} />
-                <h3 className={`${group.labelClass} font-bold text-[11px] uppercase tracking-widest`}>
-                  {group.label}
-                </h3>
+        <div>
+          <div style={{ position: "relative", display: "inline-block", width: "100%" }}>
+            <div className="guides" style={{ width: "100%" }}>
+              <h1 className="r">Hola! Soy <em>Ignacio</em> Peñamaria</h1>
+            </div>
+            <div className="stamp"><span>CARCARAÑÁ</span><span>SANTA FE · AR</span></div>
+          </div>
+
+          <div className="cols" style={{ marginTop: 14 }}>
+            <div className="r d1">
+<p className="body" style={{ color: "#3a3a3a" }}>
+  Desarrollador fullstack con foco en datos. Desde <strong>Cuneus Data Studio</strong> construyo sistemas que se usan todos los días: el ERP y la app de operarios de una metalúrgica, la plataforma de una clínica con su bot de WhatsApp, un hotel, un equipo de ventas. Y cuando el dato nace en un sensor, también lo integro.
+</p>
+<p className="body" style={{ color: "#3a3a3a" }}>
+  Empiezo cada proyecto en el lugar donde pasa el trabajo: la planta, la recepción, el mostrador. De ahí salen las reglas que después van al código. En paralelo, <strong>trabajo como analista de datos</strong>: tableros, modelos y los informes con los que las áreas y la dirección deciden.
+</p>
+            </div>
+
+            <div className="r d2">
+              <h2 className="h2">Experiencia</h2>
+              <div className="tl">
+                <span className="yr">2026<br />HOY</span>
+                <span><span className="rol">Cuneus Data Studio</span><br /><span className="org">Fundador · sistemas, reporting y automatización</span></span>
+                <span className="note">ERP metalúrgico, gestión clínica, hotel y comercial en producción.</span>
               </div>
-              <div className="flex flex-wrap gap-2">
-                {group.skills.map((skill, si) => (
-                  <motion.span
-                    key={si}
-                    initial={{ opacity: 0, scale: 0.92 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.3, delay: 0.1 + gi * 0.05 + si * 0.04 }}
-                    className={`inline-flex items-center gap-2 bg-white/[0.04] border border-white/[0.08] text-gray-300 px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-200 ${group.chipHover}`}
-                  >
-                    <i className={`${skill.icon} text-[11px] ${group.iconClass} opacity-80`} />
-                    {skill.name}
-                  </motion.span>
-                ))}
+              <div className="tl">
+                <span className="yr">2026<br />HOY</span>
+                <span><span className="rol">Analista de ventas</span><br /><span className="org">Informes comerciales y análisis de cartera</span></span>
               </div>
-            </motion.div>
-          ))}
-        </div>
-      </SectionFadeIn>
+              <div className="tl">
+                <span className="yr green">2025<br />2026</span>
+                <span><span className="rol">Software y BI</span><br /><span className="org">Sistemas internos, APIs y modelado de datos</span></span>
+              </div>
+              <div className="tl">
+                <span className="yr green">2026</span>
+                <span><span className="rol">CARMETAL · ERP y app de operarios</span><br /><span className="org">Metalúrgica de corte láser y plegado</span></span>
+                <span className="note">Cotizador, producción, operarios, facturación y tablero de dirección, entregados por etapas.</span>
+              </div>
+            </div>
 
-      {/* ── Contact ──────────────────────────────────────────────────────── */}
-      {/* Sección "04 Certificaciones" eliminada — renumerado: Contacto pasa de 05 a 04 */}
-      <SectionFadeIn refProp={contactoRef}>
-        <SectionHeader
-          number="04"
-          title="Hablemos"
-          subtitle="Freelance, posición full-time o simplemente una consulta — estoy disponible."
-          accent="from-teal-400 to-fuchsia-400"
-        />
-        <div className="max-w-2xl mx-auto">
-          <div className="relative overflow-hidden rounded-3xl bg-white/[0.03] border border-white/[0.08] p-8 sm:p-10">
-            <div className="absolute -top-10 -right-10 w-56 h-56 bg-teal-500/10 rounded-full blur-3xl pointer-events-none" />
-            <div className="absolute -bottom-10 -left-10 w-48 h-48 bg-fuchsia-500/10 rounded-full blur-3xl pointer-events-none" />
-            <p className="relative text-gray-300 text-base sm:text-lg leading-relaxed mb-8">
-              Si tenés un problema de datos, necesitás un sistema que funcione o simplemente querés charlar sobre tecnología — escribime.
-            </p>
-            <div className="relative flex flex-col sm:flex-row flex-wrap gap-3">
-              <a href="mailto:ignaciopenamaria@gmail.com"
-                className="flex items-center justify-center gap-2 bg-gradient-to-r from-teal-600 to-fuchsia-600 hover:from-teal-500 hover:to-fuchsia-500 text-white font-semibold px-5 py-3 rounded-xl transition-all hover:scale-105 shadow-lg shadow-teal-900/20 text-sm">
-                <i className="fas fa-envelope" /> ignaciopenamaria@gmail.com
-              </a>
-              <a href="https://www.linkedin.com/in/ignacio-peniamaria/" target="_blank" rel="noopener noreferrer"
-                className="flex items-center justify-center gap-2 bg-sky-600/15 hover:bg-sky-600/25 border border-sky-500/25 text-sky-300 font-semibold px-5 py-3 rounded-xl transition-all hover:scale-105 text-sm">
-                <i className="fab fa-linkedin" /> LinkedIn
-              </a>
-              <a href="https://wa.me/543413073307" target="_blank" rel="noopener noreferrer"
-                className="flex items-center justify-center gap-2 bg-emerald-600/15 hover:bg-emerald-600/25 border border-emerald-500/25 text-emerald-300 font-semibold px-5 py-3 rounded-xl transition-all hover:scale-105 text-sm">
-                <i className="fab fa-whatsapp" /> WhatsApp
-              </a>
-              {/* Botón de descarga del CV — el PDF debe colocarse en /public/CV_Ignacio_Penamaria.pdf */}
-              <a href="/CV_Ignacio_Penamaria.pdf" download
-                className="flex items-center justify-center gap-2 bg-fuchsia-600/15 hover:bg-fuchsia-600/25 border border-fuchsia-500/25 text-fuchsia-200 font-semibold px-5 py-3 rounded-xl transition-all hover:scale-105 text-sm">
-                <i className="fas fa-file-arrow-down" /> Descargar CV
-              </a>
+            <div className="r d3">
+              <h2 className="h2">Estudios <span className="type" style={{ fontSize: 9, color: "var(--accent)" }}>ESP / ENG</span></h2>
+              <div className="tl">
+                <span className="yr green">HOY</span>
+                <span><span className="rol">Lic. en Ciencia de Datos</span><br /><span className="org">Universidad Siglo 21 · estudiante avanzado</span></span>
+              </div>
+              <h2 className="h2" style={{ marginTop: 18 }}>Enfoque</h2>
+              <ul className="bullets"><li>Sistemas en producción</li><li>Reporting para directorio</li><li>Análisis de ventas</li><li>Automatización</li></ul>
+              <h2 className="h2" style={{ marginTop: 18 }}>Herramientas</h2>
+              <Tools keys={["py", "pbi", "dax", "sql", "api", "pg", "re", "ts", "dk", "xl"]} />
             </div>
           </div>
-        </div>
-      </SectionFadeIn>
 
-      {/* ── Footer ───────────────────────────────────────────────────────── */}
-      <footer className="border-t border-white/[0.05] py-8 px-6">
-        <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 text-sm text-gray-600">
-          <span>© {new Date().getFullYear()} Ignacio Peñamaria</span>
-          <span className="flex items-center gap-1.5">
-            Hecho con <i className="fas fa-heart text-fuchsia-700" /> y demasiado café
-          </span>
-          <div className="flex gap-5">
-            <a href="https://github.com/nachitoxx6262" target="_blank" rel="noopener noreferrer" className="hover:text-teal-400 transition"><i className="fab fa-github" /></a>
-            <a href="https://www.linkedin.com/in/ignacio-peniamaria/" target="_blank" rel="noopener noreferrer" className="hover:text-sky-400 transition"><i className="fab fa-linkedin" /></a>
-            <a href="https://www.cuneusdata.com" target="_blank" rel="noopener noreferrer" className="hover:text-teal-400 transition"><i className="fas fa-rocket" /></a>
+          <div className="polaroids r d4">
+            <figure className="polaroid"><div className="ph"><img src="/proyectos/Alimentos_sur.png" alt="Tablero ejecutivo" /></div><figcaption>tablero_v2.pbix</figcaption></figure>
+            <figure className="polaroid"><div className="ph"><img src="/proyectos/carmetal/cockpit.jpg" alt="Cockpit de producción" /></div><figcaption>planta</figcaption></figure>
+            <figure className="polaroid"><div className="ph"><img src="/proyectos/hotel.png" alt="Panel del hotel" /></div><figcaption>recepción</figcaption></figure>
           </div>
         </div>
-      </footer>
-    </main>
-  );
-}
+      </section>
 
-// ─── Helper components ────────────────────────────────────────────────────────
+      {/* ============ 03 · DIVISOR SISTEMAS ============ */}
+      <section className="section divider" id="sistemas">
+        <WmGraph style={{ width: 380, bottom: "12%", left: -80, transform: "rotate(24deg)" }} />
+        <div className="txt">
+          <div className="guides">
+            <h2 className="display outline r">Sistemas <span className="tiny">en</span></h2>
+            <h2 className="display solid r d1">producción</h2>
+          </div>
+          <div><span className="sticker r d2">software a medida, en uso diario</span></div>
+        </div>
+        <div className="fig r d1"><SystemsGraph /></div>
+        <nav className="tabs">
+          {visibles.map((p) => <a key={p.id} className="tab" href={`#${p.id}`}>{p.n.replace("Proyecto ", "")} · {p.sector}</a>)}
+        </nav>
+      </section>
 
-function SectionFadeIn({ children, refProp }) {
-  const localRef = useRef(null);
-  const ref = refProp ?? localRef;
-  const isInView = useInView(ref, { once: true });
-  return (
-    <motion.section
-      ref={ref}
-      initial={{ opacity: 0, y: 40 }}
-      animate={isInView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.85, ease: 'easeOut' }}
-      className="py-20 px-6"
-    >
-      {children}
-    </motion.section>
-  );
-}
+      {/* ============ PROYECTOS ============ */}
+      {visibles.map((p) => (
+        <section key={p.id} className={`section project ${p.paper ? "paper" : ""} ${p.reverse ? "reverse" : ""} ${p.palette}`} id={p.id}>
+          <div className="panel">
+            <span className="chip r">{p.chip}</span>
+            <p className="eyebrow r d1"><b>{p.n}</b><i>/</i>{p.sector}</p>
+            <h2 className="brandmark r d1">{p.brand}</h2>
+            <h3 className="h2 r d2">{p.h2}</h3>
+            <p className="body r d2">{p.body}</p>
+            {p.bullets && <ul className="bullets pbul r d2">{p.bullets.map((b) => <li key={b}>{b}</li>)}</ul>}
+            <div className="tools-row r d3">
+              <div className="lbl">Stack</div>
+              <Tools keys={p.tools} />
+            </div>
+            <div className="links r d3">
+              {p.slug && <Link href={`/proyectos/${p.slug}`} className="btn fill">Ver ficha</Link>}
+              {p.wa && <a href={p.wa} target="_blank" rel="noopener noreferrer" className="btn"><i className="fab fa-whatsapp" /> Probar el bot</a>}
+              {p.site && <a href={p.site} target="_blank" rel="noopener noreferrer" className="btn">{p.site.replace(/^https?:\/\/(www\.)?/, "").replace(/\/$/, "")}</a>}
+            </div>
+            <div className="quote r d4">
+              <header><h3>Ficha</h3><span className="stars">{p.estado}</span></header>
+              {p.kpis && <div className="kpis">{p.kpis.map(([v, l]) => <div key={l}><b>{v}</b><span>{l}</span></div>)}</div>}
+              <div className="meta"><span>Cliente</span><b>{p.cliente}</b><span>Rol</span><b>{p.rol}</b></div>
+            </div>
+          </div>
+          <div className="visual">
+            {p.devices && <div className="r d1"><DeviceStack {...p.devices} ring={false} /></div>}
+            {p.card && <DataCard {...p.card} />}
+            {p.mocks.map((m, i) => (
+              <div key={i} className={`mock r d${(i % 3) + 1} ${m.cls || ""}`} style={m.style}>
+                {m.chat ? <WhatsAppMock mensajes={waMessages} phone="+54 341 719-9019" />
+                  : m.laptop ? <><div className="screen"><img src={m.img} alt={m.label} /></div><div className="base" /><small>{m.label}</small></>
+                  : m.img ? <><img src={m.img} alt={m.label} /><small>{m.label}</small></>
+                  : <>{m.text}<small>{m.small}</small></>}
+              </div>
+            ))}
+          </div>
+        </section>
+      ))}
 
-function SectionHeader({ number, title, subtitle, accent = "from-teal-400 to-fuchsia-400" }) {
-  return (
-    <div className="mb-12 max-w-5xl mx-auto">
-      <div className="flex items-center gap-3 mb-2">
-        <span className="text-[10px] font-mono text-gray-700 tracking-[0.3em] uppercase">{number}</span>
-        <div className="h-px w-24 bg-gradient-to-r from-gray-700 to-transparent" />
-      </div>
-      <h2 className={`text-3xl sm:text-4xl font-extrabold bg-gradient-to-r ${accent} bg-clip-text text-transparent`}>
-        {title}
-      </h2>
-      {subtitle && <p className="text-gray-500 text-sm mt-2 max-w-xl">{subtitle}</p>}
-    </div>
-  );
-}
+      <Marquee cream items={["Reporting & Scripting", "Informes para directorio", "Análisis de ventas", "Automatización"]} />
 
-// ── BI Card: image on top, description below, 2-col grid ─────────────────────
-function BiCard({ title, description, image, slug, tecnologias, link, category, status, idx }) {
-  const cat = categoryConfig[category] || categoryConfig["BI & Analytics"];
-  const st  = statusConfig[status]    || statusConfig["demo"];
-  const href = link === "proyecto" ? `/proyectos/${slug}` : link;
+      {/* ============ DIVISOR REPORTING ============ */}
+      <section className="section divider" id="reporting">
+        <div className="txt">
+          <div className="guides">
+            <h2 className="display solid r" style={{ margin: 0 }}>Reporting</h2>
+          </div>
+          <p className="body r d1" style={{ marginTop: 16, maxWidth: "42ch" }}>
+            Los números que la empresa <strong>ya tiene</strong>, ordenados para que alguien pueda decidir con ellos. No hace falta cambiar de sistema: se empieza con las planillas y las bases que hay.
+          </p>
+          <div><span className="sticker r d2">dirección · comercial · producción · calidad de datos</span></div>
+        </div>
+        <div className="fig r d1"><ReportChart /></div>
+      </section>
 
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.5, delay: idx * 0.1 }}
-      className="group bg-white/[0.03] backdrop-blur-sm rounded-2xl overflow-hidden border border-white/[0.07] hover:border-white/[0.18] transition-all duration-500 hover:-translate-y-1.5 hover:shadow-2xl hover:shadow-black/50 flex flex-col"
-    >
-      <div className={`h-px w-full bg-gradient-to-r ${cat.accent}`} />
+      {/* ============ SERVICIOS ============ */}
+      <section className="section paper short" id="servicios">
+        <p className="eyebrow r"><b>Cómo lo encaro</b><i>/</i>El mismo camino, sea un informe, un análisis puntual o una búsqueda de patrones</p>
+        <div className="metodo r d1">
+          {metodo.map((m) => (
+            <article key={m.n} className="paso">
+              <span className="n">{m.n}</span>
+              <h3>{m.t}</h3>
+              <p>{m.p}</p>
+            </article>
+          ))}
+        </div>
 
-      {image && (
-        <div className="relative overflow-hidden h-52">
-          <img src={image} alt={title} className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
-          {href && (
-            <Link href={href} className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              <span className="flex items-center gap-2 bg-black/50 backdrop-blur-sm border border-white/20 text-white text-sm font-semibold px-4 py-2 rounded-full">
-                Ver proyecto <i className="fas fa-arrow-right text-xs" />
-              </span>
+        <p className="eyebrow r" style={{ marginTop: 34 }}><b>Servicios</b><i>/</i>Lo que entrego, y qué recibe el cliente en cada caso</p>
+        <div className="services">
+          {servicios.map((s, i) => (
+            <article key={s.n} className={`service r d${(i % 3) + 1}`}>
+              <span className="n">{s.n}</span>
+              <h3>{s.t}</h3>
+              <p>{s.p}</p>
+              <span className="ent">ENTREGABLE · {s.e}</span>
+            </article>
+          ))}
+        </div>
+        <div className="tools-row r d2" style={{ marginTop: 30 }}>
+          <div className="lbl">Con qué trabajo</div>
+          <Tools keys={["xl", "pq", "pbi", "dax", "sql", "py", "pd"]} />
+        </div>
+
+        <div className="r d2" style={{ marginTop: 26, display: "flex", flexWrap: "wrap", alignItems: "center", gap: 14 }}>
+          <a href="/informes/informe-directorio-ejemplo.pdf" target="_blank" rel="noopener noreferrer" className="btn fill">Ver un informe de ejemplo (PDF)</a>
+          <span className="cap">Dos páginas con datos ficticios: indicadores con semáforo, facturación contra objetivo, ventas por vendedor y las acciones que se desprenden.</span>
+        </div>
+        <p className="body r d2" style={{ marginTop: 18, maxWidth: "62ch" }}>
+          Un informe no se mide por lo lindo que queda, sino por lo que pasa en la reunión donde se abre. Si tenés que preparar la próxima, o entender por qué las ventas no cierran, <a href="#contacto" style={{ color: "var(--accent)", fontWeight: 700 }}>contame qué datos tenés</a> y te propongo cómo encararlo.
+        </p>
+      </section>
+
+      {/* ============ GALERÍA BI ============ */}
+      <section className="section gallery" id="bi">
+        <div className="head r">
+          <span className="name">Análisis y BI</span>
+          <span className="cap">Tableros ejecutivos en Power BI · se recorren completos desde cada ficha</span>
+        </div>
+        <div className="grid">
+          {dashboards.map((d, i) => (
+            <Link key={d.slug} href={`/proyectos/${d.slug}`} className={`cell r d${i + 1}`}>
+              <div className="bar"><i style={{ background: "#ff5f57" }} /><i style={{ background: "#febc2e" }} /><i style={{ background: "#28c840" }} /><span>{d.file}</span></div>
+              <img src={d.img} alt={d.cap} />
+              <span className="cap">{d.cap}</span>
             </Link>
-          )}
-        </div>
-      )}
-
-      <div className="p-5 flex flex-col flex-1">
-        <div className="flex items-center justify-between mb-3">
-          <span className={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full ${cat.bg} ${cat.text} border ${cat.border}`}>
-            {category}
-          </span>
-          <span className="flex items-center gap-1.5">
-            <span className={`w-1.5 h-1.5 rounded-full ${st.dot} animate-pulse`} />
-            <span className={`text-[10px] font-medium ${st.text}`}>{st.label}</span>
-          </span>
-        </div>
-        <h3 className="font-bold text-white text-base leading-snug mb-2">{title}</h3>
-        <p className="text-sm text-gray-400 leading-relaxed mb-4 flex-1">{description}</p>
-        <div className="flex flex-wrap gap-1.5 mb-4">
-          {tecnologias.map((tec, i) => (
-            <span key={i} className="text-[10px] font-mono bg-white/5 border border-white/[0.08] text-gray-400 px-2 py-0.5 rounded">{tec}</span>
           ))}
         </div>
-        {link && (
-          <Link href={href} className={`card-cta inline-flex items-center gap-1.5 text-sm font-semibold ${cat.text} hover:opacity-70 transition-opacity`}>
-            Ver proyecto <i className="fas fa-arrow-right text-xs arrow-icon" />
-          </Link>
-        )}
-      </div>
-    </motion.div>
+        <div className="year">2026</div>
+      </section>
+
+      {/* ============ CONTACTO ============ */}
+      <section className="section contact" id="contacto">
+        <WmBars style={{ width: 460, top: "10%", right: -90, transform: "rotate(-18deg)" }} />
+        <div className="logo r">
+          <Mark />
+          <div className="wordmark">ignacio<sup>®</sup><br />peñamaria<span>data &amp; systems studio</span></div>
+        </div>
+        <p className="cap r d1">Escribime por acá</p>
+        <div className="links r d2">
+          <a href="https://wa.me/543413073307" target="_blank" rel="noopener noreferrer"><i className="fab fa-whatsapp" />+54 341 307-3307</a>
+          <a href="mailto:ignaciopenamaria@gmail.com"><i className="fas fa-envelope" />ignaciopenamaria@gmail.com</a>
+          <a href="https://www.linkedin.com/in/ignacio-peniamaria/" target="_blank" rel="noopener noreferrer"><i className="fab fa-linkedin" />ignacio-peniamaria</a>
+          <a href="https://github.com/nachitoxx6262" target="_blank" rel="noopener noreferrer"><i className="fab fa-github" />nachitoxx6262</a>
+          <a href="https://www.cuneusdata.com" target="_blank" rel="noopener noreferrer"><i className="fas fa-rocket" />cuneusdata.com</a>
+          <a href="/CV_Ignacio_Penamaria.pdf" download><i className="fas fa-file-arrow-down" />Descargar CV</a>
+        </div>
+        <p className="cap" style={{ opacity: .5 }}>© {new Date().getFullYear()} Ignacio Peñamaria · Carcarañá, Santa Fe</p>
+      </section>
+    </>
   );
 }
 
-// ── Dev Card: split layout (left: info / right: live preview) ─────────────────
-function DevCard({ title, description, image, slug, tecnologias, link, category, status, livePreview, featured, idx }) {
-  const cat = categoryConfig[category] || categoryConfig["Fullstack"];
-  const st  = statusConfig[status]    || statusConfig["live"];
-  const href = !link ? null : link === "proyecto" ? `/proyectos/${slug}` : link;
-  const isExternal = href?.startsWith('http');
-
+// ─── Tarjeta de datos dentro del área visual ─────────────────────────────────
+function DataCard({ title, kind, items, light, style }) {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.55, delay: idx * 0.08 }}
-      className={`group bg-white/[0.03] rounded-2xl overflow-hidden border transition-all duration-500 hover:shadow-2xl hover:shadow-black/50 ${
-        featured
-          ? 'border-teal-500/20 hover:border-teal-500/40'
-          : 'border-white/[0.07] hover:border-white/[0.18]'
-      }`}
-    >
-      {/* Top accent line */}
-      <div className={`h-px w-full bg-gradient-to-r ${featured ? 'from-teal-400 via-fuchsia-400 to-yellow-400' : cat.accent}`} />
-
-      <div className="flex flex-col lg:flex-row">
-
-        {/* ── Left: description ── */}
-        <div className={`p-6 flex flex-col justify-between lg:border-r border-white/[0.05] ${livePreview ? 'lg:w-[38%]' : 'w-full'}`}>
-          <div>
-            <div className="flex items-center justify-between mb-3">
-              <span className={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full ${cat.bg} ${cat.text} border ${cat.border}`}>
-                {category}
-              </span>
-              <span className="flex items-center gap-1.5">
-                <span className={`w-1.5 h-1.5 rounded-full ${st.dot} animate-pulse`} />
-                <span className={`text-[10px] font-medium ${st.text}`}>{st.label}</span>
-              </span>
-            </div>
-
-            {featured && (
-              <span className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest text-yellow-400/70 mb-2">
-                <i className="fas fa-rocket text-[9px]" /> Mi estudio
-              </span>
-            )}
-
-            <h3 className={`font-bold text-white leading-snug mb-2 ${featured ? 'text-xl' : 'text-base'}`}>{title}</h3>
-            <p className="text-sm text-gray-400 leading-relaxed mb-4">{description}</p>
-          </div>
-
-          <div>
-            <div className="flex flex-wrap gap-1.5 mb-4">
-              {tecnologias.map((tec, i) => (
-                <span key={i} className="text-[10px] font-mono bg-white/5 border border-white/[0.08] text-gray-400 px-2 py-0.5 rounded">{tec}</span>
-              ))}
-            </div>
-            {href && (
-              <Link href={href} {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                className={`card-cta inline-flex items-center gap-1.5 text-sm font-semibold ${cat.text} hover:opacity-70 transition-opacity`}>
-                {isExternal ? 'Abrir sitio' : 'Ver proyecto'}
-                <i className={`fas ${isExternal ? 'fa-external-link-alt' : 'fa-arrow-right'} text-xs arrow-icon`} />
-              </Link>
-            )}
-          </div>
-        </div>
-
-        {/* ── Right: live preview ── */}
-        {livePreview && (
-          <div className="flex-1 min-h-[280px] lg:min-h-0">
-            {livePreview.type === 'web' ? (
-              <MiniWebPreview url={livePreview.url} badge={livePreview.badge} />
-            ) : (
-              <MiniWhatsAppPreview
-                mensajes={livePreview.mensajes}
-                waLink={livePreview.waLink}
-                phone={livePreview.phone}
-              />
-            )}
-          </div>
-        )}
-
-        {/* ── Right: static image (no live preview) ── */}
-        {!livePreview && image && (
-          <div className="relative overflow-hidden lg:w-[52%] h-56 lg:h-auto">
-            <img src={image} alt={title} className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105" />
-            <div className="absolute inset-0 bg-gradient-to-r from-[#06060f]/80 via-transparent to-transparent lg:block hidden" />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#06060f]/80 via-transparent to-transparent lg:hidden" />
-          </div>
-        )}
-      </div>
-    </motion.div>
-  );
-}
-
-// ── Mini Web Preview (embedded in DevCard) ────────────────────────────────────
-function MiniWebPreview({ url, badge }) {
-  return (
-    <div className="h-full flex flex-col min-h-[280px]">
-      <div className="flex items-center gap-2 px-3 py-2 bg-gray-900/70 border-b border-white/[0.05] shrink-0">
-        <div className="flex gap-1.5 shrink-0">
-          <span className="w-2.5 h-2.5 rounded-full bg-red-500/60" />
-          <span className="w-2.5 h-2.5 rounded-full bg-yellow-500/60" />
-          <span className="w-2.5 h-2.5 rounded-full bg-green-500/60" />
-        </div>
-        <div className="flex-1 flex items-center gap-1.5 bg-gray-800/50 rounded px-2 py-0.5 min-w-0">
-          <i className="fas fa-lock text-gray-700 text-[8px]" />
-          <span className="text-[10px] font-mono text-gray-500 truncate">{url.replace('https://', '')}</span>
-        </div>
-        {badge && (
-          <span className="text-[9px] font-bold uppercase tracking-wider text-teal-400 bg-teal-500/10 border border-teal-500/20 px-1.5 py-0.5 rounded-full shrink-0">{badge}</span>
-        )}
-        <a href={url} target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-teal-400 transition shrink-0">
-          <i className="fas fa-external-link-alt text-[9px]" />
-        </a>
-      </div>
-      <div className="flex-1">
-        <iframe src={url} title={url} className="w-full h-full border-0 min-h-[240px]" loading="lazy" referrerPolicy="no-referrer" />
-      </div>
-    </div>
-  );
-}
-
-// ── Mini WhatsApp Preview (embedded in DevCard) ───────────────────────────────
-function MiniWhatsAppPreview({ mensajes, waLink, phone }) {
-  return (
-    <div className="h-full flex flex-col min-h-[280px]">
-      <div className="flex items-center gap-2.5 px-4 py-2.5 bg-[#075E54] shrink-0">
-        <div className="w-8 h-8 rounded-full bg-green-200/20 flex items-center justify-center text-white">
-          <i className="fab fa-whatsapp" />
-        </div>
-        <div className="flex-1">
-          <p className="text-white font-semibold text-xs leading-tight">Agenda Médica · Bot</p>
-          <p className="text-green-200/60 text-[10px]">en línea · {phone}</p>
-        </div>
-        <div className="flex gap-2.5 text-white/40 text-xs">
-          <i className="fas fa-video" /><i className="fas fa-phone" /><i className="fas fa-ellipsis-v" />
-        </div>
-      </div>
-
-      <div className="flex-1 flex flex-col gap-1.5 px-3 py-3 bg-[#0d1117] overflow-y-auto">
-        {mensajes.map((msg, i) => (
-          <motion.div
-            key={i}
-            initial={{ opacity: 0, y: 5 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.25, delay: i * 0.08 }}
-            className={`flex ${msg.from === 'user' ? 'justify-end' : 'justify-start'}`}
-          >
-            <div className={`max-w-[80%] px-2.5 py-1.5 rounded-xl text-xs whitespace-pre-line shadow ${
-              msg.from === 'user' ? 'bg-[#005C4B] text-white rounded-br-sm' : 'bg-[#1f2c34] text-gray-100 rounded-bl-sm'
-            }`}>
-              {msg.text}
-            </div>
-          </motion.div>
-        ))}
-      </div>
-
-      <div className="flex items-center gap-1.5 px-2.5 py-2 bg-[#1f2c34] border-t border-white/[0.04] shrink-0">
-        <div className="flex-1 bg-[#2a3942] rounded-full px-3 py-1 text-gray-600 text-xs">Escribí un mensaje...</div>
-        <div className="w-7 h-7 rounded-full bg-[#00a884] flex items-center justify-center text-white text-[10px]">
-          <i className="fas fa-microphone" />
-        </div>
-      </div>
-
-      <div className="p-3 text-center bg-[#0d1117] border-t border-white/[0.04] shrink-0">
-        <a href={waLink} target="_blank" rel="noopener noreferrer"
-          className="inline-flex items-center gap-1.5 bg-[#25D366] hover:bg-[#1ebe5d] text-white font-semibold px-4 py-1.5 rounded-full text-xs transition-all duration-200 hover:scale-105">
-          <i className="fab fa-whatsapp" /> Probar el bot
-        </a>
-      </div>
+    <div className={`dcard r d3 ${light ? "light" : ""}`} style={style}>
+      <h4>{title}</h4>
+      {kind === "steps" && (
+        <div className="steps">{items.map((it, i) => <span key={it}>{it}{i < items.length - 1 && <i>→</i>}</span>)}</div>
+      )}
+      {kind === "rows" && (
+        <div className="rows">{items.map(([k, v]) => <div key={k + v} style={{ display: "contents" }}><span>{k}</span><b>{v}</b></div>)}</div>
+      )}
+      {kind === "big" && (
+        <div className="bigs">{items.map(([v, l]) => <div key={l}><b>{v}</b><span>{l}</span></div>)}</div>
+      )}
     </div>
   );
 }
