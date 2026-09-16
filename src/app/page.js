@@ -235,16 +235,17 @@ DIVIDE(
               <h2 className="h2">Experiencia</h2>
               <div className="tl">
                 <span className="yr">2026<br />HOY</span>
+                <span><span className="rol">Analista de ventas</span><br /><span className="org">Exintrader · análisis de ventas y de cartera</span></span>
+              </div>
+              <div className="tl">
+                <span className="yr">2024<br />HOY</span>
                 <span><span className="rol">Cuneus Data Studio</span><br /><span className="org">Fundador · sistemas, reporting y automatización</span></span>
                 <span className="note">ERP metalúrgico, gestión clínica, hotel y comercial en producción.</span>
               </div>
               <div className="tl">
-                <span className="yr">2026<br />HOY</span>
-                <span><span className="rol">Analista de ventas</span><br /><span className="org">Informes comerciales y análisis de cartera</span></span>
-              </div>
-              <div className="tl">
-                <span className="yr green">2025<br />2026</span>
-                <span><span className="rol">Software y BI</span><br /><span className="org">Sistemas internos, APIs y modelado de datos</span></span>
+                <span className="yr green">2025</span>
+                <span><span className="rol">Responsable comercial y analista de datos</span><br /><span className="org">Grupo Puppetti · ene a oct</span></span>
+                <span className="note">Coordinación de 30 vendedores, ventas y preventa, y tablero de ventas en Power BI para dirección.</span>
               </div>
               <div className="tl">
                 <span className="yr green">2026</span>
