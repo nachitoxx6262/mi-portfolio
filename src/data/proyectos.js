@@ -3,7 +3,7 @@ const proyectos = [
         slug: "carmetal-erp",
         title: "🏭 CARMETAL ERP",
         description: "ERP a medida para una metalúrgica de corte láser y plegado. Empezó resolviendo la cotización y hoy llega hasta la factura, con una app para que el taller cargue lo que hace y el supervisor lo vea en vivo.",
-        image: "/proyectos/carmetal/cockpit.jpg",
+        image: "/proyectos/carmetal/cockpit.webp",
         descripcionLarga: "CARMETAL es una metalúrgica de corte láser fibra y plegado en Santa Fe. Cada pedido vivía repartido en mails, planillas y papel, y cotizar dependía de un solo software y de una sola persona: cincuenta piezas eran una tarde de trabajo y nadie más podía hacerlo. Antes de escribir código pasé por la planta a entender el proceso completo, desde que entra el pedido hasta que la máquina emite su reporte de producción. El primer objetivo fue uno solo: automatizar y centralizar la cotización. Con eso funcionando, el sistema se fue expandiendo hacia donde seguía el trabajo, y hoy la empresa usa a diario lo que está en producción mientras se sigue sumando funcionalidad. Desplegado en carmetal.cuneusdata.cloud bajo el sello de Cuneus Data Studio.",
         items: [
             "Cotización: el sistema lee el plano DXF, reconoce el marco del rótulo, mide cada pieza y la previsualiza. Calcula tiempo de corte, kilos y precio, y exporta las planillas técnicas a Excel y PDF, en pesos o en dólares al cambio del Banco Nación.",
@@ -17,9 +17,9 @@ const proyectos = [
             "Dirección: cada área carga sus números del mes y el sistema arma el informe con metas, semáforo y aviso a quien todavía no cargó.",
         ],
         screenshots: [
-            { src: "/proyectos/carmetal/nesting-erp.jpg", cap: "cotización con nesting" },
-            { src: "/proyectos/carmetal/app-chapa.jpg", cap: "app del operario" },
-            { src: "/proyectos/carmetal/hoja-tecnica.jpg", cap: "hoja del taller" },
+            { src: "/proyectos/carmetal/nesting-erp.webp", cap: "cotización con nesting" },
+            { src: "/proyectos/carmetal/app-chapa.webp", cap: "app del operario" },
+            { src: "/proyectos/carmetal/hoja-tecnica.webp", cap: "hoja del taller" },
         ],
         miAporte: "Relevamiento del proceso en planta, análisis de las cotizaciones históricas contra los reportes de la máquina, y diseño y desarrollo completo: modelo de datos, API, frontend, app de operarios y la infraestructura donde corre. Hoy son 31 módulos, 383 endpoints, 891 pruebas automatizadas y 131 versiones de base de datos, con entorno de prueba propio y despliegue sin cortar el servicio.",
         tecnologias: [
@@ -78,6 +78,7 @@ const proyectos = [
     },
     {
         slug: "sistema-hotelero",
+        oculto: true,
         title: "🏨 Sistema de Gestión Hotelera",
         description: "Sistema integral para centralizar la operación diaria de un hotel: habitaciones, reservas, disponibilidad en tiempo real y registro de huéspedes. En producción.",
         descripcionLarga: "Se desarrolló un sistema de gestión hotelera pensado para centralizar la operación diaria del establecimiento. El objetivo fue ordenar procesos que normalmente se manejan de forma manual o dispersa: control de habitaciones, reservas, estado de ocupación y registro de huéspedes. Hoy está desplegado y operativo en hotel.cuneusdata.com bajo el sello de Cuneus Data Studio.",
@@ -144,6 +145,7 @@ const proyectos = [
     },
     {
         slug: "sistema-comercial",
+        oculto: true,
         title: "💼 Sistema Comercial para Vendedores",
         description: "Plataforma de gestión comercial para equipos de ventas: clientes, rendimiento, comisiones, segmentación geográfica y dashboards de seguimiento estratégico.",
         descripcionLarga: "Se diseñó un sistema comercial orientado a la gestión de vendedores, clientes, ventas y seguimiento del rendimiento comercial. Está pensado para empresas con equipos de venta que necesitan control, visibilidad y análisis para tomar mejores decisiones. Disponible en producción como parte de la oferta de Cuneus Data Studio.",
@@ -213,7 +215,7 @@ const proyectos = [
         slug: "bot-agenda-medica",
         title: "🏥 Eva · Sistema de Gestión Clínica",
         description: "Plataforma para una clínica privada que empezó como un bot de WhatsApp para sacar turnos y hoy es donde trabajan recepción, médicos y administración. En uso diario, con mantenimiento mensual y la base preparada para vender a otras clínicas.",
-        image: "/proyectos/eva/eva-whatsapp.jpg",
+        image: "/proyectos/eva/eva-whatsapp.webp",
         panel: "eva-stats",
         descripcionLarga: "La recepción de la clínica trabajaba en emergencia permanente. Una recepcionista podía tener cinco o seis conversaciones de WhatsApp abiertas al mismo tiempo, cada una en un tema distinto: una pidiendo turno, otra preguntando si lo tenía, otra cancelando, otra queriendo saber si su plan estaba cubierto. Y todo eso mientras atendía al paciente parado frente al mostrador, esperando que lo mirara. Sostener esa atención partida sin perder el hilo de ninguna conversación y sin hacer esperar a nadie es bastante más difícil de lo que parece desde afuera, y cualquier error se paga con un turno mal dado o una persona enojada. De noche o un domingo, directamente no contestaba nadie y los mensajes se acumulaban para el lunes. Eva nació chica y concreta, como un bot de WhatsApp que sacara turnos solo. Apenas empezó a funcionar apareció el resto del problema: para ofrecer un horario, el bot necesitaba leer una agenda que estaba en un cuaderno, y para cobrarlo hacía falta una caja que estaba en una planilla. Así que el sistema fue creciendo hacia atrás del bot, hasta cubrir el recorrido completo del paciente, desde que escribe hasta que el médico cierra la consulta. Hoy está en uso diario con mantenimiento mensual contratado, y la base ya es multi-clínica: una clínica nueva se da de alta desde un panel y arranca en su propio subdominio.",
         items: [
@@ -282,6 +284,7 @@ const proyectos = [
     },
     {
         slug: "sistema-restaurant",
+        oculto: true,
         title: "🍽️ Sistema de Gestión para Restaurant",
         description: "Sistema gastronómico para la operación diaria de restaurantes: toma de pedidos por mesa, gestión de mesas, comandas digitales e impresión automática para cocina.",
         descripcionLarga: "Se desarrolló un sistema gastronómico orientado a la operación diaria de restaurantes, con foco en la toma de pedidos, gestión de mesas, comandas e impresión para cocina. La idea fue construir una base sólida para un sistema moderno, rápido y adaptable al flujo real del salón. Proyecto actualmente en desarrollo activo.",

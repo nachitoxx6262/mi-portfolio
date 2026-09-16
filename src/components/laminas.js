@@ -40,8 +40,9 @@ export function useLaminas() {
     let ticking = false;
     const checkPaper = () => {
       ticking = false;
-      const el = document.elementFromPoint(24, hudY());
-      const paper = el && el.closest && el.closest(".section.paper");
+      // El logo acepta clics, así que se busca la sección que queda debajo de él.
+      const capas = document.elementsFromPoint(Math.max(4, window.innerWidth * 0.02), hudY());
+      const paper = capas.some((e) => e.matches && e.matches(".section.paper"));
       document.body.classList.toggle("on-paper", !!paper);
       // En las fichas el texto corre por debajo del logo fijo: se aparta al bajar.
       document.body.classList.toggle("scrolled", window.scrollY > 120);
@@ -182,22 +183,22 @@ export function DeviceStack({ monitor, laptop, tablet, phone, ring = true }) {
       {ring && <span className="devices-ring" aria-hidden="true" />}
       {monitor && (
         <div className="dev monitor">
-          <div className="scr"><img src={monitor.img} alt={monitor.alt} /></div>
+          <div className="scr"><img loading="lazy" decoding="async" src={monitor.img} alt={monitor.alt} /></div>
           <div className="neck" /><div className="foot" />
         </div>
       )}
-      {tablet && <div className="dev tablet"><div className="scr"><img src={tablet.img} alt={tablet.alt} /></div></div>}
-      {laptop && <div className="dev laptop"><div className="scr"><img src={laptop.img} alt={laptop.alt} /></div><div className="base" /></div>}
-      {phone && <div className="dev phone"><div className="scr"><img src={phone.img} alt={phone.alt} /></div></div>}
+      {tablet && <div className="dev tablet"><div className="scr"><img loading="lazy" decoding="async" src={tablet.img} alt={tablet.alt} /></div></div>}
+      {laptop && <div className="dev laptop"><div className="scr"><img loading="lazy" decoding="async" src={laptop.img} alt={laptop.alt} /></div><div className="base" /></div>}
+      {phone && <div className="dev phone"><div className="scr"><img loading="lazy" decoding="async" src={phone.img} alt={phone.alt} /></div></div>}
     </div>
   );
 }
 
 // ─── Ilustraciones de los divisores ──────────────────────────────────────────
-// Red de sistemas: seis nodos conectados a un centro (datos), en la paleta local.
+// Red de sistemas: lo que se muestra en el sitio, conectado a un centro (datos).
 export function SystemsGraph() {
   const nodes = [
-    ["ERP", 200, 60], ["Clínica", 360, 130], ["Hotel", 380, 300], ["Ventas", 220, 380], ["Reporting", 60, 300], ["Gastronomía", 40, 130],
+    ["ERP", 200, 60], ["Clínica", 360, 130], ["Bot", 380, 300], ["Power BI", 220, 380], ["Reporting", 60, 300], ["App planta", 40, 130],
   ];
   const cx = 210, cy = 220;
   return (

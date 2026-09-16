@@ -33,10 +33,10 @@ const proyectos = [
     cliente: "Metalúrgica de corte láser y plegado", rol: "Relevamiento, diseño y desarrollo completo",
     slug: "carmetal-erp", site: "https://carmetal.cuneusdata.cloud",
     devices: {
-      monitor: { img: "/proyectos/carmetal/nesting-erp.jpg", alt: "Cotización técnica con nesting por chapa" },
-      laptop: { img: "/proyectos/carmetal/hoja-tecnica.jpg", alt: "Hoja técnica de producción" },
-      tablet: { img: "/proyectos/carmetal/orden-produccion.jpg", alt: "Orden de producción" },
-      phone: { img: "/proyectos/carmetal/app-chapa.jpg", alt: "App de operarios, pantalla de chapa" },
+      monitor: { img: "/proyectos/carmetal/nesting-erp.webp", alt: "Cotización técnica con nesting por chapa" },
+      laptop: { img: "/proyectos/carmetal/hoja-tecnica.webp", alt: "Hoja técnica de producción" },
+      tablet: { img: "/proyectos/carmetal/orden-produccion.webp", alt: "Orden de producción" },
+      phone: { img: "/proyectos/carmetal/app-chapa.webp", alt: "App de operarios, pantalla de chapa" },
     },
     mocks: [],
   },
@@ -57,7 +57,7 @@ const proyectos = [
     cliente: "Clínica privada", rol: "Diseño, desarrollo, bot y mantenimiento",
     slug: "bot-agenda-medica", site: "https://asistentevirtualeva.cloud", wa: "https://wa.me/543417199019",
     mocks: [
-      { cls: "free", style: { width: "92%", left: "4%", top: "50%", transform: "translateY(-50%)" }, img: "/proyectos/eva/eva-celu.png", label: "" },
+      { cls: "free", style: { width: "92%", left: "4%", top: "50%", transform: "translateY(-50%)" }, img: "/proyectos/eva/eva-celu.webp", label: "" },
     ],
   },
   {
@@ -74,7 +74,7 @@ const proyectos = [
     cliente: "Hotel independiente", rol: "Diseño y desarrollo",
     slug: "sistema-hotelero", site: "https://hotel.cuneusdata.com/",
     mocks: [
-      { cls: "shot", style: { width: "70%", left: "0", top: "0", transform: "rotate(-2deg)" }, img: "/proyectos/hotel.png", label: "PANEL DEL HOTEL" },
+      { cls: "shot", style: { width: "70%", left: "0", top: "0", transform: "rotate(-2deg)" }, img: "/proyectos/hotel.webp", label: "PANEL DEL HOTEL" },
     ],
     card: { title: "Reserva · ejemplo", kind: "rows", style: { right: "0", bottom: "4%", width: "44%" },
       items: [["Habitación", "204 · doble"], ["Check-in", "vie 12/09"], ["Check-out", "lun 15/09"], ["Cobro", "Mercado Pago · aprobado"], ["Factura", "ARCA · emitida"]] },
@@ -93,7 +93,7 @@ const proyectos = [
     cliente: "Equipo de ventas", rol: "Diseño y desarrollo",
     slug: "sistema-comercial", site: "https://www.cuneusdata.com/cuneus-comercial",
     mocks: [
-      { cls: "shot", style: { width: "68%", left: "0", top: "0", transform: "rotate(-1.5deg)" }, img: "/proyectos/comercial.jpg", label: "SISTEMA COMERCIAL" },
+      { cls: "shot", style: { width: "68%", left: "0", top: "0", transform: "rotate(-1.5deg)" }, img: "/proyectos/comercial.webp", label: "SISTEMA COMERCIAL" },
     ],
     card: { title: "Cartera · segmentación", kind: "rows", light: true, style: { right: "2%", bottom: "2%", width: "46%" },
       items: [["Activos", "compraron en los últimos 90 días"], ["Inactivos", "sin pedidos en el período"], ["A reactivar", "alto valor histórico, hoy quietos"], ["Comisión", "calculada por venta y vendedor"]] },
@@ -112,7 +112,7 @@ const proyectos = [
     cliente: "Restaurante", rol: "Diseño y desarrollo",
     slug: "sistema-restaurant",
     mocks: [
-      { cls: "shot", style: { width: "32%", left: "6%", top: "0", transform: "rotate(-4deg)", background: "#fff" }, img: "/proyectos/restaurant/comanda.png", label: "COMANDA" },
+      { cls: "shot", style: { width: "32%", left: "6%", top: "0", transform: "rotate(-4deg)", background: "#fff" }, img: "/proyectos/restaurant/comanda.webp", label: "COMANDA" },
     ],
     card: { title: "Pedido #42 · Mesa 3", kind: "rows", light: true, style: { right: "4%", top: "10%", width: "52%" },
       items: [["2×", "Milanesa napolitana · jugoso, sin papas"], ["1×", "Empanadas (3 u.)"], ["1×", "Bife de chorizo · a punto"], ["Cocina", "impreso 19:24"]] },
@@ -131,6 +131,15 @@ const metodo = [
 // su ficha sigue existiendo, solo deja de estar enlazada.
 const visibles = proyectos.filter((p) => !p.oculto);
 
+const certificados = [
+  { a: "2025", t: "Power BI", o: "EducaciónIT · 18 horas", img: "/certificados/power-bi-educacionit.webp" },
+  { a: "2025", t: "Bases de datos y SQL", o: "EducaciónIT · 18 horas", img: "/certificados/sql-educacionit.webp" },
+  { a: "CERT", t: "Full Stack Web Developer", o: "Henry · JavaScript, React, Node y SQL", img: "/certificados/fullstack-henry.webp" },
+];
+
+// Cuando el PDF esté en /public, poner su ruta acá y vuelve a aparecer el botón.
+const CV_URL = null;
+
 const servicios = [
   { n: "01", t: "Informes financieros para directorio", p: "Resultado mensual, rentabilidad, cuentas por cobrar vencidas y cumplimiento de objetivos, con metas y semáforos. Cada área carga sus números y el informe se arma solo.", e: "Excel + PDF · tablero · hoja de revisión" },
   { n: "02", t: "Análisis de ventas", p: "Rendimiento por vendedor, cliente, producto y zona; cartera activa e inactiva; estacionalidad; comisiones y oportunidades de reactivación. Con recomendaciones concretas.", e: "Informe mensual · tablero · clientes a recuperar" },
@@ -141,8 +150,8 @@ const servicios = [
 ];
 
 const dashboards = [
-  { slug: "dashboard-eficiencia-productiva", file: "eficiencia_productiva.pbix", img: "/proyectos/Alimentos_sur.png", cap: "Eficiencia productiva y finanzas · Power BI" },
-  { slug: "stock-logistica", file: "northwind_stock.pbix", img: "/proyectos/northwind_analytics.png", cap: "Northwind · ejercicio con datos de muestra · Power BI" },
+  { slug: "dashboard-eficiencia-productiva", file: "eficiencia_productiva.pbix", img: "/proyectos/Alimentos_sur.webp", cap: "Eficiencia productiva y finanzas · Power BI" },
+  { slug: "stock-logistica", file: "northwind_stock.pbix", img: "/proyectos/northwind_analytics.webp", cap: "Northwind · ejercicio con datos de muestra · Power BI" },
 ];
 
 // ─── Página ──────────────────────────────────────────────────────────────────
@@ -185,7 +194,7 @@ DIVIDE(
           <span className="sticker r d2">IGNACIO PEÑAMARIA</span>
         </div>
 
-        <p className="lead r d2">Construyo los sistemas que una metalúrgica, una clínica privada y un hotel usan todos los días, y los informes con los que sus directorios deciden.</p>
+        <p className="lead r d2">Construyo los sistemas que una metalúrgica y una clínica privada usan todos los días, y los informes con los que se decide.</p>
         <div className="ctas r d3">
           <a href="#sistemas" className="btn fill">Ver los sistemas</a>
           <a href="#reporting" className="btn">Reporting</a>
@@ -198,7 +207,7 @@ DIVIDE(
       <section className="section paper about" id="about">
         <div className="portrait">
           <figure className="photo r">
-            <img src="/avatar.jpg" alt="Ignacio Peñamaria" />
+            <img loading="lazy" decoding="async" src="/avatar.webp" alt="Ignacio Peñamaria" />
             <figcaption>Ignacio · Carcarañá, 2026</figcaption>
           </figure>
           <span className="sticker" style={{ position: "absolute", bottom: "10%", right: "2%", transform: "rotate(-2deg)" }}>Hecho en Carcarañá</span>
@@ -250,6 +259,15 @@ DIVIDE(
                 <span className="yr green">HOY</span>
                 <span><span className="rol">Lic. en Ciencia de Datos</span><br /><span className="org">Universidad Siglo 21 · estudiante avanzado</span></span>
               </div>
+              {certificados.map((c) => (
+                <div className="tl" key={c.t}>
+                  <span className="yr">{c.a}</span>
+                  <span>
+                    <a className="rol cert" href={c.img} target="_blank" rel="noopener noreferrer">{c.t} <i className="fas fa-arrow-up-right-from-square" /></a><br />
+                    <span className="org">{c.o}</span>
+                  </span>
+                </div>
+              ))}
               <h2 className="h2" style={{ marginTop: 18 }}>Enfoque</h2>
               <ul className="bullets"><li>Sistemas en producción</li><li>Reporting para directorio</li><li>Análisis de ventas</li><li>Automatización</li></ul>
               <h2 className="h2" style={{ marginTop: 18 }}>Herramientas</h2>
@@ -258,9 +276,9 @@ DIVIDE(
           </div>
 
           <div className="polaroids r d4">
-            <figure className="polaroid"><div className="ph"><img src="/proyectos/Alimentos_sur.png" alt="Tablero ejecutivo" /></div><figcaption>tablero_v2.pbix</figcaption></figure>
-            <figure className="polaroid"><div className="ph"><img src="/proyectos/carmetal/cockpit.jpg" alt="Cockpit de producción" /></div><figcaption>planta</figcaption></figure>
-            <figure className="polaroid"><div className="ph"><img src="/proyectos/hotel.png" alt="Panel del hotel" /></div><figcaption>recepción</figcaption></figure>
+            <figure className="polaroid"><div className="ph"><img loading="lazy" decoding="async" src="/proyectos/Alimentos_sur.webp" alt="Tablero ejecutivo" /></div><figcaption>tablero_v2.pbix</figcaption></figure>
+            <figure className="polaroid"><div className="ph"><img loading="lazy" decoding="async" src="/proyectos/carmetal/cockpit.webp" alt="Cockpit de producción" /></div><figcaption>planta</figcaption></figure>
+            <figure className="polaroid"><div className="ph"><img loading="lazy" decoding="async" src="/proyectos/hotel.webp" alt="Panel del hotel" /></div><figcaption>recepción</figcaption></figure>
           </div>
         </div>
       </section>
@@ -312,8 +330,8 @@ DIVIDE(
             {p.mocks.map((m, i) => (
               <div key={i} className={`mock r d${(i % 3) + 1} ${m.cls || ""}`} style={m.style}>
                 {m.chat ? <WhatsAppMock mensajes={waMessages} phone="+54 341 719-9019" />
-                  : m.laptop ? <><div className="screen"><img src={m.img} alt={m.label} /></div><div className="base" /><small>{m.label}</small></>
-                  : m.img ? <><img src={m.img} alt={m.label} /><small>{m.label}</small></>
+                  : m.laptop ? <><div className="screen"><img loading="lazy" decoding="async" src={m.img} alt={m.label} /></div><div className="base" /><small>{m.label}</small></>
+                  : m.img ? <><img loading="lazy" decoding="async" src={m.img} alt={m.label} /><small>{m.label}</small></>
                   : <>{m.text}<small>{m.small}</small></>}
               </div>
             ))}
@@ -385,7 +403,7 @@ DIVIDE(
           {dashboards.map((d, i) => (
             <Link key={d.slug} href={`/proyectos/${d.slug}`} className={`cell r d${i + 1}`}>
               <div className="bar"><i style={{ background: "#ff5f57" }} /><i style={{ background: "#febc2e" }} /><i style={{ background: "#28c840" }} /><span>{d.file}</span></div>
-              <img src={d.img} alt={d.cap} />
+              <img loading="lazy" decoding="async" src={d.img} alt={d.cap} />
               <span className="cap">{d.cap}</span>
             </Link>
           ))}
@@ -407,7 +425,7 @@ DIVIDE(
           <a href="https://www.linkedin.com/in/ignacio-peniamaria/" target="_blank" rel="noopener noreferrer"><i className="fab fa-linkedin" />ignacio-peniamaria</a>
           <a href="https://github.com/nachitoxx6262" target="_blank" rel="noopener noreferrer"><i className="fab fa-github" />nachitoxx6262</a>
           <a href="https://www.cuneusdata.com" target="_blank" rel="noopener noreferrer"><i className="fas fa-rocket" />cuneusdata.com</a>
-          <a href="/CV_Ignacio_Penamaria.pdf" download><i className="fas fa-file-arrow-down" />Descargar CV</a>
+          {CV_URL && <a href={CV_URL} download><i className="fas fa-file-arrow-down" />Descargar CV</a>}
         </div>
         <p className="cap" style={{ opacity: .5 }}>© {new Date().getFullYear()} Ignacio Peñamaria · Carcarañá, Santa Fe</p>
       </section>
