@@ -138,7 +138,7 @@ const certificados = [
 ];
 
 // Cuando el PDF esté en /public, poner su ruta acá y vuelve a aparecer el botón.
-const CV_URL = null;
+const CV_URL = "/CV_Ignacio_Penamaria.pdf";
 
 const servicios = [
   { n: "01", t: "Informes financieros para directorio", p: "Resultado mensual, rentabilidad, cuentas por cobrar vencidas y cumplimiento de objetivos, con metas y semáforos. Cada área carga sus números y el informe se arma solo.", e: "Excel + PDF · tablero · hoja de revisión" },
